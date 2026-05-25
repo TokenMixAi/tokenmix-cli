@@ -2,6 +2,23 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.2.0] - 2026-05-25
+
+### Added
+- **Browser device authorization** for `tokenmix login` (OAuth 2.0 Device Authorization Grant, RFC 8628). No more pasting `sk-tm-...` manually:
+  ```
+  $ tokenmix login
+    Open the link below and confirm this code:
+    ABCD-2345
+    Link: https://tokenmix.ai/device?user_code=ABCD-2345
+  ```
+- `tokenmix login --paste` falls back to the v0.1 manual-paste flow when no browser is available.
+- `tokenmix login --key sk-tm-...` still works for CI / scripted environments (unchanged).
+- New error handling for OAuth standard codes: `authorization_pending` / `slow_down` / `expired_token` / `access_denied`.
+
+### Requires
+- Backend must expose `/api/auth/device/code`, `/api/auth/device/token`, `/api/user/device/lookup`, `/api/user/device/authorize` (shipped together with this CLI release).
+
 ## [0.1.0] - 2026-05-25
 
 First public release.

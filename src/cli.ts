@@ -17,8 +17,9 @@ program
 
 program
   .command('login')
-  .description('Log in to TokenMix (paste your API key from https://tokenmix.ai/dashboard/keys)')
-  .option('-k, --key <apiKey>', 'API key (skip interactive prompt)')
+  .description('Log in to TokenMix (default: browser device authorization)')
+  .option('-k, --key <apiKey>', 'Paste an API key directly (skip browser flow, useful in CI)')
+  .option('-p, --paste', 'Force interactive paste prompt instead of browser flow')
   .option('-u, --url <baseUrl>', 'Override API base URL (default: https://api.tokenmix.ai)')
   .action(loginCommand)
 

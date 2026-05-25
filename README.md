@@ -7,7 +7,7 @@ One account, one balance, 75+ models routed automatically across Claude / GPT / 
 ## Quick Start
 
 ```bash
-# 1. Get an API key at https://tokenmix.ai/dashboard/keys
+# 1. Log in (opens browser, confirm a short code)
 npx tokenmix login
 
 # 2. Launch an agent
@@ -15,6 +15,13 @@ npx tokenmix opencode          # install + configure + start OpenCode
 npx tokenmix claude            # install + configure + start Claude Code
 npx tokenmix aider             # configure + start Aider (Python required)
 npx tokenmix kilo              # print Kilo Code VSCode configuration
+```
+
+### Alternative login modes
+
+```bash
+npx tokenmix login --paste                     # interactive paste prompt (no browser)
+npx tokenmix login --key sk-tm-...             # supply API key directly (for CI / scripts)
 ```
 
 ## Supported Agents
