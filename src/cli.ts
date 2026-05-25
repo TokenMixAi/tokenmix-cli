@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import { loginCommand } from './commands/login.js'
 import { logoutCommand } from './commands/logout.js'
@@ -8,12 +9,15 @@ import { listCommand } from './commands/list.js'
 import { doctorCommand } from './commands/doctor.js'
 import { registerAgentCommands } from './commands/agent-runner.js'
 
+// Read version from package.json so we never have to bump it in two places.
+const pkg = createRequire(import.meta.url)('../package.json') as { version: string }
+
 const program = new Command()
 
 program
   .name('tokenmix')
   .description('Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.')
-  .version('0.1.0')
+  .version(pkg.version)
 
 program
   .command('login')

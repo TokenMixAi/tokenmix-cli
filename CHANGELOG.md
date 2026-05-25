@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.2.1] - 2026-05-25
+
+### Fixed
+- `tokenmix --version` now reads from `package.json` instead of a hardcoded string (v0.2.0 still reported `0.1.0` because of this bug).
+
 ## [0.2.0] - 2026-05-25
 
 ### Added
