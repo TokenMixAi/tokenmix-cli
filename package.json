@@ -1,0 +1,60 @@
+{
+  "name": "tokenmix",
+  "version": "0.1.0",
+  "description": "Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.",
+  "type": "module",
+  "bin": {
+    "tokenmix": "./bin/tokenmix.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "start": "node bin/tokenmix.js",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "tokenmix",
+    "ai",
+    "agent",
+    "cli",
+    "opencode",
+    "claude-code",
+    "aider",
+    "kilo",
+    "coding-agent"
+  ],
+  "license": "MIT",
+  "homepage": "https://tokenmix.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tokenmix/tokenmix-cli.git"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "axios": "^1.7.7",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "execa": "^9.5.1",
+    "fs-extra": "^11.2.0",
+    "open": "^10.1.0",
+    "prompts": "^2.4.2",
+    "which": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.9.0",
+    "@types/prompts": "^2.4.9",
+    "@types/which": "^3.0.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
