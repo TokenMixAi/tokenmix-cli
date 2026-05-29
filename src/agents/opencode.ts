@@ -5,6 +5,7 @@ import {
   AgentDescriptor,
   AgentInstallStatus,
   AgentConfigureResult,
+  AgentCleanupResult,
 } from './types.js'
 import { commandExists, run, captureRun } from '../utils/exec.js'
 
@@ -97,6 +98,35 @@ async function launch(args: string[]): Promise<void> {
   await run(OPENCODE_BIN, args)
 }
 
+// Remove the tokenmix provider (and our default model pin) from opencode.json,
+// preserving any other providers or a user-chosen model.
+async function cleanup(): Promise<AgentCleanupResult> {
+  const filePath = configPath()
+  let existing: Record<string, unknown>
+  try {
+    existing = JSON.parse(await fs.readFile(filePath, 'utf-8'))
+  } catch {
+    return { reverted: false }
+  }
+
+  let changed = false
+  const provider = existing.provider as Record<string, unknown> | undefined
+  if (provider && 'tokenmix' in provider) {
+    delete provider.tokenmix
+    changed = true
+    if (Object.keys(provider).length === 0) delete existing.provider
+  }
+  if (typeof existing.model === 'string' && existing.model.startsWith('tokenmix/')) {
+    delete existing.model
+    changed = true
+  }
+
+  if (!changed) return { reverted: false, configPath: filePath }
+
+  await fs.writeFile(filePath, JSON.stringify(existing, null, 2))
+  return { reverted: true, configPath: filePath }
+}
+
 export const OpenCodeAgent: AgentDescriptor = {
   id: 'opencode',
   displayName: 'OpenCode',
@@ -106,4 +136,5 @@ export const OpenCodeAgent: AgentDescriptor = {
   install,
   configure,
   launch,
+  cleanup,
 }

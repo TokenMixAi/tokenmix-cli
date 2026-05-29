@@ -16,6 +16,15 @@ export interface AgentConfigureResult {
   notes?: string[]
 }
 
+export interface AgentCleanupResult {
+  // Whether tokenmix-written config was actually found and reverted.
+  reverted: boolean
+  // Config file we touched (shown to the user).
+  configPath?: string
+  // Optional caveat to print after reverting.
+  note?: string
+}
+
 export type AgentInstallMode =
   | 'auto-npm'        // installed via `npm install -g <pkg>`
   | 'auto-pip'        // requires Python; CLI guides install
@@ -36,6 +45,10 @@ export interface AgentDescriptor {
     defaultModel: string,
   ): Promise<AgentConfigureResult>
   launch?(args: string[], env: Record<string, string>): Promise<void>
+
+  // Undo whatever configure() wrote (used by `tokenmix logout`). Optional:
+  // agents that only set launch-time env (aider, kilo) have nothing to revert.
+  cleanup?(): Promise<AgentCleanupResult>
 
   // Optional override for command registration. Most agents use the default in agent-runner.ts.
   registerCommand?(program: Command): void

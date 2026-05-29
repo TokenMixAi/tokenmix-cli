@@ -5,6 +5,7 @@ import {
   AgentDescriptor,
   AgentInstallStatus,
   AgentConfigureResult,
+  AgentCleanupResult,
 } from './types.js'
 import { commandExists, run, captureRun } from '../utils/exec.js'
 
@@ -84,6 +85,51 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
   await run(CLAUDE_BIN, args, { env })
 }
 
+// Remove the ANTHROPIC_* env we injected, leaving everything else in
+// settings.json untouched. Only acts when the config looks like ours (tokenmix
+// key or base URL) so we never clobber a user's own Anthropic credentials.
+async function cleanup(): Promise<AgentCleanupResult> {
+  const settingsPath = path.join(os.homedir(), '.claude', 'settings.json')
+  let existing: Record<string, unknown>
+  try {
+    existing = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
+  } catch {
+    return { reverted: false }
+  }
+
+  const env = existing.env as Record<string, string> | undefined
+  if (!env || typeof env !== 'object') {
+    return { reverted: false, configPath: settingsPath }
+  }
+
+  const key = env.ANTHROPIC_API_KEY
+  const base = env.ANTHROPIC_BASE_URL
+  const ours =
+    (typeof key === 'string' && key.startsWith('sk-tm-')) ||
+    (typeof base === 'string' && /tokenmix/i.test(base))
+  if (!ours) {
+    return { reverted: false, configPath: settingsPath }
+  }
+
+  delete env.ANTHROPIC_API_KEY
+  delete env.ANTHROPIC_BASE_URL
+  if (Object.keys(env).length === 0) delete existing.env
+  else existing.env = env
+
+  await fs.writeFile(settingsPath, JSON.stringify(existing, null, 2))
+  try {
+    await fs.chmod(settingsPath, 0o600)
+  } catch {
+    // ignore
+  }
+
+  return {
+    reverted: true,
+    configPath: settingsPath,
+    note: 'If you had your own ANTHROPIC_API_KEY here before, re-add it.',
+  }
+}
+
 export const ClaudeCodeAgent: AgentDescriptor = {
   id: 'claude',
   displayName: 'Claude Code',
@@ -93,4 +139,5 @@ export const ClaudeCodeAgent: AgentDescriptor = {
   install,
   configure,
   launch,
+  cleanup,
 }

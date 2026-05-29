@@ -2,6 +2,18 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **Automated test + CI safety net.** A Vitest suite now covers the most regression-prone code: commander argument pass-through (`tokenmix <agent> --version/--help`), `/api/models` response unwrapping, and the device-authorization polling loop (pending / slow_down / access_denied / transient-network-retry), plus round-trip config cleanup. GitHub Actions runs typecheck + tests + build on every push and PR.
+
+### Fixed
+- **`tokenmix logout` now reverts the config it injected into agents.** Previously logout only deleted TokenMix's own credentials, leaving `ANTHROPIC_BASE_URL` / `ANTHROPIC_API_KEY` in `~/.claude/settings.json` and the `tokenmix` provider in `opencode.json` — so those agents kept trying to route through TokenMix with a now-removed key. Cleanup is precise: it only removes entries it recognizes as its own (a `sk-tm-` key / tokenmix base URL / `tokenmix` provider / a `tokenmix/` model pin) and never touches a user's own credentials.
+- **`tokenmix <agent> --version` / `--help` no longer rewrites global config.** These informational flags are forwarded straight to the underlying binary without writing `~/.claude/settings.json` or `opencode.json`, and without requiring login — a query shouldn't have side effects.
+
+### Internal
+- Split CLI construction (`buildProgram()` in `src/program.ts`) from execution (`src/cli.ts`) so the command wiring is unit-testable without triggering real install/configure/launch side effects.
+
 ## [0.2.2] - 2026-05-29
 
 ### Fixed (all caught by real end-to-end testing)

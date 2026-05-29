@@ -7,12 +7,41 @@ import { AgentDescriptor } from '../agents/types.js'
 
 const DEFAULT_MODEL = 'claude-sonnet-4.6'
 
+// Flags that are pure information requests meant for the underlying agent binary.
+// For these we must NOT rewrite global config or require login — just forward them.
+const INFO_ONLY_FLAGS = new Set(['--version', '-V', '--help', '-h'])
+
+export function isInfoOnlyInvocation(args: string[]): boolean {
+  return args.length > 0 && args.every((a) => INFO_ONLY_FLAGS.has(a))
+}
+
 interface ExecaLikeError {
   exitCode?: number
   message?: string
 }
 
-export function registerAgentCommands(program: Command): void {
+// Forward to the agent binary, mirroring its exit code; re-throw non-exec errors.
+async function launchOrExit(
+  launch: NonNullable<AgentDescriptor['launch']>,
+  args: string[],
+  env: Record<string, string>,
+): Promise<void> {
+  try {
+    await launch(args, env)
+  } catch (err: unknown) {
+    const e = err as ExecaLikeError
+    if (typeof e.exitCode === 'number' && e.exitCode !== 0) {
+      process.exit(e.exitCode)
+    }
+    throw err
+  }
+}
+
+// The function that actually configures + launches an agent. Injectable so tests
+// can assert how commander parses/forwards args without triggering real side effects.
+export type AgentRunner = (agent: AgentDescriptor, args: string[]) => Promise<void>
+
+export function registerAgentCommands(program: Command, runner: AgentRunner = runAgent): void {
   for (const agent of AGENTS) {
     if (agent.registerCommand) {
       agent.registerCommand(program)
@@ -24,12 +53,24 @@ export function registerAgentCommands(program: Command): void {
       .allowUnknownOption(true)
       .passThroughOptions(true) // forward --version / --help / --any to the underlying agent
       .action(async (args: string[] = []) => {
-        await runAgent(agent, args)
+        await runner(agent, args)
       })
   }
 }
 
-async function runAgent(agent: AgentDescriptor, args: string[]): Promise<void> {
+export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<void> {
+  // `tokenmix <agent> --version|--help`: forward straight to the binary without
+  // rewriting global config or requiring login — a query must not have side effects.
+  if (agent.launch && isInfoOnlyInvocation(args)) {
+    const status = await agent.installCheck()
+    if (!status.installed) {
+      logger.warn(status.hint || `${agent.displayName} is not installed.`)
+      process.exit(1)
+    }
+    await launchOrExit(agent.launch, args, {})
+    return
+  }
+
   const cfg = await readConfig()
   if (!cfg.apiKey) {
     logger.error('Not logged in. Run `tokenmix login` first.')
@@ -84,13 +125,5 @@ async function runAgent(agent: AgentDescriptor, args: string[]): Promise<void> {
     ...(result.envVars ?? {}),
     TOKENMIX_DEFAULT_MODEL: defaultModel,
   }
-  try {
-    await agent.launch(args, env)
-  } catch (err: unknown) {
-    const e = err as ExecaLikeError
-    if (typeof e.exitCode === 'number' && e.exitCode !== 0) {
-      process.exit(e.exitCode)
-    }
-    throw err
-  }
+  await launchOrExit(agent.launch, args, env)
 }

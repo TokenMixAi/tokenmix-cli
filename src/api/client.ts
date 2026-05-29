@@ -23,7 +23,7 @@ export class ApiError extends Error {
   }
 }
 
-function unwrap<T>(resp: { data?: { code?: number; message?: string; data?: T } }): T {
+export function unwrap<T>(resp: { data?: { code?: number; message?: string; data?: T } }): T {
   const body = resp.data
   if (body && typeof body.code === 'number' && body.code !== 0) {
     throw new ApiError(0, body.message || 'API error')
