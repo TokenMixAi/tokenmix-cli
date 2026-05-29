@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'vitest'
 import { detectLocale, t, setLocale, getLocale } from '../src/i18n/index.js'
-import { en, zh } from '../src/i18n/messages.js'
+import { catalogs, en, zh } from '../src/i18n/messages.js'
 
 describe('detectLocale', () => {
   it('prefers an explicit TOKENMIX_LANG override', () => {
@@ -17,6 +17,14 @@ describe('detectLocale', () => {
 
   it('defaults to en when nothing is set', () => {
     expect(detectLocale({})).toBe('en')
+  })
+
+  it('maps each supported language subtag', () => {
+    expect(detectLocale({ LANG: 'ja_JP.UTF-8' })).toBe('ja')
+    expect(detectLocale({ LANG: 'ko_KR.UTF-8' })).toBe('ko')
+    expect(detectLocale({ LANG: 'es_ES.UTF-8' })).toBe('es')
+    expect(detectLocale({ LANG: 'fr_FR.UTF-8' })).toBe('fr')
+    expect(detectLocale({ TOKENMIX_LANG: 'de' })).toBe('en') // unsupported → en
   })
 })
 
@@ -41,13 +49,19 @@ describe('t', () => {
 })
 
 describe('catalog completeness', () => {
-  it('zh has exactly the same keys as en (compile-time + runtime guard)', () => {
-    expect(Object.keys(zh).sort()).toEqual(Object.keys(en).sort())
+  const enKeys = Object.keys(en).sort()
+
+  it('every catalog has exactly the same keys as en (compile-time + runtime guard)', () => {
+    for (const [loc, cat] of Object.entries(catalogs)) {
+      expect(Object.keys(cat).sort(), `${loc} keys`).toEqual(enKeys)
+    }
   })
 
-  it('no translation is empty', () => {
-    for (const [k, v] of Object.entries(zh)) {
-      expect(v, `zh[${k}] must be non-empty`).toBeTruthy()
+  it('no translation in any catalog is empty', () => {
+    for (const [loc, cat] of Object.entries(catalogs)) {
+      for (const [k, v] of Object.entries(cat)) {
+        expect(v, `${loc}[${k}] must be non-empty`).toBeTruthy()
+      }
     }
   })
 })

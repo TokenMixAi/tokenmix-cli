@@ -52,11 +52,12 @@ tokenmix kilo                       Print Kilo Code configuration
 
 ## Language
 
-The CLI speaks **English and 中文**, auto-detected from your system locale. Force it explicitly with `TOKENMIX_LANG`:
+The CLI speaks **English, 中文, 日本語, 한국어, Español, and Français** — the same six languages as tokenmix.ai — auto-detected from your system locale (`LANG` / `LC_ALL`). Force it explicitly with `TOKENMIX_LANG`:
 
 ```bash
 TOKENMIX_LANG=zh npx tokenmix doctor   # 中文
-TOKENMIX_LANG=en npx tokenmix doctor   # English
+TOKENMIX_LANG=ja npx tokenmix doctor   # 日本語
+TOKENMIX_LANG=fr npx tokenmix doctor   # Français
 ```
 
 ## Configuration Location

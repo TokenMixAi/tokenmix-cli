@@ -18,6 +18,22 @@ function modeLabel(mode: string): string {
   }
 }
 
+// Localized agent tagline; falls back to the descriptor's English description.
+function agentDesc(id: string, fallback: string): string {
+  switch (id) {
+    case 'opencode':
+      return t('desc.opencode')
+    case 'claude':
+      return t('desc.claude')
+    case 'aider':
+      return t('desc.aider')
+    case 'kilo':
+      return t('desc.kilo')
+    default:
+      return fallback
+  }
+}
+
 export async function listCommand(): Promise<void> {
   console.log()
   console.log(chalk.bold(t('list.title')))
@@ -26,7 +42,7 @@ export async function listCommand(): Promise<void> {
     const id = chalk.cyan(a.id.padEnd(10))
     const mode = chalk.dim(`[${modeLabel(a.installMode)}]`)
     console.log(`  ${id} ${a.displayName.padEnd(14)} ${mode}`)
-    console.log(`    ${chalk.dim(a.description)}`)
+    console.log(`    ${chalk.dim(agentDesc(a.id, a.description))}`)
   }
   console.log()
   console.log(chalk.dim(t('list.usage')))

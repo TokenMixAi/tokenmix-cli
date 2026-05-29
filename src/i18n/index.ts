@@ -13,8 +13,10 @@ export function detectLocale(env: NodeJS.ProcessEnv = process.env): Locale {
   const raw = (env.TOKENMIX_LANG || env.LC_ALL || env.LC_MESSAGES || env.LANG || '')
     .toLowerCase()
     .trim()
-  if (raw.startsWith('zh') || raw.includes('zh_') || raw.includes('zh-')) return 'zh'
-  return 'en'
+  // Primary language subtag: zh_CN.UTF-8 → zh, pt-BR → pt, fr.UTF-8 → fr.
+  // Any subtag with a catalog is supported; everything else falls back to en.
+  const lang = raw.split(/[-_.@]/)[0]
+  return Object.prototype.hasOwnProperty.call(catalogs, lang) ? (lang as Locale) : 'en'
 }
 
 export function setLocale(loc: Locale): void {

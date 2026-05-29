@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.0] - 2026-05-29
+
+### Added
+- **Four more UI languages: 日本語 / 한국어 / Español / Français** — the CLI now speaks the same six languages as tokenmix.ai (English, 中文, 日本語, 한국어, Español, Français). Auto-detected from the system locale; override with `TOKENMIX_LANG`. Locale detection is now generic — any catalog's primary language subtag is supported — so adding a language is a single `typeof en` catalog file with compile-time-checked completeness.
+
 ## [0.3.1] - 2026-05-29
 
 ### Added
