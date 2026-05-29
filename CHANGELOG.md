@@ -2,7 +2,7 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
-## [Unreleased]
+## [0.2.3] - 2026-05-29
 
 ### Added
 - **Automated test + CI safety net.** A Vitest suite now covers the most regression-prone code: commander argument pass-through (`tokenmix <agent> --version/--help`), `/api/models` response unwrapping, and the device-authorization polling loop (pending / slow_down / access_denied / transient-network-retry), plus round-trip config cleanup. GitHub Actions runs typecheck + tests + build on every push and PR.
