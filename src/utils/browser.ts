@@ -1,5 +1,6 @@
 import open from 'open'
 import { logger } from './logger.js'
+import { t } from '../i18n/index.js'
 
 export async function openInBrowser(url: string): Promise<void> {
   await open(url)
@@ -11,6 +12,6 @@ export async function openOrHint(url: string): Promise<void> {
   try {
     await open(url)
   } catch {
-    logger.info(`Could not open a browser automatically. Open this URL manually:\n  ${url}`)
+    logger.info(t('browser.manual', { url }))
   }
 }

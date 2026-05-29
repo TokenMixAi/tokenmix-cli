@@ -3,6 +3,7 @@ import { logger } from '../utils/logger.js'
 import { readConfig, apiBaseUrl } from '../config/store.js'
 import { verifyApiKey } from '../api/client.js'
 import { AGENTS } from '../agents/registry.js'
+import { t } from '../i18n/index.js'
 
 function maskKey(key: string): string {
   if (key.length <= 12) return key
@@ -11,35 +12,35 @@ function maskKey(key: string): string {
 
 export async function doctorCommand(): Promise<void> {
   console.log()
-  console.log(chalk.bold('TokenMix CLI diagnostic'))
+  console.log(chalk.bold(t('doctor.title')))
   console.log()
 
   const cfg = await readConfig()
-  console.log(chalk.bold('Credentials:'))
+  console.log(chalk.bold(t('doctor.credentials')))
   if (cfg.apiKey) {
-    logger.success(`API key:    ${chalk.cyan(maskKey(cfg.apiKey))}`)
-    logger.success(`API base:   ${chalk.cyan(apiBaseUrl(cfg))}`)
+    logger.success(`${t('doctor.apiKeyLabel')}  ${chalk.cyan(maskKey(cfg.apiKey))}`)
+    logger.success(`${t('doctor.apiBaseLabel')}  ${chalk.cyan(apiBaseUrl(cfg))}`)
     const ok = await verifyApiKey(cfg.apiKey, apiBaseUrl(cfg))
     if (ok) {
-      logger.success('API key is valid.')
+      logger.success(t('doctor.keyValid'))
     } else {
-      logger.error('API key did NOT validate. Run `tokenmix login` again.')
+      logger.error(t('doctor.keyInvalid'))
     }
   } else {
-    logger.warn('Not logged in. Run `tokenmix login`.')
+    logger.warn(t('doctor.notLoggedIn'))
   }
 
   console.log()
-  console.log(chalk.bold('Agent install status:'))
+  console.log(chalk.bold(t('doctor.agentStatus')))
   for (const a of AGENTS) {
     const r = await a.installCheck()
     if (r.installed) {
       logger.success(
-        `${a.displayName.padEnd(14)} installed${r.version ? ` (${chalk.dim(r.version)})` : ''}`,
+        `${a.displayName.padEnd(14)} ${t('doctor.installed')}${r.version ? ` (${chalk.dim(r.version)})` : ''}`,
       )
       if (r.hint) console.log(`    ${chalk.dim(r.hint)}`)
     } else {
-      logger.warn(`${a.displayName.padEnd(14)} not installed`)
+      logger.warn(`${a.displayName.padEnd(14)} ${t('doctor.notInstalled')}`)
       if (r.hint) console.log(`    ${chalk.dim(r.hint)}`)
     }
   }

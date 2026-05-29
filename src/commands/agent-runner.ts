@@ -4,6 +4,7 @@ import { readConfig, apiBaseUrl } from '../config/store.js'
 import { confirm } from '../utils/prompt.js'
 import { AGENTS } from '../agents/registry.js'
 import { AgentDescriptor } from '../agents/types.js'
+import { t } from '../i18n/index.js'
 
 const DEFAULT_MODEL = 'claude-sonnet-4.6'
 
@@ -64,7 +65,7 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
   if (agent.launch && isInfoOnlyInvocation(args)) {
     const status = await agent.installCheck()
     if (!status.installed) {
-      logger.warn(status.hint || `${agent.displayName} is not installed.`)
+      logger.warn(status.hint || t('agent.notInstalled', { name: agent.displayName }))
       process.exit(1)
     }
     await launchOrExit(agent.launch, args, {})
@@ -73,7 +74,7 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
 
   const cfg = await readConfig()
   if (!cfg.apiKey) {
-    logger.error('Not logged in. Run `tokenmix login` first.')
+    logger.error(t('common.notLoggedIn'))
     process.exit(1)
   }
   const baseUrl = apiBaseUrl(cfg)
@@ -84,39 +85,41 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
   if (!status.installed) {
     if (agent.install) {
       const shouldInstall = await confirm(
-        `${agent.displayName} is not installed. Install now?`,
+        t('agent.installPrompt', { name: agent.displayName }),
         true,
       )
       if (!shouldInstall) {
         if (status.hint) logger.warn(status.hint)
         process.exit(1)
       }
-      logger.step(`Installing ${agent.displayName} ...`)
+      logger.step(t('agent.installing', { name: agent.displayName }))
       try {
         await agent.install()
       } catch {
         // The most common global-install failure worldwide is npm lacking
         // permission to write to the global prefix. Give actionable guidance
         // instead of dumping execa's raw error.
-        logger.error(`Could not install ${agent.displayName} automatically.`)
-        logger.info('This usually means npm cannot write to its global folder. Options:')
-        logger.info('  • Use a Node version manager (nvm / fnm / volta) — then global installs need no sudo, or')
-        if (status.hint) logger.info(`  • Install it yourself: ${status.hint.replace(/^Will install via:\s*/, '')}`)
-        logger.info('Then re-run this command — your TokenMix login is already saved.')
+        logger.error(t('agent.installFailed', { name: agent.displayName }))
+        logger.info(t('agent.installFailHint1'))
+        logger.info(t('agent.installFailHint2'))
+        if (status.hint) {
+          logger.info(t('agent.installFailHint3', { cmd: status.hint.replace(/^Will install via:\s*/, '') }))
+        }
+        logger.info(t('agent.installFailHint4'))
         process.exit(1)
       }
-      logger.success(`${agent.displayName} installed.`)
+      logger.success(t('agent.installed', { name: agent.displayName }))
     } else {
-      logger.warn(status.hint || `${agent.displayName} is not installable from the CLI.`)
+      logger.warn(status.hint || t('agent.notInstallable', { name: agent.displayName }))
       process.exit(1)
     }
   }
 
   // 2. Configure with tokenmix credentials.
-  logger.step(`Configuring ${agent.displayName} ...`)
+  logger.step(t('agent.configuring', { name: agent.displayName }))
   const result = await agent.configure(cfg.apiKey, baseUrl, defaultModel)
   if (result.configPath) {
-    logger.success(`Wrote ${result.configPath}`)
+    logger.success(t('agent.wrote', { path: result.configPath }))
   }
   if (result.notes && result.notes.length > 0) {
     for (const note of result.notes) {
@@ -128,11 +131,11 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
 
   // 3. Launch (or stop if the agent has no CLI launcher).
   if (!agent.launch) {
-    logger.info(`${agent.displayName} configuration ready.`)
+    logger.info(t('agent.configReady', { name: agent.displayName }))
     return
   }
 
-  logger.step(`Launching ${agent.displayName} ...`)
+  logger.step(t('agent.launching', { name: agent.displayName }))
   const env: Record<string, string> = {
     ...(result.envVars ?? {}),
     TOKENMIX_DEFAULT_MODEL: defaultModel,

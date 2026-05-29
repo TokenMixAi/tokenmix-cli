@@ -1,4 +1,8 @@
 import { buildProgram } from './program.js'
+import { detectLocale, setLocale } from './i18n/index.js'
+
+// Resolve UI language once, before any command output.
+setLocale(detectLocale())
 
 const program = buildProgram()
 

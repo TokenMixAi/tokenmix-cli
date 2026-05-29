@@ -9,6 +9,7 @@ import {
   DeviceFlowError,
 } from '../api/client.js'
 import { readConfig, updateConfig, apiBaseUrl } from '../config/store.js'
+import { t } from '../i18n/index.js'
 
 export interface LoginOptions {
   key?: string
@@ -30,7 +31,7 @@ export async function loginCommand(opts: LoginOptions): Promise<void> {
   if (opts.paste) {
     const entered = await promptApiKey()
     if (!entered) {
-      logger.error('No API key provided.')
+      logger.error(t('login.noKey'))
       process.exit(1)
     }
     await loginByKey(entered, baseUrl)
@@ -43,28 +44,28 @@ export async function loginCommand(opts: LoginOptions): Promise<void> {
 
 async function loginByKey(apiKey: string, baseUrl: string): Promise<void> {
   if (!apiKey.startsWith('sk-tm-')) {
-    logger.error('API key should start with sk-tm-')
+    logger.error(t('login.keyMustStart'))
     process.exit(1)
   }
-  logger.step(`Verifying API key against ${baseUrl} ...`)
+  logger.step(t('login.verifying', { baseUrl }))
   const ok = await verifyApiKey(apiKey, baseUrl)
   if (!ok) {
-    logger.error('API key verification failed. Double-check at https://tokenmix.ai/dashboard/keys')
+    logger.error(t('login.verifyFailed'))
     process.exit(1)
   }
   await updateConfig({ apiKey, apiBaseUrl: baseUrl })
-  logger.success('Logged in. Try `tokenmix opencode` to launch your first agent.')
+  logger.success(t('login.loggedInHint'))
 }
 
 async function loginByDeviceFlow(baseUrl: string): Promise<void> {
-  logger.step('Requesting device authorization ...')
+  logger.step(t('login.requesting'))
   let auth
   try {
     auth = await startDeviceAuthorization(baseUrl)
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
-    logger.error(`Could not start device authorization: ${msg}`)
-    logger.info('Falling back to manual paste. Get an API key at https://tokenmix.ai/dashboard/keys')
+    logger.error(t('login.couldNotStart', { msg }))
+    logger.info(t('login.fallbackPaste'))
     const entered = await promptApiKey()
     if (!entered) process.exit(1)
     await loginByKey(entered, baseUrl)
@@ -77,24 +78,24 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
 
   // Display user_code prominently
   console.log()
-  console.log('  ' + chalk.dim('Open the link below and confirm this code:'))
+  console.log('  ' + chalk.dim(t('login.openLinkConfirm')))
   console.log()
   console.log('  ' + chalk.bold.cyan(auth.user_code))
   console.log()
-  console.log('  ' + chalk.dim('Link:'))
+  console.log('  ' + chalk.dim(t('login.link')))
   console.log('  ' + chalk.underline(verifyUrl))
   console.log()
 
   // Try to open browser, but proceed even if it fails (headless / SSH)
   try {
     await openInBrowser(verifyUrl)
-    logger.dim('  (browser opened; if nothing happens, copy the link above)')
+    logger.dim('  ' + t('login.browserOpened'))
   } catch {
-    logger.dim('  (could not open browser; copy the link above into one)')
+    logger.dim('  ' + t('login.browserFailed'))
   }
   console.log()
 
-  logger.step(`Waiting for authorization (expires in ${auth.expires_in}s, polling every ${auth.interval}s) ...`)
+  logger.step(t('login.waiting', { expires: auth.expires_in, interval: auth.interval }))
 
   let lastReported = -1
   try {
@@ -102,23 +103,23 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
       // Print a heartbeat at most every 15s so the terminal isn't silent
       if (lastReported < 0 || lastReported - secondsRemaining >= 15) {
         lastReported = secondsRemaining
-        logger.dim(`  ... still waiting (${secondsRemaining}s remaining)`)
+        logger.dim('  ' + t('login.stillWaiting', { seconds: secondsRemaining }))
       }
     })
     await updateConfig({ apiKey: result.apiKey, apiBaseUrl: baseUrl })
     console.log()
     if (result.userEmail) {
-      logger.success(`Logged in as ${chalk.bold(result.userEmail)} (API key #${result.apiKeyId})`)
+      logger.success(t('login.loggedInAs', { email: chalk.bold(result.userEmail), id: result.apiKeyId }))
     } else {
-      logger.success(`Logged in (API key #${result.apiKeyId})`)
+      logger.success(t('login.loggedInId', { id: result.apiKeyId }))
     }
-    logger.info('Try `tokenmix opencode` to launch your first agent.')
+    logger.info(t('login.tryFirstAgent'))
   } catch (err: unknown) {
     console.log()
     if (err instanceof DeviceFlowError) {
       logger.error(err.message)
       if (err.code === 'expired_token' || err.code === 'timeout') {
-        const retry = await confirm('Try again?', true)
+        const retry = await confirm(t('login.tryAgain'), true)
         if (retry) {
           await loginByDeviceFlow(baseUrl)
           return

@@ -50,6 +50,15 @@ tokenmix aider [args...]            Launch Aider via TokenMix
 tokenmix kilo                       Print Kilo Code configuration
 ```
 
+## Language
+
+The CLI speaks **English and 中文**, auto-detected from your system locale. Force it explicitly with `TOKENMIX_LANG`:
+
+```bash
+TOKENMIX_LANG=zh npx tokenmix doctor   # 中文
+TOKENMIX_LANG=en npx tokenmix doctor   # English
+```
+
 ## Configuration Location
 
 Your TokenMix credentials are stored locally at:

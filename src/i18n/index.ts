@@ -1,0 +1,38 @@
+import { catalogs, en, MessageKey } from './messages.js'
+
+export type Locale = keyof typeof catalogs
+
+let current: Locale = 'en'
+
+// Resolve the UI language from the environment. Precedence:
+//   TOKENMIX_LANG  (explicit override, e.g. `TOKENMIX_LANG=zh`)
+//   LC_ALL / LC_MESSAGES / LANG  (the user's system locale, e.g. zh_CN.UTF-8)
+//   default: en
+// Takes `env` for testability; defaults to process.env.
+export function detectLocale(env: NodeJS.ProcessEnv = process.env): Locale {
+  const raw = (env.TOKENMIX_LANG || env.LC_ALL || env.LC_MESSAGES || env.LANG || '')
+    .toLowerCase()
+    .trim()
+  if (raw.startsWith('zh') || raw.includes('zh_') || raw.includes('zh-')) return 'zh'
+  return 'en'
+}
+
+export function setLocale(loc: Locale): void {
+  current = loc
+}
+
+export function getLocale(): Locale {
+  return current
+}
+
+// Translate a key for the active locale, filling {placeholders} from params.
+// Falls back to English, then to the raw key, so a partial catalog never throws.
+export function t(key: MessageKey, params?: Record<string, string | number>): string {
+  let s: string = catalogs[current]?.[key] ?? en[key] ?? key
+  if (params) {
+    for (const [k, v] of Object.entries(params)) {
+      s = s.split(`{${k}}`).join(String(v))
+    }
+  }
+  return s
+}

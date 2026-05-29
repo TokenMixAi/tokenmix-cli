@@ -1,14 +1,26 @@
 import chalk from 'chalk'
 import { logger } from '../utils/logger.js'
 import { listPublicModels, ApiModel } from '../api/client.js'
+import { t } from '../i18n/index.js'
 
-const TYPE_LABEL: Record<string, string> = {
-  chat: 'Chat',
-  embedding: 'Embedding',
-  image: 'Image',
-  audio: 'Audio',
-  video: 'Video',
-  completion: 'Completion',
+// Resolved at call time so it follows the active locale.
+function typeLabel(type: string): string {
+  switch (type) {
+    case 'chat':
+      return t('models.typeChat')
+    case 'embedding':
+      return t('models.typeEmbedding')
+    case 'image':
+      return t('models.typeImage')
+    case 'audio':
+      return t('models.typeAudio')
+    case 'video':
+      return t('models.typeVideo')
+    case 'completion':
+      return t('models.typeCompletion')
+    default:
+      return type
+  }
 }
 
 // Match the platform-wide formatter: 6 decimals, trim trailing zeros.
@@ -25,7 +37,7 @@ export async function modelsCommand(opts: ModelsOptions): Promise<void> {
   const all = await listPublicModels()
   const filtered = opts.type ? all.filter((m) => m.model_type === opts.type) : all
   if (filtered.length === 0) {
-    logger.warn('No models match the filter.')
+    logger.warn(t('models.none'))
     return
   }
 
@@ -38,13 +50,13 @@ export async function modelsCommand(opts: ModelsOptions): Promise<void> {
 
   for (const [type, list] of grouped) {
     console.log()
-    console.log(chalk.bold(`${TYPE_LABEL[type] ?? type}  (${list.length})`))
+    console.log(chalk.bold(`${typeLabel(type)}  (${list.length})`))
     for (const m of list) {
       const id = chalk.cyan(m.short_id || m.model_id)
       const priceParts: string[] = []
       if (type === 'chat' || type === 'embedding' || type === 'audio' || type === 'completion') {
-        priceParts.push(`in $${formatPrice(m.input_price)}/M`)
-        priceParts.push(`out $${formatPrice(m.output_price)}/M`)
+        priceParts.push(`${t('models.in')} $${formatPrice(m.input_price)}/M`)
+        priceParts.push(`${t('models.out')} $${formatPrice(m.output_price)}/M`)
       } else if (type === 'image') {
         priceParts.push(`$${formatPrice(m.image_price)}/img`)
       } else if (type === 'video') {

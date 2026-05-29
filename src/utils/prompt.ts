@@ -1,12 +1,13 @@
 import prompts from 'prompts'
+import { t } from '../i18n/index.js'
 
 export async function promptApiKey(): Promise<string | null> {
   const r = await prompts({
     type: 'password',
     name: 'apiKey',
-    message: 'Paste your TokenMix API key (sk-tm-...)',
+    message: t('prompt.pasteKey'),
     validate: (v: string) =>
-      v && v.startsWith('sk-tm-') ? true : 'API key should start with sk-tm-',
+      v && v.startsWith('sk-tm-') ? true : t('login.keyMustStart'),
   })
   const key = (r.apiKey as string | undefined)?.trim()
   return key || null
