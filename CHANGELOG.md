@@ -2,7 +2,7 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
-## [Unreleased]
+## [0.2.4] - 2026-05-29
 
 ### Added
 - **Cross-platform CI matrix.** Tests now run on Linux, macOS, and Windows across Node 20/22, plus a Node 18 runtime smoke — so "works everywhere" is actually verified, not assumed.
