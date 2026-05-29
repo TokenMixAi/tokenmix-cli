@@ -6,16 +6,16 @@ import {
 import { commandExists } from '../utils/exec.js'
 
 async function installCheck(): Promise<AgentInstallStatus> {
+  // Kilo Code is a config-only agent (VSCode extension). The CLI cannot install
+  // the extension on the user's behalf, so we always proceed to `configure()` and
+  // print the snippet — even if VSCode isn't installed locally yet, the user
+  // may be copying the config for another machine.
   const code = await commandExists('code')
-  if (!code) {
-    return {
-      installed: false,
-      hint: 'Kilo Code is a VSCode extension. Install VSCode first, then install "Kilo Code" from the marketplace.',
-    }
-  }
   return {
     installed: true,
-    hint: 'If you have not installed the Kilo Code extension yet, search "Kilo Code" in the VSCode marketplace.',
+    hint: code
+      ? 'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.'
+      : 'VSCode not detected on PATH. Install VSCode, then add the Kilo Code extension, then use the snippet below.',
   }
 }
 

@@ -11,15 +11,19 @@ async function installCheck(): Promise<AgentInstallStatus> {
   const bin = await commandExists(AIDER_BIN)
   if (!bin) {
     const py = (await commandExists('python3')) || (await commandExists('python'))
+    const pipx = await commandExists('pipx')
     if (!py) {
       return {
         installed: false,
-        hint: 'Aider requires Python 3. Install Python first, then `pipx install aider-chat`.',
+        hint:
+          'Aider requires Python 3. Install Python 3 from https://python.org/downloads, then come back and run `tokenmix aider` again.',
       }
     }
+    const installCmd = pipx ? 'pipx install aider-chat' : 'pip install aider-chat'
     return {
       installed: false,
-      hint: 'Run `pipx install aider-chat` (preferred) or `pip install aider-chat` to install Aider.',
+      hint:
+        `Aider is not installed. Run this in another terminal:\n    ${installCmd}\nThen come back and run \`tokenmix aider\` again — your TokenMix login is already saved, so it will pick up automatically.`,
     }
   }
   try {

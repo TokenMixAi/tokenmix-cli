@@ -2,6 +2,13 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.2.2] - 2026-05-29
+
+### Fixed (all caught by real end-to-end testing)
+- **`tokenmix kilo` no longer aborts when VSCode isn't on PATH.** Kilo Code is a config-only agent (VSCode extension); the CLI cannot install the extension for you, so it now always prints the configuration snippet — the user may be copying it for another machine.
+- **`tokenmix <agent> --version` (and any other agent flag) is now forwarded to the underlying binary** instead of being eaten by commander. Enabled commander's `enablePositionalOptions()` + `passThroughOptions()` on every agent subcommand. Verified: `tokenmix claude --version` now writes `~/.claude/settings.json` then prints Claude Code's own version.
+- **`tokenmix aider` gives a friendlier next step.** Instead of just exiting with a hint, it now explicitly says "Run this in another terminal: `pip install aider-chat`, then come back" so the user knows their TokenMix login persists.
+
 ## [0.2.1] - 2026-05-25
 
 ### Fixed

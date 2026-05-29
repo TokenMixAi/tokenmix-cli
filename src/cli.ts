@@ -14,6 +14,11 @@ const pkg = createRequire(import.meta.url)('../package.json') as { version: stri
 
 const program = new Command()
 
+// Required so that agent subcommands can use passThroughOptions() to forward
+// --version / --help / --any to the underlying agent binary instead of having
+// tokenmix consume them.
+program.enablePositionalOptions()
+
 program
   .name('tokenmix')
   .description('Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.')

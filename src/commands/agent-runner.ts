@@ -22,6 +22,7 @@ export function registerAgentCommands(program: Command): void {
       .command(`${agent.id} [args...]`)
       .description(`Configure and launch ${agent.displayName} via TokenMix`)
       .allowUnknownOption(true)
+      .passThroughOptions(true) // forward --version / --help / --any to the underlying agent
       .action(async (args: string[] = []) => {
         await runAgent(agent, args)
       })
