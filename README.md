@@ -2,7 +2,7 @@
 
 Zero-config CLI to use any open-source coding agent with [TokenMix](https://tokenmix.ai) as the unified LLM backend.
 
-One account, one balance, 75+ models routed automatically across Claude / GPT / Gemini / DeepSeek / Qwen / Moonshot / ...
+One account, one balance, 160+ models routed automatically across Claude / GPT / Gemini / DeepSeek / Qwen / Moonshot / ...
 
 ## Quick Start
 
@@ -37,7 +37,7 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 
 ```
 tokenmix login [--key sk-tm-xxx]   Log in
-tokenmix logout                     Remove credentials
+tokenmix logout                     Remove credentials (and revert injected agent config)
 tokenmix balance                    Open dashboard to view balance
 tokenmix topup                      Open browser to top up
 tokenmix models [--type chat]       List available models with prices

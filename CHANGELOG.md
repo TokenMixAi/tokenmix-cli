@@ -2,6 +2,17 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **Cross-platform CI matrix.** Tests now run on Linux, macOS, and Windows across Node 20/22, plus a Node 18 runtime smoke — so "works everywhere" is actually verified, not assumed.
+
+### Fixed
+- **Friendlier failure when a global agent install can't write.** `npm install -g` permission errors (the most common first-run snag worldwide) now print actionable guidance — use a Node version manager, or install manually — instead of dumping a raw error.
+- **Clearer network errors.** Calls that can't reach the API now say so plainly ("Could not reach the TokenMix API … check your internet connection"), with the underlying cause in parentheses.
+- **`tokenmix claude` warns before replacing your own Anthropic config** in `~/.claude/settings.json` (e.g. a Claude Pro/Max login or a personal key) instead of silently hijacking your primary Claude Code setup.
+- README: corrected the model count (160+) and the `logout` description.
+
 ## [0.2.3] - 2026-05-29
 
 ### Added

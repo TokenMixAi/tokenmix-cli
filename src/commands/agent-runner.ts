@@ -92,7 +92,19 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
         process.exit(1)
       }
       logger.step(`Installing ${agent.displayName} ...`)
-      await agent.install()
+      try {
+        await agent.install()
+      } catch {
+        // The most common global-install failure worldwide is npm lacking
+        // permission to write to the global prefix. Give actionable guidance
+        // instead of dumping execa's raw error.
+        logger.error(`Could not install ${agent.displayName} automatically.`)
+        logger.info('This usually means npm cannot write to its global folder. Options:')
+        logger.info('  • Use a Node version manager (nvm / fnm / volta) — then global installs need no sudo, or')
+        if (status.hint) logger.info(`  • Install it yourself: ${status.hint.replace(/^Will install via:\s*/, '')}`)
+        logger.info('Then re-run this command — your TokenMix login is already saved.')
+        process.exit(1)
+      }
       logger.success(`${agent.displayName} installed.`)
     } else {
       logger.warn(status.hint || `${agent.displayName} is not installable from the CLI.`)

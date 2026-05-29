@@ -5,23 +5,30 @@ import fs from 'fs-extra'
 import { ClaudeCodeAgent } from '../src/agents/claude.js'
 import { OpenCodeAgent } from '../src/agents/opencode.js'
 
-// Isolate config writes to a temp HOME so configure()/cleanup() never touch the
-// real machine. os.homedir() honors $HOME on POSIX; OpenCode reads XDG_CONFIG_HOME.
+// Isolate config writes to a temp home so configure()/cleanup() never touch the
+// real machine. os.homedir() reads $HOME on POSIX and %USERPROFILE% on Windows;
+// OpenCode reads XDG_CONFIG_HOME. We override all three for cross-platform safety.
 let tmp: string
-const origHome = process.env.HOME
-const origXdg = process.env.XDG_CONFIG_HOME
+const saved: Record<string, string | undefined> = {}
+
+function setEnv(key: string, value: string): void {
+  if (!(key in saved)) saved[key] = process.env[key]
+  process.env[key] = value
+}
 
 beforeEach(async () => {
   tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'tokenmix-cleanup-'))
-  process.env.HOME = tmp
-  process.env.XDG_CONFIG_HOME = path.join(tmp, '.config')
+  setEnv('HOME', tmp)
+  setEnv('USERPROFILE', tmp)
+  setEnv('XDG_CONFIG_HOME', path.join(tmp, '.config'))
 })
 
 afterEach(async () => {
-  if (origHome === undefined) delete process.env.HOME
-  else process.env.HOME = origHome
-  if (origXdg === undefined) delete process.env.XDG_CONFIG_HOME
-  else process.env.XDG_CONFIG_HOME = origXdg
+  for (const [k, v] of Object.entries(saved)) {
+    if (v === undefined) delete process.env[k]
+    else process.env[k] = v
+  }
+  for (const k of Object.keys(saved)) delete saved[k]
   await fs.remove(tmp)
 })
 
@@ -67,6 +74,31 @@ describe('ClaudeCodeAgent.cleanup', () => {
 
   it('returns reverted:false when no settings file exists', async () => {
     expect((await ClaudeCodeAgent.cleanup!()).reverted).toBe(false)
+  })
+})
+
+describe('ClaudeCodeAgent.configure overwrite warning', () => {
+  const settingsPath = () => path.join(tmp, '.claude', 'settings.json')
+  const TM = ['sk-tm-secret', 'https://api.tokenmix.ai', 'claude-sonnet-4.6'] as const
+
+  it('warns when replacing a user-owned (non-tokenmix) Anthropic config', async () => {
+    await fs.ensureDir(path.dirname(settingsPath()))
+    await fs.writeJson(settingsPath(), {
+      env: { ANTHROPIC_API_KEY: 'sk-ant-user', ANTHROPIC_BASE_URL: 'https://api.anthropic.com' },
+    })
+    const res = await ClaudeCodeAgent.configure(...TM)
+    expect(res.notes?.some((n) => n.includes('Replaced your existing Anthropic settings'))).toBe(true)
+  })
+
+  it('does not warn on a clean machine', async () => {
+    const res = await ClaudeCodeAgent.configure(...TM)
+    expect(res.notes?.some((n) => n.includes('Replaced'))).toBe(false)
+  })
+
+  it('does not warn when re-running over its own tokenmix config', async () => {
+    await ClaudeCodeAgent.configure(...TM)
+    const res = await ClaudeCodeAgent.configure('sk-tm-secret2', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    expect(res.notes?.some((n) => n.includes('Replaced'))).toBe(false)
   })
 })
 

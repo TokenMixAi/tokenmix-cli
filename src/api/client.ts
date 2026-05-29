@@ -40,7 +40,10 @@ function handleAxios(err: unknown): never {
       e.message
     throw new ApiError(e.response.status, msg)
   }
-  throw new ApiError(0, e.message || 'network error')
+  throw new ApiError(
+    0,
+    `Could not reach the TokenMix API (${e.message || 'network error'}). Check your internet connection.`,
+  )
 }
 
 // Public endpoint, no auth required.

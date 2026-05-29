@@ -51,6 +51,17 @@ async function configure(
   }
 
   const existingEnv = (existing.env as Record<string, string>) || {}
+
+  // Detect that we're about to overwrite a user's OWN (non-tokenmix) Anthropic
+  // setup — e.g. a Claude Pro/Max OAuth or a personal sk-ant- key. We still
+  // proceed (they explicitly asked to use Claude Code via TokenMix), but warn
+  // so it isn't a silent hijack of their primary tool.
+  const prevKey = existingEnv.ANTHROPIC_API_KEY
+  const prevBase = existingEnv.ANTHROPIC_BASE_URL
+  const replacingForeign =
+    (typeof prevKey === 'string' && prevKey.length > 0 && !prevKey.startsWith('sk-tm-')) ||
+    (typeof prevBase === 'string' && prevBase.length > 0 && !/tokenmix/i.test(prevBase))
+
   const next = {
     ...existing,
     env: {
@@ -68,16 +79,25 @@ async function configure(
     // ignore
   }
 
+  const notes = [
+    'Available Claude models via tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
+    'Run `tokenmix models --type chat` for the full list.',
+  ]
+  if (replacingForeign) {
+    notes.unshift(
+      '⚠ Replaced your existing Anthropic settings in ~/.claude/settings.json.',
+      '  `tokenmix logout` removes TokenMix\'s entries (your old key cannot be auto-restored).',
+      '',
+    )
+  }
+
   return {
     configPath: settingsPath,
     envVars: {
       ANTHROPIC_BASE_URL: baseUrl,
       ANTHROPIC_API_KEY: apiKey,
     },
-    notes: [
-      'Available Claude models via tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
-      'Run `tokenmix models --type chat` for the full list.',
-    ],
+    notes,
   }
 }
 
