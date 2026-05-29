@@ -2,7 +2,7 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
-## [Unreleased]
+## [0.3.0] - 2026-05-29
 
 ### Added
 - **Localized CLI output (中文 / English).** All runtime messages — login, agent install/configure/launch, errors, `doctor`, `list`, `models` — now render in the user's language. Language is auto-detected from the system locale (`LANG` / `LC_ALL` / `LC_MESSAGES`) and can be forced with `TOKENMIX_LANG=zh` or `TOKENMIX_LANG=en`. Translations are compile-time-complete (a missing key fails the build), and adding another language is a single catalog file. (Command `--help` descriptions and agent configuration notes remain English for now.)
