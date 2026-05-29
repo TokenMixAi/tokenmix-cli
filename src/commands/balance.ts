@@ -1,5 +1,5 @@
 import { logger } from '../utils/logger.js'
-import { openInBrowser } from '../utils/browser.js'
+import { openOrHint } from '../utils/browser.js'
 import { readConfig } from '../config/store.js'
 
 // v0.1: balance lookup over API requires a user JWT, which we do not yet have
@@ -14,5 +14,5 @@ export async function balanceCommand(): Promise<void> {
     process.exit(1)
   }
   logger.step(`Opening dashboard to view balance: ${DASHBOARD_URL}`)
-  await openInBrowser(DASHBOARD_URL)
+  await openOrHint(DASHBOARD_URL)
 }

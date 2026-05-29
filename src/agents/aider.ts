@@ -54,10 +54,35 @@ async function configure(
   }
 }
 
+// Aider lets you pick a model with --model OR one of its built-in alias flags
+// (--sonnet, --opus, ...). If the user used any of them, we must not inject our
+// own --model on top, which would be a conflicting second model specifier.
+const AIDER_MODEL_ALIAS_FLAGS = new Set([
+  '--sonnet',
+  '--opus',
+  '--haiku',
+  '--4o',
+  '--4',
+  '--mini',
+  '--35turbo',
+  '--deepseek',
+  '--o1',
+  '--o1-mini',
+  '--o3',
+  '--o3-mini',
+  '--gemini',
+  '--gemini-exp',
+])
+
+export function userSelectedModel(args: string[]): boolean {
+  return args.some(
+    (a) => a === '--model' || a.startsWith('--model=') || AIDER_MODEL_ALIAS_FLAGS.has(a),
+  )
+}
+
 async function launch(args: string[], env: Record<string, string>): Promise<void> {
-  // Inject --model only if user didn't supply one.
-  const hasModel = args.some((a) => a === '--model' || a.startsWith('--model='))
-  const finalArgs = hasModel
+  // Inject our default --model only if the user didn't already pick a model.
+  const finalArgs = userSelectedModel(args)
     ? args
     : ['--model', `openai/${env.TOKENMIX_DEFAULT_MODEL ?? 'claude-sonnet-4.6'}`, ...args]
   await run(AIDER_BIN, finalArgs, { env })

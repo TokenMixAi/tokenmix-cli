@@ -10,9 +10,14 @@ All notable changes to TokenMix CLI will be documented in this file.
 ### Fixed
 - **`tokenmix logout` now reverts the config it injected into agents.** Previously logout only deleted TokenMix's own credentials, leaving `ANTHROPIC_BASE_URL` / `ANTHROPIC_API_KEY` in `~/.claude/settings.json` and the `tokenmix` provider in `opencode.json` — so those agents kept trying to route through TokenMix with a now-removed key. Cleanup is precise: it only removes entries it recognizes as its own (a `sk-tm-` key / tokenmix base URL / `tokenmix` provider / a `tokenmix/` model pin) and never touches a user's own credentials.
 - **`tokenmix <agent> --version` / `--help` no longer rewrites global config.** These informational flags are forwarded straight to the underlying binary without writing `~/.claude/settings.json` or `opencode.json`, and without requiring login — a query shouldn't have side effects.
+- **Device-authorization robustness.** The polling loop now defaults the interval (5s) and expiry (15m) when the server omits them — previously a missing `interval` could busy-loop and a missing `expires_in` could time out instantly. Login also falls back to `verification_uri` when the optional `verification_uri_complete` is absent (RFC 8628).
+- **`tokenmix balance` / `tokenmix topup` no longer crash on headless machines.** If no browser can be launched they print the URL to open manually instead of throwing.
+- **Aider no longer injects a conflicting `--model`** when you pass one of its built-in alias flags (`--sonnet`, `--opus`, `--deepseek`, …).
+- **`tokenmix kilo`** now reminds you to keep the printed API key private.
 
 ### Internal
 - Split CLI construction (`buildProgram()` in `src/program.ts`) from execution (`src/cli.ts`) so the command wiring is unit-testable without triggering real install/configure/launch side effects.
+- Deduplicated the default API base URL behind a single exported `DEFAULT_API_BASE` constant.
 
 ## [0.2.2] - 2026-05-29
 

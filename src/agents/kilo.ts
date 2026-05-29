@@ -48,6 +48,8 @@ async function configure(
         null,
         2,
       ),
+      '',
+      'Keep this API key private — anyone with it can spend your TokenMix balance.',
     ],
   }
 }

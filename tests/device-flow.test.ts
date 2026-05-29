@@ -82,6 +82,38 @@ describe('pollDeviceToken', () => {
     expect((await p).apiKey).toBe('sk-tm-z')
   })
 
+  it('defaults the poll interval to 5s when the server omits it (no busy-loop)', async () => {
+    const auth = { ...AUTH } as Record<string, unknown>
+    delete auth.interval
+    mockedPost
+      .mockResolvedValueOnce({ status: 200, data: { code: 1, message: 'authorization_pending' } })
+      .mockResolvedValueOnce({
+        status: 200,
+        data: { code: 0, data: { access_token: 'sk-tm-d', api_key_id: 1 } },
+      })
+
+    const p = pollDeviceToken('http://api', auth as unknown as DeviceAuthorization)
+    await vi.advanceTimersByTimeAsync(1000)
+    expect(mockedPost).not.toHaveBeenCalled() // pre-fix this would NaN-busy-loop and fire instantly
+    await vi.advanceTimersByTimeAsync(4000) // reach the 5s default → first poll
+    expect(mockedPost).toHaveBeenCalledTimes(1)
+    await vi.advanceTimersByTimeAsync(5000) // second poll → approved
+    expect((await p).apiKey).toBe('sk-tm-d')
+  })
+
+  it('defaults expires_in when omitted (does not time out instantly)', async () => {
+    const auth = { ...AUTH, interval: 1 } as Record<string, unknown>
+    delete auth.expires_in
+    mockedPost.mockResolvedValueOnce({
+      status: 200,
+      data: { code: 0, data: { access_token: 'sk-tm-e', api_key_id: 1 } },
+    })
+
+    const p = pollDeviceToken('http://api', auth as unknown as DeviceAuthorization)
+    await vi.advanceTimersByTimeAsync(1000)
+    expect((await p).apiKey).toBe('sk-tm-e')
+  })
+
   it('retries through a transient network error and still succeeds', async () => {
     mockedPost
       .mockRejectedValueOnce(new Error('socket hang up'))

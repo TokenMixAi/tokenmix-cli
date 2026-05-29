@@ -71,6 +71,10 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
     return
   }
 
+  // verification_uri_complete is optional per RFC 8628; fall back to the plain
+  // verification_uri (the user_code is shown separately just below either way).
+  const verifyUrl = auth.verification_uri_complete || auth.verification_uri
+
   // Display user_code prominently
   console.log()
   console.log('  ' + chalk.dim('Open the link below and confirm this code:'))
@@ -78,12 +82,12 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
   console.log('  ' + chalk.bold.cyan(auth.user_code))
   console.log()
   console.log('  ' + chalk.dim('Link:'))
-  console.log('  ' + chalk.underline(auth.verification_uri_complete))
+  console.log('  ' + chalk.underline(verifyUrl))
   console.log()
 
   // Try to open browser, but proceed even if it fails (headless / SSH)
   try {
-    await openInBrowser(auth.verification_uri_complete)
+    await openInBrowser(verifyUrl)
     logger.dim('  (browser opened; if nothing happens, copy the link above)')
   } catch {
     logger.dim('  (could not open browser; copy the link above into one)')

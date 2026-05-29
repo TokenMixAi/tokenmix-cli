@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { readConfig, apiBaseUrl, UserConfig } from '../config/store.js'
+import { readConfig, apiBaseUrl, DEFAULT_API_BASE, UserConfig } from '../config/store.js'
 
 // Public, unauthenticated model listing returned by /api/models.
 // Mirrors only the fields we render; backend returns more.
@@ -64,7 +64,7 @@ export async function listPublicModels(cfg?: UserConfig): Promise<ApiModel[]> {
 // A 200 implies the key is valid and not revoked/expired/over-quota.
 export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<boolean> {
   try {
-    const r = await axios.get(`${baseUrl || 'https://api.tokenmix.ai'}/v1/models`, {
+    const r = await axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/models`, {
       headers: { Authorization: `Bearer ${apiKey}` },
       timeout: 15000,
     })
@@ -127,6 +127,12 @@ interface DeviceTokenBackend {
   user_email?: string
 }
 
+// RFC 8628 defaults, used when the server omits these fields — and to guard
+// against a missing/0/NaN interval that would otherwise busy-loop, or a missing
+// expires_in that would make the loop time out immediately.
+const DEFAULT_POLL_INTERVAL_S = 5
+const DEFAULT_EXPIRES_IN_S = 900
+
 // Poll until approved, denied, or expired. Returns the API key when approved.
 // Throws DeviceFlowError with code ∈ {expired_token, access_denied, api_key_limit_reached, timeout} on terminal failures.
 // onTick is called once per polling iteration with the seconds remaining (for progress display).
@@ -135,8 +141,9 @@ export async function pollDeviceToken(
   auth: DeviceAuthorization,
   onTick?: (secondsRemaining: number) => void,
 ): Promise<DeviceTokenResult> {
-  let intervalMs = Math.max(1, auth.interval) * 1000
-  const deadline = Date.now() + auth.expires_in * 1000
+  let intervalMs = Math.max(1, Number(auth.interval) || DEFAULT_POLL_INTERVAL_S) * 1000
+  const expiresIn = Number(auth.expires_in) > 0 ? Number(auth.expires_in) : DEFAULT_EXPIRES_IN_S
+  const deadline = Date.now() + expiresIn * 1000
 
   while (Date.now() < deadline) {
     await new Promise((r) => setTimeout(r, intervalMs))

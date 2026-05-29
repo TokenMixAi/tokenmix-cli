@@ -9,7 +9,7 @@ export interface UserConfig {
   preferredAgent?: string
 }
 
-const DEFAULT_API_BASE = 'https://api.tokenmix.ai'
+export const DEFAULT_API_BASE = 'https://api.tokenmix.ai'
 
 export async function readConfig(): Promise<UserConfig> {
   try {
