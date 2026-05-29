@@ -2,6 +2,15 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.2] - 2026-05-29
+
+### Fixed
+- **Non-interactive agent launch no longer silently no-ops.** Running e.g. `tokenmix opencode` in a non-TTY (CI, piped, no terminal) previously rendered an unanswerable "Install now?" prompt and then exited 0 without installing or launching anything. The install confirmation now takes its default (yes) when there is no TTY, so non-interactive `tokenmix <agent>` installs and launches as expected. (The device-flow login retry is correctly *not* auto-retried in a non-TTY, so it can't loop.)
+- **Network failures are no longer mistaken for a bad key.** `tokenmix login --key` and `tokenmix doctor` now distinguish "couldn't reach the API" (offline / DNS / firewall / outage) from a genuinely invalid key — a valid key on a flaky network no longer reports "verification failed" / "did NOT validate".
+
+### Changed
+- `balance` command `--help` text now reflects that it shows your live balance (it previously read only "open the dashboard").
+
 ## [0.4.1] - 2026-05-29
 
 ### Added

@@ -7,7 +7,7 @@ vi.mock('axios', () => ({
 }))
 
 import axios from 'axios'
-import { unwrap, ApiError, listPublicModels, fetchWallet } from '../src/api/client.js'
+import { unwrap, ApiError, listPublicModels, fetchWallet, verifyApiKey } from '../src/api/client.js'
 
 const mockedGet = axios.get as unknown as ReturnType<typeof vi.fn>
 
@@ -92,5 +92,35 @@ describe('fetchWallet', () => {
   it('maps a 401 to ApiError', async () => {
     mockedGet.mockRejectedValue({ response: { status: 401, data: { message: 'invalid or expired token' } } })
     await expect(fetchWallet('sk-tm-bad')).rejects.toMatchObject({ status: 401 })
+  })
+})
+
+describe('verifyApiKey', () => {
+  beforeEach(() => {
+    mockedGet.mockReset()
+  })
+
+  it('returns true on HTTP 200', async () => {
+    mockedGet.mockResolvedValue({ status: 200 })
+    expect(await verifyApiKey('sk-tm-x', 'https://api.tokenmix.ai')).toBe(true)
+  })
+
+  it('returns false (not a throw) on HTTP 401 — a genuinely invalid/revoked key', async () => {
+    mockedGet.mockResolvedValue({ status: 401 })
+    expect(await verifyApiKey('sk-tm-bad')).toBe(false)
+  })
+
+  it('passes validateStatus so axios does not throw on non-2xx', async () => {
+    mockedGet.mockResolvedValue({ status: 403 })
+    await verifyApiKey('sk-tm-x')
+    expect(mockedGet).toHaveBeenCalledWith(
+      expect.stringContaining('/v1/models'),
+      expect.objectContaining({ validateStatus: expect.any(Function) }),
+    )
+  })
+
+  it('THROWS ApiError on a transport failure (offline/DNS) so callers can tell it apart from a bad key', async () => {
+    mockedGet.mockRejectedValue({ message: 'getaddrinfo EAI_AGAIN api.tokenmix.ai' })
+    await expect(verifyApiKey('sk-tm-x')).rejects.toBeInstanceOf(ApiError)
   })
 })

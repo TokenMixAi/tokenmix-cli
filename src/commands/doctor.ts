@@ -20,11 +20,17 @@ export async function doctorCommand(): Promise<void> {
   if (cfg.apiKey) {
     logger.success(`${t('doctor.apiKeyLabel')}  ${chalk.cyan(maskKey(cfg.apiKey))}`)
     logger.success(`${t('doctor.apiBaseLabel')}  ${chalk.cyan(apiBaseUrl(cfg))}`)
-    const ok = await verifyApiKey(cfg.apiKey, apiBaseUrl(cfg))
-    if (ok) {
-      logger.success(t('doctor.keyValid'))
-    } else {
-      logger.error(t('doctor.keyInvalid'))
+    try {
+      const ok = await verifyApiKey(cfg.apiKey, apiBaseUrl(cfg))
+      if (ok) {
+        logger.success(t('doctor.keyValid'))
+      } else {
+        logger.error(t('doctor.keyInvalid'))
+      }
+    } catch (err: unknown) {
+      // Network problem, not necessarily a bad key — say so rather than claiming
+      // the key failed to validate.
+      logger.warn(err instanceof Error ? err.message : String(err))
     }
   } else {
     logger.warn(t('doctor.notLoggedIn'))

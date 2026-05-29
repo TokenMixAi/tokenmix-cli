@@ -66,14 +66,19 @@ export async function listPublicModels(cfg?: UserConfig): Promise<ApiModel[]> {
 // Verify the API key works by calling the OpenAI-compatible /v1/models endpoint.
 // A 200 implies the key is valid and not revoked/expired/over-quota.
 export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<boolean> {
+  // validateStatus:true so an HTTP 401/403 resolves (→ invalid key, return false)
+  // while only a transport failure (DNS / refused / timeout) throws. handleAxios
+  // then raises a clear "could not reach the API" ApiError, letting callers tell a
+  // network problem apart from a genuinely bad key.
   try {
     const r = await axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/models`, {
       headers: { Authorization: `Bearer ${apiKey}` },
       timeout: 15000,
+      validateStatus: () => true,
     })
     return r.status === 200
-  } catch {
-    return false
+  } catch (err) {
+    handleAxios(err)
   }
 }
 

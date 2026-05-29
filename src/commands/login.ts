@@ -48,7 +48,15 @@ async function loginByKey(apiKey: string, baseUrl: string): Promise<void> {
     process.exit(1)
   }
   logger.step(t('login.verifying', { baseUrl }))
-  const ok = await verifyApiKey(apiKey, baseUrl)
+  let ok = false
+  try {
+    ok = await verifyApiKey(apiKey, baseUrl)
+  } catch (err: unknown) {
+    // Couldn't reach the API (offline / DNS / firewall / outage). Surface the
+    // network problem instead of falsely claiming the key is wrong.
+    logger.error(err instanceof Error ? err.message : String(err))
+    process.exit(1)
+  }
   if (!ok) {
     logger.error(t('login.verifyFailed'))
     process.exit(1)
@@ -118,7 +126,9 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
     console.log()
     if (err instanceof DeviceFlowError) {
       logger.error(err.message)
-      if (err.code === 'expired_token' || err.code === 'timeout') {
+      // Only offer to retry when interactive — in a non-TTY (CI) the user can't
+      // approve in a browser anyway, and an auto-yes here would loop forever.
+      if ((err.code === 'expired_token' || err.code === 'timeout') && process.stdin.isTTY) {
         const retry = await confirm(t('login.tryAgain'), true)
         if (retry) {
           await loginByDeviceFlow(baseUrl)
