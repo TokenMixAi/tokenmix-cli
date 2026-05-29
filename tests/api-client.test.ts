@@ -7,7 +7,7 @@ vi.mock('axios', () => ({
 }))
 
 import axios from 'axios'
-import { unwrap, ApiError, listPublicModels } from '../src/api/client.js'
+import { unwrap, ApiError, listPublicModels, fetchWallet } from '../src/api/client.js'
 
 const mockedGet = axios.get as unknown as ReturnType<typeof vi.fn>
 
@@ -62,5 +62,35 @@ describe('listPublicModels', () => {
   it('maps a network failure (no response) to ApiError', async () => {
     mockedGet.mockRejectedValue({ message: 'connect ECONNREFUSED' })
     await expect(listPublicModels({})).rejects.toBeInstanceOf(ApiError)
+  })
+})
+
+describe('fetchWallet', () => {
+  beforeEach(() => {
+    mockedGet.mockReset()
+  })
+
+  it('GETs /v1/wallet with a Bearer key and unwraps the wallet', async () => {
+    const wallet = {
+      balance: 31129663,
+      frozen: 0,
+      gift_balance: 3823,
+      total_used: 10986627,
+      total_topup: 40120000,
+      currency: 'USD',
+    }
+    mockedGet.mockResolvedValue({ data: { code: 0, data: wallet } })
+
+    const result = await fetchWallet('sk-tm-xyz', 'https://api.tokenmix.ai')
+    expect(result).toEqual(wallet)
+    expect(mockedGet).toHaveBeenCalledWith(
+      'https://api.tokenmix.ai/v1/wallet',
+      expect.objectContaining({ headers: { Authorization: 'Bearer sk-tm-xyz' } }),
+    )
+  })
+
+  it('maps a 401 to ApiError', async () => {
+    mockedGet.mockRejectedValue({ response: { status: 401, data: { message: 'invalid or expired token' } } })
+    await expect(fetchWallet('sk-tm-bad')).rejects.toMatchObject({ status: 401 })
   })
 })

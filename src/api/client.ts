@@ -77,6 +77,29 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
   }
 }
 
+// Wallet info for the API key's owner — GET /v1/wallet (API-key authenticated).
+// Money fields are micro-USD (1 USD = 1_000_000); callers format for display.
+export interface WalletInfo {
+  balance: number
+  frozen: number
+  gift_balance: number
+  total_used: number
+  total_topup: number
+  currency: string
+}
+
+export async function fetchWallet(apiKey: string, baseUrl?: string): Promise<WalletInfo> {
+  try {
+    const r = await axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/wallet`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+      timeout: 15000,
+    })
+    return unwrap<WalletInfo>(r)
+  } catch (err) {
+    handleAxios(err)
+  }
+}
+
 // ============================================================
 // OAuth 2.0 Device Authorization Grant (RFC 8628)
 //

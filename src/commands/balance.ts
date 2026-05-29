@@ -1,12 +1,20 @@
+import chalk from 'chalk'
 import { logger } from '../utils/logger.js'
 import { openOrHint } from '../utils/browser.js'
-import { readConfig } from '../config/store.js'
+import { readConfig, apiBaseUrl } from '../config/store.js'
+import { fetchWallet } from '../api/client.js'
 import { t } from '../i18n/index.js'
 
-// v0.1: balance lookup over API requires a user JWT, which we do not yet have
-// (the CLI uses an API Key today). We open the dashboard instead.
-// Once the device-flow login lands in the backend, this will hit /api/user/wallet directly.
 const DASHBOARD_URL = 'https://tokenmix.ai/dashboard'
+const TOPUP_URL = 'https://tokenmix.ai/dashboard/credits'
+
+// micro-USD → display string. Mirrors the platform / plugin: 2 decimals for
+// amounts >= $1 (trailing zeros trimmed), more precision for sub-dollar amounts.
+export function formatUSD(microUsd: number): string {
+  const usd = microUsd / 1_000_000
+  if (Math.abs(usd) >= 1) return usd.toFixed(2).replace(/\.?0+$/, '')
+  return usd.toFixed(6).replace(/\.?0+$/, '')
+}
 
 export async function balanceCommand(): Promise<void> {
   const cfg = await readConfig()
@@ -14,6 +22,25 @@ export async function balanceCommand(): Promise<void> {
     logger.error(t('common.notLoggedIn'))
     process.exit(1)
   }
-  logger.step(t('balance.opening', { url: DASHBOARD_URL }))
-  await openOrHint(DASHBOARD_URL)
+
+  try {
+    const w = await fetchWallet(cfg.apiKey, apiBaseUrl(cfg))
+    const available = formatUSD(w.balance + w.gift_balance)
+    console.log()
+    logger.success(`${t('balance.available')}  ${chalk.bold(`$${available}`)} ${w.currency}`)
+    console.log(`  ${t('balance.balanceLabel')}: $${formatUSD(w.balance)}`)
+    console.log(`  ${t('balance.giftLabel')}: $${formatUSD(w.gift_balance)}`)
+    console.log(`  ${t('balance.spentLabel')}: $${formatUSD(w.total_used)}`)
+    if (w.frozen > 0) {
+      console.log(`  ${t('balance.reservedLabel')}: $${formatUSD(w.frozen)}`)
+    }
+    console.log()
+    logger.dim(t('balance.topupAt', { url: TOPUP_URL }))
+    console.log()
+  } catch {
+    // Network / auth hiccup — fall back to the dashboard so the user isn't stuck.
+    logger.warn(t('balance.fetchFailed'))
+    logger.step(t('balance.opening', { url: DASHBOARD_URL }))
+    await openOrHint(DASHBOARD_URL)
+  }
 }

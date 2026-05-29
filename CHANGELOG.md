@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.1] - 2026-05-29
+
+### Added
+- **`tokenmix balance` now shows your live balance in the terminal** — available balance, gift credit, total spent (and any in-flight reserved amount) — via the API-key-authenticated `GET /v1/wallet`, localized in all six languages. Falls back to opening the dashboard if the call fails.
+
 ## [0.4.0] - 2026-05-29
 
 ### Added

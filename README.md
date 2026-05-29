@@ -38,7 +38,7 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 ```
 tokenmix login [--key sk-tm-xxx]   Log in
 tokenmix logout                     Remove credentials (and revert injected agent config)
-tokenmix balance                    Open dashboard to view balance
+tokenmix balance                    Show your live balance (or open the dashboard)
 tokenmix topup                      Open browser to top up
 tokenmix models [--type chat]       List available models with prices
 tokenmix list                       List supported agents

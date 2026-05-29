@@ -135,6 +135,15 @@ export const en = {
   'cmd.list': 'List supported coding agents',
   'cmd.doctor': 'Diagnose CLI configuration and agent installation',
   'cmd.agent': 'Configure and launch {name} via TokenMix',
+
+  // balance display
+  'balance.available': 'Available',
+  'balance.balanceLabel': 'Balance',
+  'balance.giftLabel': 'Gift credit',
+  'balance.spentLabel': 'Total spent',
+  'balance.reservedLabel': 'Reserved',
+  'balance.topupAt': 'Top up at {url}',
+  'balance.fetchFailed': 'Could not fetch live balance; opening the dashboard instead.',
 }
 
 export type MessageKey = keyof typeof en
@@ -269,6 +278,15 @@ export const zh: typeof en = {
   'cmd.list': '列出支持的编程 agent',
   'cmd.doctor': '诊断 CLI 配置与 agent 安装情况',
   'cmd.agent': '通过 TokenMix 配置并启动 {name}',
+
+  // balance display
+  'balance.available': '可用余额',
+  'balance.balanceLabel': '余额',
+  'balance.giftLabel': '赠送额度',
+  'balance.spentLabel': '累计消费',
+  'balance.reservedLabel': '冻结中',
+  'balance.topupAt': '充值：{url}',
+  'balance.fetchFailed': '无法获取实时余额，改为打开仪表盘。',
 }
 
 export const ja: typeof en = {
@@ -386,6 +404,15 @@ export const ja: typeof en = {
   'cmd.list': '対応しているコーディング agent を一覧表示',
   'cmd.doctor': 'CLI 設定と agent のインストール状況を診断',
   'cmd.agent': 'TokenMix 経由で {name} を設定して起動',
+
+  // balance display
+  'balance.available': '利用可能',
+  'balance.balanceLabel': '残高',
+  'balance.giftLabel': 'ギフト残高',
+  'balance.spentLabel': '累計使用額',
+  'balance.reservedLabel': '予約済み',
+  'balance.topupAt': 'チャージ：{url}',
+  'balance.fetchFailed': 'リアルタイム残高を取得できませんでした。ダッシュボードを開きます。',
 }
 
 export const ko: typeof en = {
@@ -503,6 +530,15 @@ export const ko: typeof en = {
   'cmd.list': '지원하는 코딩 agent 목록 표시',
   'cmd.doctor': 'CLI 구성과 agent 설치 상태 진단',
   'cmd.agent': 'TokenMix를 통해 {name} 구성 및 실행',
+
+  // balance display
+  'balance.available': '사용 가능',
+  'balance.balanceLabel': '잔액',
+  'balance.giftLabel': '증정 잔액',
+  'balance.spentLabel': '총 사용액',
+  'balance.reservedLabel': '예약됨',
+  'balance.topupAt': '충전: {url}',
+  'balance.fetchFailed': '실시간 잔액을 가져올 수 없습니다. 대시보드를 엽니다.',
 }
 
 export const es: typeof en = {
@@ -620,6 +656,15 @@ export const es: typeof en = {
   'cmd.list': 'Lista los agents de programación compatibles',
   'cmd.doctor': 'Diagnostica la configuración de la CLI y la instalación de los agents',
   'cmd.agent': 'Configura e inicia {name} vía TokenMix',
+
+  // balance display
+  'balance.available': 'Disponible',
+  'balance.balanceLabel': 'Saldo',
+  'balance.giftLabel': 'Crédito de regalo',
+  'balance.spentLabel': 'Gastado en total',
+  'balance.reservedLabel': 'Reservado',
+  'balance.topupAt': 'Recarga en {url}',
+  'balance.fetchFailed': 'No se pudo obtener el saldo en vivo; abriendo el panel.',
 }
 
 export const fr: typeof en = {
@@ -737,6 +782,15 @@ export const fr: typeof en = {
   'cmd.list': 'Lister les agents de codage pris en charge',
   'cmd.doctor': 'Diagnostiquer la configuration de la CLI et l’installation des agents',
   'cmd.agent': 'Configurer et lancer {name} via TokenMix',
+
+  // balance display
+  'balance.available': 'Disponible',
+  'balance.balanceLabel': 'Solde',
+  'balance.giftLabel': 'Crédit offert',
+  'balance.spentLabel': 'Total dépensé',
+  'balance.reservedLabel': 'Réservé',
+  'balance.topupAt': 'Recharger sur {url}',
+  'balance.fetchFailed': 'Impossible de récupérer le solde en direct ; ouverture du tableau de bord.',
 }
 
 export const catalogs = { en, zh, ja, ko, es, fr }
