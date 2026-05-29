@@ -50,7 +50,7 @@ export function registerAgentCommands(program: Command, runner: AgentRunner = ru
     }
     program
       .command(`${agent.id} [args...]`)
-      .description(`Configure and launch ${agent.displayName} via TokenMix`)
+      .description(t('cmd.agent', { name: agent.displayName }))
       .allowUnknownOption(true)
       .passThroughOptions(true) // forward --version / --help / --any to the underlying agent
       .action(async (args: string[] = []) => {
@@ -102,8 +102,8 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
         logger.error(t('agent.installFailed', { name: agent.displayName }))
         logger.info(t('agent.installFailHint1'))
         logger.info(t('agent.installFailHint2'))
-        if (status.hint) {
-          logger.info(t('agent.installFailHint3', { cmd: status.hint.replace(/^Will install via:\s*/, '') }))
+        if (status.installCmd) {
+          logger.info(t('agent.installFailHint3', { cmd: status.installCmd }))
         }
         logger.info(t('agent.installFailHint4'))
         process.exit(1)

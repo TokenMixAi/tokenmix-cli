@@ -8,6 +8,7 @@ import { modelsCommand } from './commands/models.js'
 import { listCommand } from './commands/list.js'
 import { doctorCommand } from './commands/doctor.js'
 import { registerAgentCommands, AgentRunner } from './commands/agent-runner.js'
+import { t } from './i18n/index.js'
 
 // Read version from package.json so we never have to bump it in two places.
 const pkg = createRequire(import.meta.url)('../package.json') as { version: string }
@@ -29,46 +30,46 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
 
   program
     .name('tokenmix')
-    .description('Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.')
+    .description(t('cmd.program'))
     .version(pkg.version)
 
   program
     .command('login')
-    .description('Log in to TokenMix (default: browser device authorization)')
-    .option('-k, --key <apiKey>', 'Paste an API key directly (skip browser flow, useful in CI)')
-    .option('-p, --paste', 'Force interactive paste prompt instead of browser flow')
-    .option('-u, --url <baseUrl>', 'Override API base URL (default: https://api.tokenmix.ai)')
+    .description(t('cmd.login'))
+    .option('-k, --key <apiKey>', t('cmd.loginKey'))
+    .option('-p, --paste', t('cmd.loginPaste'))
+    .option('-u, --url <baseUrl>', t('cmd.loginUrl'))
     .action(loginCommand)
 
   program
     .command('logout')
-    .description('Remove stored credentials from this machine')
+    .description(t('cmd.logout'))
     .action(logoutCommand)
 
   program
     .command('balance')
-    .description('Open the dashboard to view your balance')
+    .description(t('cmd.balance'))
     .action(balanceCommand)
 
   program
     .command('topup')
-    .description('Open the browser to top up your account')
+    .description(t('cmd.topup'))
     .action(topupCommand)
 
   program
     .command('models')
-    .description('List available models with prices')
-    .option('-t, --type <type>', 'Filter by type: chat | embedding | image | audio | video')
+    .description(t('cmd.models'))
+    .option('-t, --type <type>', t('cmd.modelsType'))
     .action(modelsCommand)
 
   program
     .command('list')
-    .description('List supported coding agents')
+    .description(t('cmd.list'))
     .action(listCommand)
 
   program
     .command('doctor')
-    .description('Diagnose CLI configuration and agent installation')
+    .description(t('cmd.doctor'))
     .action(doctorCommand)
 
   // Register one subcommand per supported agent (opencode, claude, aider, kilo, ...).

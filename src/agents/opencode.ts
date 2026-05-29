@@ -8,6 +8,7 @@ import {
   AgentCleanupResult,
 } from './types.js'
 import { commandExists, run, captureRun } from '../utils/exec.js'
+import { t } from '../i18n/index.js'
 
 const OPENCODE_BIN = 'opencode'
 const OPENCODE_NPM_PACKAGE = 'opencode-ai'
@@ -25,9 +26,11 @@ function configPath(): string {
 async function installCheck(): Promise<AgentInstallStatus> {
   const bin = await commandExists(OPENCODE_BIN)
   if (!bin) {
+    const cmd = `npm install -g ${OPENCODE_NPM_PACKAGE}`
     return {
       installed: false,
-      hint: `Will install via: npm install -g ${OPENCODE_NPM_PACKAGE}`,
+      hint: t('install.willInstallVia', { cmd }),
+      installCmd: cmd,
     }
   }
   try {
@@ -88,8 +91,8 @@ async function configure(
   return {
     configPath: filePath,
     notes: [
-      `Default model set to tokenmix/${defaultModel}`,
-      `To switch models, run \`tokenmix models\` or use \`/connect\` inside OpenCode.`,
+      t('opencode.noteModel', { model: defaultModel }),
+      t('opencode.noteSwitch'),
     ],
   }
 }

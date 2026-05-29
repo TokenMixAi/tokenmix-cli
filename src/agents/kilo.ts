@@ -4,6 +4,7 @@ import {
   AgentConfigureResult,
 } from './types.js'
 import { commandExists } from '../utils/exec.js'
+import { t } from '../i18n/index.js'
 
 async function installCheck(): Promise<AgentInstallStatus> {
   // Kilo Code is a config-only agent (VSCode extension). The CLI cannot install
@@ -13,9 +14,7 @@ async function installCheck(): Promise<AgentInstallStatus> {
   const code = await commandExists('code')
   return {
     installed: true,
-    hint: code
-      ? 'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.'
-      : 'VSCode not detected on PATH. Install VSCode, then add the Kilo Code extension, then use the snippet below.',
+    hint: code ? t('kilo.hintMarketplace') : t('kilo.hintNoVscode'),
   }
 }
 
@@ -28,15 +27,15 @@ async function configure(
   // We print the configuration values for the user to paste into Kilo settings.
   return {
     notes: [
-      'Kilo Code is a VSCode extension and does not have a CLI launcher.',
-      'Configure Kilo Code with the following:',
+      t('kilo.noteNoLauncher'),
+      t('kilo.noteConfigWith'),
       '',
       `  Provider:      OpenAI Compatible`,
       `  Base URL:      ${baseUrl}/v1`,
       `  API Key:       ${apiKey}`,
       `  Default Model: ${defaultModel}`,
       '',
-      'Or paste this JSON snippet into Kilo Code settings (Settings → Providers → JSON):',
+      t('kilo.notePasteJson'),
       '',
       JSON.stringify(
         {
@@ -49,7 +48,7 @@ async function configure(
         2,
       ),
       '',
-      'Keep this API key private — anyone with it can spend your TokenMix balance.',
+      t('kilo.noteKeepPrivate'),
     ],
   }
 }

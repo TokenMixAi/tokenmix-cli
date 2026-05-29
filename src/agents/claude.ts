@@ -8,6 +8,7 @@ import {
   AgentCleanupResult,
 } from './types.js'
 import { commandExists, run, captureRun } from '../utils/exec.js'
+import { t } from '../i18n/index.js'
 
 const CLAUDE_BIN = 'claude'
 const CLAUDE_NPM_PACKAGE = '@anthropic-ai/claude-code'
@@ -15,9 +16,11 @@ const CLAUDE_NPM_PACKAGE = '@anthropic-ai/claude-code'
 async function installCheck(): Promise<AgentInstallStatus> {
   const bin = await commandExists(CLAUDE_BIN)
   if (!bin) {
+    const cmd = `npm install -g ${CLAUDE_NPM_PACKAGE}`
     return {
       installed: false,
-      hint: `Will install via: npm install -g ${CLAUDE_NPM_PACKAGE}`,
+      hint: t('install.willInstallVia', { cmd }),
+      installCmd: cmd,
     }
   }
   try {
@@ -79,16 +82,9 @@ async function configure(
     // ignore
   }
 
-  const notes = [
-    'Available Claude models via tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
-    'Run `tokenmix models --type chat` for the full list.',
-  ]
+  const notes = [t('claude.noteModels'), t('claude.noteFullList')]
   if (replacingForeign) {
-    notes.unshift(
-      '⚠ Replaced your existing Anthropic settings in ~/.claude/settings.json.',
-      '  `tokenmix logout` removes TokenMix\'s entries (your old key cannot be auto-restored).',
-      '',
-    )
+    notes.unshift(t('claude.noteReplaced1'), t('claude.noteReplaced2'), '')
   }
 
   return {
@@ -146,7 +142,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
   return {
     reverted: true,
     configPath: settingsPath,
-    note: 'If you had your own ANTHROPIC_API_KEY here before, re-add it.',
+    note: t('claude.cleanupNote'),
   }
 }
 

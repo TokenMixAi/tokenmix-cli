@@ -2,6 +2,14 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.3.1] - 2026-05-29
+
+### Added
+- **Localization now covers the rest of the UI**: command/option descriptions in `--help`, every agent's configuration notes (OpenCode / Claude Code / Aider / Kilo), and agent install hints — so a `zh` user sees Chinese end-to-end. (commander's structural labels — Usage / Options / Commands — remain English.)
+
+### Changed
+- Agents expose `installCmd` so install-failure guidance prints the exact command directly, replacing a fragile prefix-stripping regex.
+
 ## [0.3.0] - 2026-05-29
 
 ### Added

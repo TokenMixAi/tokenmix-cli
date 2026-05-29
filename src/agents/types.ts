@@ -5,6 +5,9 @@ export interface AgentInstallStatus {
   version?: string
   // Hint to show the user when not installed or partially installable.
   hint?: string
+  // The exact shell command that installs this agent (e.g. `npm install -g X`),
+  // when applicable. Used to give clean install guidance without parsing `hint`.
+  installCmd?: string
 }
 
 export interface AgentConfigureResult {

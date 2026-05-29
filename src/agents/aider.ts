@@ -4,6 +4,7 @@ import {
   AgentConfigureResult,
 } from './types.js'
 import { commandExists, run, captureRun } from '../utils/exec.js'
+import { t } from '../i18n/index.js'
 
 const AIDER_BIN = 'aider'
 
@@ -15,15 +16,13 @@ async function installCheck(): Promise<AgentInstallStatus> {
     if (!py) {
       return {
         installed: false,
-        hint:
-          'Aider requires Python 3. Install Python 3 from https://python.org/downloads, then come back and run `tokenmix aider` again.',
+        hint: t('aider.hintNeedPython'),
       }
     }
     const installCmd = pipx ? 'pipx install aider-chat' : 'pip install aider-chat'
     return {
       installed: false,
-      hint:
-        `Aider is not installed. Run this in another terminal:\n    ${installCmd}\nThen come back and run \`tokenmix aider\` again — your TokenMix login is already saved, so it will pick up automatically.`,
+      hint: t('aider.hintNotInstalled', { cmd: installCmd }),
     }
   }
   try {
@@ -48,8 +47,8 @@ async function configure(
       TOKENMIX_DEFAULT_MODEL: defaultModel,
     },
     notes: [
-      `Aider will use TokenMix via OpenAI-compatible endpoint.`,
-      `Default model: openai/${defaultModel} — override with --model.`,
+      t('aider.noteUsing'),
+      t('aider.noteModel', { model: defaultModel }),
     ],
   }
 }

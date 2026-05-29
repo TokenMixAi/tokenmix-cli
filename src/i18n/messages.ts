@@ -86,6 +86,55 @@ export const en = {
   'balance.opening': 'Opening dashboard to view balance: {url}',
   'topup.opening': 'Opening top-up page: {url}',
   'browser.manual': 'Could not open a browser automatically. Open this URL manually:\n  {url}',
+
+  // agent taglines (shown in `list`)
+  'desc.opencode': 'sst/opencode — open source AI coding agent (TUI / Desktop / IDE)',
+  'desc.claude': 'anthropics/claude-code — official Anthropic CLI coding agent',
+  'desc.aider': 'Aider-AI/aider — paired-programming CLI (requires Python)',
+  'desc.kilo': 'Kilo-Org/kilocode — VSCode extension (config-only)',
+
+  // install hints
+  'install.willInstallVia': 'Will install via: {cmd}',
+  'aider.hintNeedPython': 'Aider requires Python 3. Install Python 3 from https://python.org/downloads, then come back and run `tokenmix aider` again.',
+  'aider.hintNotInstalled': 'Aider is not installed. Run this in another terminal:\n    {cmd}\nThen come back and run `tokenmix aider` again — your TokenMix login is already saved, so it will pick up automatically.',
+
+  // opencode configure notes
+  'opencode.noteModel': 'Default model set to tokenmix/{model}',
+  'opencode.noteSwitch': 'To switch models, run `tokenmix models` or use `/connect` inside OpenCode.',
+
+  // claude configure notes
+  'claude.noteModels': 'Available Claude models via tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
+  'claude.noteFullList': 'Run `tokenmix models --type chat` for the full list.',
+  'claude.noteReplaced1': '⚠ Replaced your existing Anthropic settings in ~/.claude/settings.json.',
+  'claude.noteReplaced2': "  `tokenmix logout` removes TokenMix's entries (your old key cannot be auto-restored).",
+  'claude.cleanupNote': 'If you had your own ANTHROPIC_API_KEY here before, re-add it.',
+
+  // aider configure notes
+  'aider.noteUsing': 'Aider will use TokenMix via OpenAI-compatible endpoint.',
+  'aider.noteModel': 'Default model: openai/{model} — override with --model.',
+
+  // kilo configure notes (prose only; technical lines stay verbatim)
+  'kilo.noteNoLauncher': 'Kilo Code is a VSCode extension and does not have a CLI launcher.',
+  'kilo.noteConfigWith': 'Configure Kilo Code with the following:',
+  'kilo.notePasteJson': 'Or paste this JSON snippet into Kilo Code settings (Settings → Providers → JSON):',
+  'kilo.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
+  'kilo.hintMarketplace': 'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.',
+  'kilo.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Kilo Code extension, then use the snippet below.',
+
+  // command / option descriptions (--help)
+  'cmd.program': 'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
+  'cmd.login': 'Log in to TokenMix (default: browser device authorization)',
+  'cmd.loginKey': 'Paste an API key directly (skip browser flow, useful in CI)',
+  'cmd.loginPaste': 'Force interactive paste prompt instead of browser flow',
+  'cmd.loginUrl': 'Override API base URL (default: https://api.tokenmix.ai)',
+  'cmd.logout': 'Remove stored credentials from this machine',
+  'cmd.balance': 'Open the dashboard to view your balance',
+  'cmd.topup': 'Open the browser to top up your account',
+  'cmd.models': 'List available models with prices',
+  'cmd.modelsType': 'Filter by type: chat | embedding | image | audio | video',
+  'cmd.list': 'List supported coding agents',
+  'cmd.doctor': 'Diagnose CLI configuration and agent installation',
+  'cmd.agent': 'Configure and launch {name} via TokenMix',
 }
 
 export type MessageKey = keyof typeof en
@@ -171,6 +220,55 @@ export const zh: typeof en = {
   'balance.opening': '正在打开仪表盘查看余额：{url}',
   'topup.opening': '正在打开充值页面：{url}',
   'browser.manual': '无法自动打开浏览器。请手动打开此链接：\n  {url}',
+
+  // agent taglines (shown in `list`)
+  'desc.opencode': 'sst/opencode — 开源 AI 编程 agent（TUI / 桌面 / IDE）',
+  'desc.claude': 'anthropics/claude-code — Anthropic 官方 CLI 编程 agent',
+  'desc.aider': 'Aider-AI/aider — 结对编程 CLI（需要 Python）',
+  'desc.kilo': 'Kilo-Org/kilocode — VSCode 扩展（仅配置）',
+
+  // install hints
+  'install.willInstallVia': '将自动安装：{cmd}',
+  'aider.hintNeedPython': 'Aider 需要 Python 3。请从 https://python.org/downloads 安装 Python 3，然后重新运行 `tokenmix aider`。',
+  'aider.hintNotInstalled': 'Aider 尚未安装。请在另一个终端运行：\n    {cmd}\n然后重新运行 `tokenmix aider` —— 你的 TokenMix 登录已保存，会自动生效。',
+
+  // opencode configure notes
+  'opencode.noteModel': '默认模型已设为 tokenmix/{model}',
+  'opencode.noteSwitch': '切换模型：运行 `tokenmix models`，或在 OpenCode 内使用 `/connect`。',
+
+  // claude configure notes
+  'claude.noteModels': '可用的 Claude 模型（经 tokenmix）：claude-opus-4.7、claude-sonnet-4.6、claude-haiku-4.5',
+  'claude.noteFullList': '完整列表请运行 `tokenmix models --type chat`。',
+  'claude.noteReplaced1': '⚠ 已替换你在 ~/.claude/settings.json 中原有的 Anthropic 配置。',
+  'claude.noteReplaced2': '  `tokenmix logout` 可移除 TokenMix 写入的项（你的旧密钥无法自动恢复）。',
+  'claude.cleanupNote': '如果你之前在此设置过自己的 ANTHROPIC_API_KEY，请重新添加。',
+
+  // aider configure notes
+  'aider.noteUsing': 'Aider 将通过 OpenAI 兼容端点使用 TokenMix。',
+  'aider.noteModel': '默认模型：openai/{model} —— 可用 --model 覆盖。',
+
+  // kilo configure notes (prose only; technical lines stay verbatim)
+  'kilo.noteNoLauncher': 'Kilo Code 是 VSCode 扩展，没有 CLI 启动器。',
+  'kilo.noteConfigWith': '请按以下信息配置 Kilo Code：',
+  'kilo.notePasteJson': '或将以下 JSON 粘贴到 Kilo Code 设置（Settings → Providers → JSON）：',
+  'kilo.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
+  'kilo.hintMarketplace': '从 VSCode 应用市场安装 "Kilo Code"，然后将下面的片段粘贴到它的设置中。',
+  'kilo.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Kilo Code 扩展，然后使用下面的片段。',
+
+  // command / option descriptions (--help)
+  'cmd.program': '零配置 CLI：以 TokenMix 作为统一 LLM 后端，驱动任意开源编程 agent。',
+  'cmd.login': '登录 TokenMix（默认：浏览器设备授权）',
+  'cmd.loginKey': '直接粘贴 API 密钥（跳过浏览器流程，适合 CI）',
+  'cmd.loginPaste': '强制使用交互式粘贴，而非浏览器流程',
+  'cmd.loginUrl': '覆盖 API 基础地址（默认：https://api.tokenmix.ai）',
+  'cmd.logout': '从本机移除已保存的凭据',
+  'cmd.balance': '打开仪表盘查看余额',
+  'cmd.topup': '打开浏览器为账户充值',
+  'cmd.models': '列出可用模型及价格',
+  'cmd.modelsType': '按类型筛选：chat | embedding | image | audio | video',
+  'cmd.list': '列出支持的编程 agent',
+  'cmd.doctor': '诊断 CLI 配置与 agent 安装情况',
+  'cmd.agent': '通过 TokenMix 配置并启动 {name}',
 }
 
 export const catalogs = { en, zh }
