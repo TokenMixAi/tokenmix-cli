@@ -75,6 +75,47 @@ describe('ClaudeCodeAgent.cleanup', () => {
   it('returns reverted:false when no settings file exists', async () => {
     expect((await ClaudeCodeAgent.cleanup!()).reverted).toBe(false)
   })
+
+  it('restores the user original Anthropic key/base after an overwrite', async () => {
+    await fs.ensureDir(path.dirname(settingsPath()))
+    await fs.writeJson(settingsPath(), {
+      theme: 'dark',
+      env: { ANTHROPIC_API_KEY: 'sk-ant-user', ANTHROPIC_BASE_URL: 'https://api.anthropic.com' },
+    })
+    await ClaudeCodeAgent.configure('sk-tm-secret', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    let s = await fs.readJson(settingsPath())
+    expect(s.env.ANTHROPIC_API_KEY).toBe('sk-tm-secret') // ours injected
+
+    const res = await ClaudeCodeAgent.cleanup!()
+    expect(res.reverted).toBe(true)
+
+    s = await fs.readJson(settingsPath())
+    expect(s.env.ANTHROPIC_API_KEY).toBe('sk-ant-user') // RESTORED, not lost
+    expect(s.env.ANTHROPIC_BASE_URL).toBe('https://api.anthropic.com') // RESTORED
+    expect(s.theme).toBe('dark') // other settings survive
+    expect(s.tokenmix).toBeUndefined() // backup bookkeeping cleaned up
+  })
+
+  it('on restore, removes a base URL we added when the user had none', async () => {
+    await fs.ensureDir(path.dirname(settingsPath()))
+    await fs.writeJson(settingsPath(), { env: { ANTHROPIC_API_KEY: 'sk-ant-user' } })
+    await ClaudeCodeAgent.configure('sk-tm-secret', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    await ClaudeCodeAgent.cleanup!()
+    const s = await fs.readJson(settingsPath())
+    expect(s.env.ANTHROPIC_API_KEY).toBe('sk-ant-user') // restored
+    expect(s.env.ANTHROPIC_BASE_URL).toBeUndefined() // we added it; removed on restore
+    expect(s.tokenmix).toBeUndefined()
+  })
+
+  it('captures no backup when re-run over its own config, then removes cleanly', async () => {
+    await ClaudeCodeAgent.configure('sk-tm-one', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    await ClaudeCodeAgent.configure('sk-tm-two', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    let s = await fs.readJson(settingsPath())
+    expect(s.tokenmix).toBeUndefined() // never backs up our own key
+    expect((await ClaudeCodeAgent.cleanup!()).reverted).toBe(true)
+    s = await fs.readJson(settingsPath())
+    expect(s.env).toBeUndefined() // clean removal, nothing to restore
+  })
 })
 
 describe('ClaudeCodeAgent.configure overwrite warning', () => {
@@ -99,6 +140,22 @@ describe('ClaudeCodeAgent.configure overwrite warning', () => {
     await ClaudeCodeAgent.configure(...TM)
     const res = await ClaudeCodeAgent.configure('sk-tm-secret2', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
     expect(res.notes?.some((n) => n.includes('Replaced'))).toBe(false)
+  })
+
+  it('warns about subscription bypass when ~/.claude/.credentials.json exists and no env key', async () => {
+    await fs.ensureDir(path.join(tmp, '.claude'))
+    await fs.writeJson(path.join(tmp, '.claude', '.credentials.json'), { claudeAiOauth: { accessToken: 'x' } })
+    const res = await ClaudeCodeAgent.configure(...TM)
+    expect(res.notes?.some((n) => n.includes('subscription'))).toBe(true)
+  })
+
+  it('shows the replace warning (not the OAuth one) when an env key is also present', async () => {
+    await fs.ensureDir(path.join(tmp, '.claude'))
+    await fs.writeJson(path.join(tmp, '.claude', '.credentials.json'), { claudeAiOauth: { accessToken: 'x' } })
+    await fs.writeJson(settingsPath(), { env: { ANTHROPIC_API_KEY: 'sk-ant-user' } })
+    const res = await ClaudeCodeAgent.configure(...TM)
+    expect(res.notes?.some((n) => n.includes('Replaced'))).toBe(true)
+    expect(res.notes?.some((n) => n.includes('subscription'))).toBe(false)
   })
 })
 

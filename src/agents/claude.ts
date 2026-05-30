@@ -56,22 +56,37 @@ async function configure(
   const existingEnv = (existing.env as Record<string, string>) || {}
 
   // Detect that we're about to overwrite a user's OWN (non-tokenmix) Anthropic
-  // setup — e.g. a Claude Pro/Max OAuth or a personal sk-ant- key. We still
-  // proceed (they explicitly asked to use Claude Code via TokenMix), but warn
-  // so it isn't a silent hijack of their primary tool.
+  // setup — e.g. a personal sk-ant- key in settings.json. We still proceed (they
+  // asked to use Claude Code via TokenMix), but warn AND stash the originals so
+  // `tokenmix logout` can restore them.
   const prevKey = existingEnv.ANTHROPIC_API_KEY
   const prevBase = existingEnv.ANTHROPIC_BASE_URL
   const replacingForeign =
     (typeof prevKey === 'string' && prevKey.length > 0 && !prevKey.startsWith('sk-tm-')) ||
     (typeof prevBase === 'string' && prevBase.length > 0 && !/tokenmix/i.test(prevBase))
 
-  const next = {
+  const next: Record<string, unknown> = {
     ...existing,
     env: {
       ...existingEnv,
       ANTHROPIC_BASE_URL: baseUrl,
       ANTHROPIC_API_KEY: apiKey,
     },
+  }
+
+  // Stash the user's original Anthropic env creds on the FIRST overwrite, so
+  // cleanup() can put them back instead of leaving Claude Code broken. Once the
+  // stored key is ours, replacingForeign is false — so we never clobber the backup.
+  const prevTm = existing.tokenmix as Record<string, unknown> | undefined
+  const alreadyBackedUp = !!(prevTm && typeof prevTm === 'object' && 'claudeEnvBackup' in prevTm)
+  if (replacingForeign && !alreadyBackedUp) {
+    next.tokenmix = {
+      ...(prevTm ?? {}),
+      claudeEnvBackup: {
+        ANTHROPIC_API_KEY: prevKey ?? null,
+        ANTHROPIC_BASE_URL: prevBase ?? null,
+      },
+    }
   }
 
   await fs.ensureDir(path.dirname(settingsPath))
@@ -82,9 +97,25 @@ async function configure(
     // ignore
   }
 
+  // Claude Pro/Max users sign in via OAuth (creds live in ~/.claude/.credentials.json
+  // or the OS keychain — NOT in settings.json env). Claude Code prefers
+  // ANTHROPIC_API_KEY over the OAuth subscription, so injecting our key silently
+  // switches them to pay-per-token. Warn when we can detect a file-based subscription
+  // login. (Keychain-stored creds aren't detectable from a file — see QA report.)
+  let oauthBypass = false
+  if (!replacingForeign) {
+    try {
+      oauthBypass = await fs.pathExists(path.join(os.homedir(), '.claude', '.credentials.json'))
+    } catch {
+      oauthBypass = false
+    }
+  }
+
   const notes = [t('claude.noteModels'), t('claude.noteFullList')]
   if (replacingForeign) {
     notes.unshift(t('claude.noteReplaced1'), t('claude.noteReplaced2'), '')
+  } else if (oauthBypass) {
+    notes.unshift(t('claude.noteOAuthBypass1'), t('claude.noteOAuthBypass2'), '')
   }
 
   return {
@@ -127,10 +158,32 @@ async function cleanup(): Promise<AgentCleanupResult> {
     return { reverted: false, configPath: settingsPath }
   }
 
-  delete env.ANTHROPIC_API_KEY
-  delete env.ANTHROPIC_BASE_URL
+  // If configure() stashed the user's original Anthropic creds, restore them
+  // instead of just deleting ours — so a user who had their own key isn't left
+  // broken after logout. null means "we added this; remove it on restore".
+  const tm = existing.tokenmix as
+    | { claudeEnvBackup?: { ANTHROPIC_API_KEY: string | null; ANTHROPIC_BASE_URL: string | null } }
+    | undefined
+  const backup = tm?.claudeEnvBackup
+  if (backup) {
+    if (backup.ANTHROPIC_API_KEY != null) env.ANTHROPIC_API_KEY = backup.ANTHROPIC_API_KEY
+    else delete env.ANTHROPIC_API_KEY
+    if (backup.ANTHROPIC_BASE_URL != null) env.ANTHROPIC_BASE_URL = backup.ANTHROPIC_BASE_URL
+    else delete env.ANTHROPIC_BASE_URL
+  } else {
+    delete env.ANTHROPIC_API_KEY
+    delete env.ANTHROPIC_BASE_URL
+  }
+
   if (Object.keys(env).length === 0) delete existing.env
   else existing.env = env
+
+  // Drop our bookkeeping; remove the `tokenmix` block if it only held the backup.
+  if (tm && typeof tm === 'object') {
+    delete (tm as Record<string, unknown>).claudeEnvBackup
+    if (Object.keys(tm).length === 0) delete existing.tokenmix
+    else existing.tokenmix = tm
+  }
 
   await fs.writeFile(settingsPath, JSON.stringify(existing, null, 2))
   try {
@@ -142,7 +195,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
   return {
     reverted: true,
     configPath: settingsPath,
-    note: t('claude.cleanupNote'),
+    note: backup ? t('claude.cleanupRestored') : t('claude.cleanupNote'),
   }
 }
 
