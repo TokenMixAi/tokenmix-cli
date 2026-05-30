@@ -2,6 +2,14 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.3] - 2026-05-30
+
+### Fixed
+- **`tokenmix logout` now restores your own Anthropic credentials.** If you had your own `ANTHROPIC_API_KEY` in `~/.claude/settings.json`, `tokenmix claude` overwrote it and a later `tokenmix logout` previously left Claude Code without a key. The original credentials are now stashed on overwrite and restored on logout.
+
+### Added
+- **Warning when TokenMix would bypass a Claude Pro/Max subscription.** Claude Code prefers `ANTHROPIC_API_KEY` over an OAuth subscription, so injecting our key silently switches subscribers to pay-per-token. `tokenmix claude` now detects a file-based subscription login (`~/.claude/.credentials.json`) and warns that `tokenmix logout` restores the subscription. (Keychain-stored credentials can't be detected from a file.)
+
 ## [0.4.2] - 2026-05-29
 
 ### Fixed
