@@ -6,7 +6,7 @@ vi.mock('../src/config/store.js', async (importOriginal) => {
   return { ...actual, readConfig: vi.fn(async () => ({ apiKey: 'sk-tm-test' })) }
 })
 
-import { isInfoOnlyInvocation, runAgent } from '../src/commands/agent-runner.js'
+import { isInfoOnlyInvocation, runAgent, nodeMajor } from '../src/commands/agent-runner.js'
 import type { AgentDescriptor } from '../src/agents/types.js'
 
 describe('isInfoOnlyInvocation', () => {
@@ -64,5 +64,23 @@ describe('runAgent', () => {
       ['chat'],
       expect.objectContaining({ TOKENMIX_DEFAULT_MODEL: 'claude-sonnet-4.6' }),
     )
+  })
+
+  it('refuses (exit 1) BEFORE configuring when the agent needs a newer Node', async () => {
+    const exitSpy = vi.spyOn(process, 'exit').mockImplementation((() => {
+      throw new Error('process.exit')
+    }) as never)
+    const agent = fakeAgent()
+    agent.minNode = 999 // impossibly high → the Node guard must trip
+    await expect(runAgent(agent, ['chat'])).rejects.toThrow('process.exit')
+    expect(agent.configure).not.toHaveBeenCalled()
+    exitSpy.mockRestore()
+  })
+})
+
+describe('nodeMajor', () => {
+  it('parses the running Node major version', () => {
+    expect(nodeMajor()).toBe(parseInt(process.versions.node.split('.')[0], 10))
+    expect(nodeMajor()).toBeGreaterThanOrEqual(18)
   })
 })

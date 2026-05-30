@@ -31,6 +31,7 @@ export const en = {
   // agent install / configure / launch
   'agent.notInstalled': '{name} is not installed.',
   'agent.notInstallable': '{name} is not installable from the CLI.',
+  'agent.needsNode': '{name} needs Node {min}+ (you have Node {cur}). Upgrade Node (nvm / fnm / volta), then re-run — your TokenMix login is saved.',
   'agent.installPrompt': '{name} is not installed. Install now?',
   'agent.installing': 'Installing {name} ...',
   'agent.installed': '{name} installed.',
@@ -96,6 +97,7 @@ export const en = {
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode extension (config-only)',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains extension (config file)',
   'desc.codex': 'openai/codex — OpenAI coding agent CLI',
+  'desc.qwen': 'QwenLM/qwen-code — terminal coding agent (OpenAI-compatible)',
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
@@ -154,6 +156,10 @@ export const en = {
   'codex.noteUsing': 'Codex will use TokenMix via an OpenAI-compatible provider — your ~/.codex/config.toml is left untouched.',
   'codex.noteModel': 'Default model: {model} — override with `--config model=...`.',
 
+  // qwen configure notes (env-based like aider; launched with --auth-type openai)
+  'qwen.noteUsing': 'Qwen Code will use TokenMix via its OpenAI-compatible mode — your ~/.qwen/settings.json is left untouched.',
+  'qwen.noteModel': 'Default model: {model} — override with OPENAI_MODEL or `qwen --model`.',
+
   // command / option descriptions (--help)
   'cmd.program': 'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
   'cmd.login': 'Log in to TokenMix (default: browser device authorization)',
@@ -208,6 +214,7 @@ export const zh: typeof en = {
   // agent install / configure / launch
   'agent.notInstalled': '{name} 尚未安装。',
   'agent.notInstallable': '{name} 无法通过 CLI 安装。',
+  'agent.needsNode': '{name} 需要 Node {min}+（你的是 Node {cur}）。请升级 Node（nvm / fnm / volta）后重新运行 —— 你的 TokenMix 登录已保存。',
   'agent.installPrompt': '{name} 尚未安装。现在安装？',
   'agent.installing': '正在安装 {name} ...',
   'agent.installed': '{name} 安装完成。',
@@ -273,6 +280,7 @@ export const zh: typeof en = {
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode 扩展（仅配置）',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 扩展（配置文件）',
   'desc.codex': 'openai/codex — OpenAI 编程 agent CLI',
+  'desc.qwen': 'QwenLM/qwen-code — 终端编程 agent（OpenAI 兼容）',
 
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
@@ -322,6 +330,8 @@ export const zh: typeof en = {
   'continue.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Continue 扩展，然后使用下面的配置。',
   'codex.noteUsing': 'Codex 将通过 OpenAI 兼容的 provider 使用 TokenMix —— 不会改动你的 ~/.codex/config.toml。',
   'codex.noteModel': '默认模型：{model} —— 可用 `--config model=...` 覆盖。',
+  'qwen.noteUsing': 'Qwen Code 将通过其 OpenAI 兼容模式使用 TokenMix —— 不会改动你的 ~/.qwen/settings.json。',
+  'qwen.noteModel': '默认模型：{model} —— 可用 OPENAI_MODEL 或 `qwen --model` 覆盖。',
 
   // command / option descriptions (--help)
   'cmd.program': '零配置 CLI：以 TokenMix 作为统一 LLM 后端，驱动任意开源编程 agent。',
@@ -373,6 +383,7 @@ export const ja: typeof en = {
 
   'agent.notInstalled': '{name} はインストールされていません。',
   'agent.notInstallable': '{name} は CLI からインストールできません。',
+  'agent.needsNode': '{name} には Node {min}+ が必要です（現在 Node {cur}）。Node をアップグレード（nvm / fnm / volta）してから再実行してください —— TokenMix のログインは保存済みです。',
   'agent.installPrompt': '{name} はインストールされていません。今すぐインストールしますか？',
   'agent.installing': '{name} をインストールしています ...',
   'agent.installed': '{name} をインストールしました。',
@@ -431,6 +442,7 @@ export const ja: typeof en = {
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode 拡張機能（設定のみ）',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 拡張機能（設定ファイル）',
   'desc.codex': 'openai/codex — OpenAI のコーディング agent CLI',
+  'desc.qwen': 'QwenLM/qwen-code — ターミナルのコーディング agent（OpenAI 互換）',
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
   'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
@@ -475,6 +487,8 @@ export const ja: typeof en = {
   'continue.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Continue 拡張機能を追加してから、下の設定を使用してください。',
   'codex.noteUsing': 'Codex は OpenAI 互換プロバイダー経由で TokenMix を使用します — ~/.codex/config.toml は変更されません。',
   'codex.noteModel': 'デフォルトモデル：{model} — `--config model=...` で上書きできます。',
+  'qwen.noteUsing': 'Qwen Code は OpenAI 互換モードで TokenMix を使用します —— ~/.qwen/settings.json は変更されません。',
+  'qwen.noteModel': 'デフォルトモデル：{model} — OPENAI_MODEL または `qwen --model` で上書きできます。',
 
   'cmd.program': 'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
   'cmd.login': 'TokenMix にログイン（デフォルト：ブラウザでのデバイス認証）',
@@ -525,6 +539,7 @@ export const ko: typeof en = {
 
   'agent.notInstalled': '{name}이(가) 설치되어 있지 않습니다.',
   'agent.notInstallable': '{name}은(는) CLI에서 설치할 수 없습니다.',
+  'agent.needsNode': '{name}에는 Node {min}+ 가 필요합니다(현재 Node {cur}). Node를 업그레이드(nvm / fnm / volta)한 뒤 다시 실행하세요 —— TokenMix 로그인은 저장되어 있습니다.',
   'agent.installPrompt': '{name}이(가) 설치되어 있지 않습니다. 지금 설치할까요?',
   'agent.installing': '{name} 설치 중 ...',
   'agent.installed': '{name} 설치 완료.',
@@ -583,6 +598,7 @@ export const ko: typeof en = {
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode 확장 (설정 전용)',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 확장 (설정 파일)',
   'desc.codex': 'openai/codex — OpenAI 코딩 agent CLI',
+  'desc.qwen': 'QwenLM/qwen-code — 터미널 코딩 agent (OpenAI 호환)',
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
   'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
@@ -627,6 +643,8 @@ export const ko: typeof en = {
   'continue.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Continue 확장을 추가한 뒤 아래 설정을 사용하세요.',
   'codex.noteUsing': 'Codex는 OpenAI 호환 provider를 통해 TokenMix를 사용합니다 — ~/.codex/config.toml은 변경되지 않습니다.',
   'codex.noteModel': '기본 모델: {model} — `--config model=...`으로 재정의할 수 있습니다.',
+  'qwen.noteUsing': 'Qwen Code는 OpenAI 호환 모드로 TokenMix를 사용합니다 — ~/.qwen/settings.json은 변경되지 않습니다.',
+  'qwen.noteModel': '기본 모델: {model} — OPENAI_MODEL 또는 `qwen --model`으로 재정의할 수 있습니다.',
 
   'cmd.program': 'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
   'cmd.login': 'TokenMix에 로그인 (기본값: 브라우저 기기 인증)',
@@ -677,6 +695,7 @@ export const es: typeof en = {
 
   'agent.notInstalled': '{name} no está instalado.',
   'agent.notInstallable': '{name} no se puede instalar desde la CLI.',
+  'agent.needsNode': '{name} necesita Node {min}+ (tienes Node {cur}). Actualiza Node (nvm / fnm / volta) y vuelve a ejecutar —— tu sesión de TokenMix está guardada.',
   'agent.installPrompt': '{name} no está instalado. ¿Instalar ahora?',
   'agent.installing': 'Instalando {name} ...',
   'agent.installed': '{name} instalado.',
@@ -735,6 +754,7 @@ export const es: typeof en = {
   'desc.roo': 'RooCodeInc/Roo-Code — extensión de VSCode (solo configuración)',
   'desc.continue': 'continuedev/continue — extensión de VSCode/JetBrains (archivo de configuración)',
   'desc.codex': 'openai/codex — CLI del agente de programación de OpenAI',
+  'desc.qwen': 'QwenLM/qwen-code — agente de programación de terminal (compatible con OpenAI)',
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
   'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
@@ -779,6 +799,8 @@ export const es: typeof en = {
   'continue.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Continue y luego usa la configuración de abajo.',
   'codex.noteUsing': 'Codex usará TokenMix mediante un proveedor compatible con OpenAI: tu ~/.codex/config.toml no se modifica.',
   'codex.noteModel': 'Modelo por defecto: {model} — anúlalo con `--config model=...`.',
+  'qwen.noteUsing': 'Qwen Code usará TokenMix mediante su modo compatible con OpenAI: tu ~/.qwen/settings.json no se modifica.',
+  'qwen.noteModel': 'Modelo por defecto: {model} — anúlalo con OPENAI_MODEL o `qwen --model`.',
 
   'cmd.program': 'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
   'cmd.login': 'Inicia sesión en TokenMix (predeterminado: autorización de dispositivo por navegador)',
@@ -829,6 +851,7 @@ export const fr: typeof en = {
 
   'agent.notInstalled': '{name} n’est pas installé.',
   'agent.notInstallable': '{name} ne peut pas être installé depuis la CLI.',
+  'agent.needsNode': '{name} nécessite Node {min}+ (vous avez Node {cur}). Mettez Node à jour (nvm / fnm / volta), puis relancez —— votre connexion TokenMix est enregistrée.',
   'agent.installPrompt': '{name} n’est pas installé. Installer maintenant ?',
   'agent.installing': 'Installation de {name} ...',
   'agent.installed': '{name} installé.',
@@ -887,6 +910,7 @@ export const fr: typeof en = {
   'desc.roo': 'RooCodeInc/Roo-Code — extension VSCode (configuration seule)',
   'desc.continue': 'continuedev/continue — extension VSCode/JetBrains (fichier de configuration)',
   'desc.codex': 'openai/codex — CLI de l’agent de codage d’OpenAI',
+  'desc.qwen': 'QwenLM/qwen-code — agent de codage en terminal (compatible OpenAI)',
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
   'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
@@ -931,6 +955,8 @@ export const fr: typeof en = {
   'continue.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Continue, puis utilisez la configuration ci-dessous.',
   'codex.noteUsing': 'Codex utilisera TokenMix via un fournisseur compatible OpenAI — votre ~/.codex/config.toml n’est pas modifié.',
   'codex.noteModel': 'Modèle par défaut : {model} — remplacez-le avec `--config model=...`.',
+  'qwen.noteUsing': 'Qwen Code utilisera TokenMix via son mode compatible OpenAI — votre ~/.qwen/settings.json n’est pas modifié.',
+  'qwen.noteModel': 'Modèle par défaut : {model} — remplacez-le avec OPENAI_MODEL ou `qwen --model`.',
 
   'cmd.program': 'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',
   'cmd.login': 'Se connecter à TokenMix (par défaut : autorisation de l’appareil via le navigateur)',

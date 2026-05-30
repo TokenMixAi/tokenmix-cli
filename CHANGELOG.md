@@ -2,6 +2,14 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.9] - 2026-05-30
+
+### Added
+- **Qwen Code support (`tokenmix qwen`).** [Qwen Code](https://github.com/QwenLM/qwen-code) — Alibaba's terminal coding agent (a Gemini CLI fork), popular with developers in Asia — is now wired to TokenMix, running in OpenAI-compatible mode. `tokenmix qwen` installs `@qwen-code/qwen-code`, sets `OPENAI_API_KEY` / `OPENAI_BASE_URL` / `OPENAI_MODEL`, and launches `qwen --auth-type openai`; your `~/.qwen/settings.json` is left untouched. Verified end-to-end against the gateway. Localized in all six languages.
+
+### Fixed
+- **Friendly error when an agent needs a newer Node.** Codex and Qwen Code require Node 22+; on Node 18/20 they previously failed with a cryptic npm error. `tokenmix <agent>` now checks the agent's minimum Node version up front and tells you to upgrade — with your TokenMix login preserved.
+
 ## [0.4.8] - 2026-05-30
 
 ### Added

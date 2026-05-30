@@ -8,6 +8,12 @@ import { t } from '../i18n/index.js'
 
 const DEFAULT_MODEL = 'claude-sonnet-4.6'
 
+// Major version of the running Node (e.g. 22 from "v22.9.0"). Gates agents whose
+// binary needs a newer Node than this process (Codex / Qwen Code require 22).
+export function nodeMajor(): number {
+  return parseInt(process.versions.node.split('.')[0], 10)
+}
+
 // Flags that are pure information requests meant for the underlying agent binary.
 // For these we must NOT rewrite global config or require login — just forward them.
 const INFO_ONLY_FLAGS = new Set(['--version', '-V', '--help', '-h'])
@@ -79,6 +85,19 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
   }
   const baseUrl = apiBaseUrl(cfg)
   const defaultModel = cfg.defaultModel || DEFAULT_MODEL
+
+  // Refuse early with a friendly message if the agent's binary needs a newer Node
+  // than we're running on (Codex/Qwen need 22) — avoids a cryptic npm/install error.
+  if (agent.minNode && nodeMajor() < agent.minNode) {
+    logger.error(
+      t('agent.needsNode', {
+        name: agent.displayName,
+        min: agent.minNode,
+        cur: process.versions.node,
+      }),
+    )
+    process.exit(1)
+  }
 
   // 1. Check install status.
   const status = await agent.installCheck()

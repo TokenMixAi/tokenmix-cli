@@ -39,6 +39,9 @@ export interface AgentDescriptor {
   displayName: string        // human-readable name
   description: string
   installMode: AgentInstallMode
+  // Minimum Node major version the agent's binary needs (Codex & Qwen Code need 22).
+  // runAgent refuses below this with a friendly message instead of a cryptic npm error.
+  minNode?: number
 
   installCheck(): Promise<AgentInstallStatus>
   install?(): Promise<void>

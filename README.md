@@ -28,6 +28,7 @@ npx tokenmix cline             # print Cline VSCode configuration
 npx tokenmix roo               # print Roo Code VSCode configuration
 npx tokenmix continue          # print Continue config.yaml snippet
 npx tokenmix codex             # install + configure + start Codex
+npx tokenmix qwen              # install + configure + start Qwen Code
 ```
 
 ### Alternative login modes
@@ -49,6 +50,7 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 | [Roo Code](https://github.com/RooCodeInc/Roo-Code) | VSCode extension | config-only |
 | [Continue](https://github.com/continuedev/continue) | VSCode / JetBrains | config-only |
 | [Codex](https://github.com/openai/codex) | `npm i -g @openai/codex` | full auto |
+| [Qwen Code](https://github.com/QwenLM/qwen-code) | `npm i -g @qwen-code/qwen-code` | full auto |
 
 ## Commands
 
@@ -69,6 +71,7 @@ tokenmix cline                      Print Cline configuration
 tokenmix roo                        Print Roo Code configuration
 tokenmix continue                   Print Continue config.yaml snippet
 tokenmix codex [args...]            Launch Codex via TokenMix
+tokenmix qwen [args...]             Launch Qwen Code via TokenMix
 ```
 
 ## Language

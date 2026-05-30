@@ -89,6 +89,7 @@ export const CodexAgent: AgentDescriptor = {
   displayName: 'Codex',
   description: 'openai/codex — OpenAI coding agent CLI',
   installMode: 'auto-npm',
+  minNode: 22,
   installCheck,
   install,
   configure,
