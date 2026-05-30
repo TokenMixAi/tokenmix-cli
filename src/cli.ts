@@ -7,7 +7,13 @@ setLocale(detectLocale())
 const program = buildProgram()
 
 program.parseAsync(process.argv).catch((err: unknown) => {
-  const e = err as { message?: string }
-  console.error(e?.message ?? err)
+  // Avoid printing "[object Object]" for non-Error throws.
+  const msg =
+    err instanceof Error
+      ? err.message
+      : typeof err === 'string'
+        ? err
+        : ((err as { message?: string })?.message ?? String(err))
+  console.error(msg)
   process.exit(1)
 })

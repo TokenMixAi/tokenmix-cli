@@ -24,8 +24,11 @@ function typeLabel(type: string): string {
 }
 
 // Match the platform-wide formatter: 6 decimals, trim trailing zeros.
-function formatPrice(p: number | undefined): string {
-  if (!p) return '-'
+// Distinguish an UNKNOWN price (undefined → "-") from a FREE model (0 → "0",
+// rendered as "$0") — previously both showed "-", which reads as "unknown".
+export function formatPrice(p: number | undefined): string {
+  if (p === undefined || p === null) return '-'
+  if (p === 0) return '0'
   return p.toFixed(6).replace(/\.?0+$/, '')
 }
 
