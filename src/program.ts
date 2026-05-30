@@ -7,6 +7,7 @@ import { topupCommand } from './commands/topup.js'
 import { modelsCommand } from './commands/models.js'
 import { listCommand } from './commands/list.js'
 import { doctorCommand } from './commands/doctor.js'
+import { welcomeCommand } from './commands/welcome.js'
 import { registerAgentCommands, AgentRunner } from './commands/agent-runner.js'
 import { t } from './i18n/index.js'
 
@@ -32,6 +33,8 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
     .name('tokenmix')
     .description(t('cmd.program'))
     .version(pkg.version)
+    // Bare `tokenmix` (no command) shows a friendly onboarding screen, not raw help.
+    .action(welcomeCommand)
 
   program
     .command('login')

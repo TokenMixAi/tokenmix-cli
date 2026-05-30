@@ -8,6 +8,15 @@
 export const en = {
   'common.notLoggedIn': 'Not logged in. Run `tokenmix login` first.',
 
+  // welcome screen (bare `tokenmix`, no args — onboarding for first-time users)
+  'welcome.tagline': 'one account, 160+ models, every open-source coding agent',
+  'welcome.start': 'Get started:',
+  'welcome.s1': 'log in (opens a browser, ~10s)',
+  'welcome.s2': 'see all 11 supported agents',
+  'welcome.s3': 'configure & launch one',
+  'welcome.loggedIn': "You're logged in — launch an agent:",
+  'welcome.more': 'More: `tokenmix --help` for all commands · `tokenmix balance` for your balance',
+
   // login
   'login.keyMustStart': 'API key should start with sk-tm-',
   'login.verifying': 'Verifying API key against {baseUrl} ...',
@@ -202,6 +211,13 @@ export type MessageKey = keyof typeof en
 
 export const zh: typeof en = {
   'common.notLoggedIn': '未登录，请先运行 `tokenmix login`。',
+  'welcome.tagline': '一个账户、160+ 模型、对接所有开源编程 agent',
+  'welcome.start': '快速开始：',
+  'welcome.s1': '登录（打开浏览器，约 10 秒）',
+  'welcome.s2': '查看支持的 11 个 agent',
+  'welcome.s3': '配置并启动一个',
+  'welcome.loggedIn': '你已登录 —— 启动一个 agent：',
+  'welcome.more': '更多：`tokenmix --help` 查看全部命令 · `tokenmix balance` 查看余额',
 
   // login
   'login.keyMustStart': 'API 密钥应以 sk-tm- 开头',
@@ -381,6 +397,13 @@ export const zh: typeof en = {
 
 export const ja: typeof en = {
   'common.notLoggedIn': 'ログインしていません。まず `tokenmix login` を実行してください。',
+  'welcome.tagline': '1 つのアカウントで 160+ モデル、あらゆるオープンソース・コーディング agent に対応',
+  'welcome.start': 'はじめに：',
+  'welcome.s1': 'ログイン（ブラウザが開きます、約 10 秒）',
+  'welcome.s2': 'サポートされている 11 の agent を表示',
+  'welcome.s3': '設定して起動',
+  'welcome.loggedIn': 'ログイン済みです —— agent を起動：',
+  'welcome.more': 'その他：`tokenmix --help` で全コマンド · `tokenmix balance` で残高',
 
   'login.keyMustStart': 'API キーは sk-tm- で始まる必要があります',
   'login.verifying': '{baseUrl} で API キーを検証しています ...',
@@ -545,6 +568,13 @@ export const ja: typeof en = {
 
 export const ko: typeof en = {
   'common.notLoggedIn': '로그인되어 있지 않습니다. 먼저 `tokenmix login`을 실행하세요.',
+  'welcome.tagline': '하나의 계정으로 160+ 모델, 모든 오픈소스 코딩 agent 지원',
+  'welcome.start': '시작하기:',
+  'welcome.s1': '로그인 (브라우저가 열립니다, 약 10초)',
+  'welcome.s2': '지원되는 11개 agent 보기',
+  'welcome.s3': '설정하고 실행',
+  'welcome.loggedIn': '로그인되었습니다 —— agent를 실행하세요:',
+  'welcome.more': '더 보기: `tokenmix --help` 모든 명령 · `tokenmix balance` 잔액',
 
   'login.keyMustStart': 'API 키는 sk-tm- 로 시작해야 합니다',
   'login.verifying': '{baseUrl} 에서 API 키를 확인하는 중 ...',
@@ -709,6 +739,13 @@ export const ko: typeof en = {
 
 export const es: typeof en = {
   'common.notLoggedIn': 'No has iniciado sesión. Ejecuta `tokenmix login` primero.',
+  'welcome.tagline': 'una cuenta, 160+ modelos, todos los agentes de programación de código abierto',
+  'welcome.start': 'Empezar:',
+  'welcome.s1': 'inicia sesión (abre el navegador, ~10 s)',
+  'welcome.s2': 've los 11 agentes compatibles',
+  'welcome.s3': 'configura y lanza uno',
+  'welcome.loggedIn': 'Has iniciado sesión: lanza un agente:',
+  'welcome.more': 'Más: `tokenmix --help` para todos los comandos · `tokenmix balance` para tu saldo',
 
   'login.keyMustStart': 'La clave de API debe empezar por sk-tm-',
   'login.verifying': 'Verificando la clave de API en {baseUrl} ...',
@@ -873,6 +910,13 @@ export const es: typeof en = {
 
 export const fr: typeof en = {
   'common.notLoggedIn': 'Non connecté. Exécutez d’abord `tokenmix login`.',
+  'welcome.tagline': 'un seul compte, 160+ modèles, tous les agents de codage open source',
+  'welcome.start': 'Démarrer :',
+  'welcome.s1': 'connectez-vous (ouvre un navigateur, ~10 s)',
+  'welcome.s2': 'voir les 11 agents pris en charge',
+  'welcome.s3': 'configurer et lancer un agent',
+  'welcome.loggedIn': 'Vous êtes connecté — lancez un agent :',
+  'welcome.more': 'Plus : `tokenmix --help` pour toutes les commandes · `tokenmix balance` pour votre solde',
 
   'login.keyMustStart': 'La clé API doit commencer par sk-tm-',
   'login.verifying': 'Vérification de la clé API sur {baseUrl} ...',

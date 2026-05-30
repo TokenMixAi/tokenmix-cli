@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.13] - 2026-05-30
+
+### Added
+- **A friendly first-run welcome screen.** Running bare `tokenmix` (no command) now shows a short, localized "get started" guide — log in → `tokenmix list` → launch an agent — instead of raw command help. It adapts to whether you're already logged in, and is translated in all six languages. (`tokenmix --help` still shows the full command reference.) Improves the very first thing a new user sees.
+
 ## [0.4.12] - 2026-05-30
 
 ### Added
