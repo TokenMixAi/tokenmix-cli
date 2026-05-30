@@ -2,6 +2,12 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.6] - 2026-05-30
+
+### Added
+- **Roo Code support (`tokenmix roo`).** [Roo Code](https://github.com/RooCodeInc/Roo-Code) (a Cline fork) is now wired to TokenMix as a config-only agent: the CLI prints the OpenAI-Compatible provider settings (Base URL, API key, model ID) to enter in its settings panel, localized in all six languages.
+- **Continue support (`tokenmix continue`).** [Continue](https://github.com/continuedev/continue) (VSCode / JetBrains) is now supported. The CLI prints a ready-to-paste `~/.continue/config.yaml` block — verified schema: top-level `name`/`version`/`schema` plus an OpenAI-compatible `models:` entry (`provider: openai`, `apiBase`, `apiKey`, `model`). We print rather than write the file, so an existing `~/.continue/config.yaml` is never clobbered. Localized in all six languages.
+
 ## [0.4.5] - 2026-05-30
 
 ### Added
@@ -139,4 +145,4 @@ First public release.
 - **v0.2** — Browser OAuth device flow (no more pasting API keys); `tokenmix balance` reads `/api/user/wallet` directly
 - **v0.3** — `@tokenmix/opencode` plugin: toast in OpenCode showing balance, low-balance prompt, agent-callable `tokenmix_recharge` / `tokenmix_route_health` tools
 - **v0.4** — Chinese-first UI and locale-aware prompts (matches tokenmix.ai's 6-language support)
-- **Future** — Roo Code / Continue / Codex integrations gated on data showing user demand (Cline shipped in v0.4.5)
+- **Future** — Codex integration gated on data showing user demand (Cline shipped in v0.4.5; Roo Code / Continue shipped in v0.4.6)

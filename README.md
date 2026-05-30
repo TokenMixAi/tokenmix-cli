@@ -16,6 +16,8 @@ npx tokenmix claude            # install + configure + start Claude Code
 npx tokenmix aider             # configure + start Aider (Python required)
 npx tokenmix kilo              # print Kilo Code VSCode configuration
 npx tokenmix cline             # print Cline VSCode configuration
+npx tokenmix roo               # print Roo Code VSCode configuration
+npx tokenmix continue          # print Continue config.yaml snippet
 ```
 
 ### Alternative login modes
@@ -34,6 +36,8 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 | [Aider](https://github.com/Aider-AI/aider) | `pip install aider-chat` | semi auto |
 | [Kilo Code](https://github.com/Kilo-Org/kilocode) | VSCode extension | config-only |
 | [Cline](https://github.com/cline/cline) | VSCode extension | config-only |
+| [Roo Code](https://github.com/RooCodeInc/Roo-Code) | VSCode extension | config-only |
+| [Continue](https://github.com/continuedev/continue) | VSCode / JetBrains | config-only |
 
 ## Commands
 
@@ -51,6 +55,8 @@ tokenmix claude [args...]           Launch Claude Code via TokenMix
 tokenmix aider [args...]            Launch Aider via TokenMix
 tokenmix kilo                       Print Kilo Code configuration
 tokenmix cline                      Print Cline configuration
+tokenmix roo                        Print Roo Code configuration
+tokenmix continue                   Print Continue config.yaml snippet
 ```
 
 ## Language
