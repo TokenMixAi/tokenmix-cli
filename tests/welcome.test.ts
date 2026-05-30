@@ -22,6 +22,8 @@ describe('welcomeCommand', () => {
     expect(text).toContain('tokenmix login')
     expect(text).toContain('tokenmix list')
     expect(text).toContain('tokenmix opencode')
+    // the differentiation hook (faithful routing + transparent billing) is always shown
+    expect(text).toContain('billed at real usage')
   })
 
   it('shows the launch hint (not the login step) when logged in', async () => {

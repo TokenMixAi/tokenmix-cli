@@ -14,6 +14,19 @@ Behind the zero-config CLI is a gateway built to be the **honest, transparent** 
 - **One key, every protocol.** OpenAI Chat Completions, Anthropic Messages, and the Responses API — all on one account, which is why every agent below (terminal and editor alike) runs on a single balance.
 - **Non-invasive by design.** Configuring an agent never clobbers your setup: your Claude settings are backed up and restored, Codex's provider is injected at launch (your `~/.codex/config.toml` stays untouched), and `tokenmix logout` reverts everything. Credentials are stored locally at `0600`.
 
+## TokenMix vs. the grey market
+
+The "中转站" proxy market is cheap but trust-broken — independent audits have documented model substitution, credential theft, and prompt-data resale. TokenMix is built to be the honest alternative, and every row below is enforced in code, not just promised:
+
+| | Typical grey-market proxy | TokenMix |
+|---|---|---|
+| **The model you get** | Sells "Opus", serves Haiku / Qwen | The model you name is the model that runs — no fallback to a cheaper one |
+| **Billing** | Opaque "credits", no real-usage detail | Real upstream usage at the public price, to micro-USD, auditable |
+| **Cache savings** | Pocketed by the proxy | Passed back to you at the discounted rate, automatically |
+| **Your credentials** | Keys harvested and resold | Stored locally at `0600`, injected non-invasively, reverted on `logout` |
+
+Versus a mainstream gateway like [OpenRouter](https://openrouter.ai), the difference is focus, not a knock on them: TokenMix is built for Asia/China BYOK users — a six-language CLI and dashboard, networking tuned for slow or restricted connections, and one balance across the Anthropic, OpenAI, and Responses protocols.
+
 ## Quick Start
 
 ```bash

@@ -10,6 +10,7 @@ export const en = {
 
   // welcome screen (bare `tokenmix`, no args — onboarding for first-time users)
   'welcome.tagline': 'one account, 160+ models, every open-source coding agent',
+  'welcome.why': 'The model you pick is the model you get — no silent swaps, billed at real usage.',
   'welcome.start': 'Get started:',
   'welcome.s1': 'log in (opens a browser, ~10s)',
   'welcome.s2': 'see all 11 supported agents',
@@ -212,6 +213,7 @@ export type MessageKey = keyof typeof en
 export const zh: typeof en = {
   'common.notLoggedIn': '未登录，请先运行 `tokenmix login`。',
   'welcome.tagline': '一个账户、160+ 模型、对接所有开源编程 agent',
+  'welcome.why': '你选的模型就是你用的模型 —— 不偷换、不降级,按真实用量计费。',
   'welcome.start': '快速开始：',
   'welcome.s1': '登录（打开浏览器，约 10 秒）',
   'welcome.s2': '查看支持的 11 个 agent',
@@ -398,6 +400,7 @@ export const zh: typeof en = {
 export const ja: typeof en = {
   'common.notLoggedIn': 'ログインしていません。まず `tokenmix login` を実行してください。',
   'welcome.tagline': '1 つのアカウントで 160+ モデル、あらゆるオープンソース・コーディング agent に対応',
+  'welcome.why': '選んだモデルがそのまま使われます —— すり替えなし、実使用量で課金。',
   'welcome.start': 'はじめに：',
   'welcome.s1': 'ログイン（ブラウザが開きます、約 10 秒）',
   'welcome.s2': 'サポートされている 11 の agent を表示',
@@ -569,6 +572,7 @@ export const ja: typeof en = {
 export const ko: typeof en = {
   'common.notLoggedIn': '로그인되어 있지 않습니다. 먼저 `tokenmix login`을 실행하세요.',
   'welcome.tagline': '하나의 계정으로 160+ 모델, 모든 오픈소스 코딩 agent 지원',
+  'welcome.why': '선택한 모델 그대로 실행됩니다 —— 몰래 바꾸지 않고 실사용량으로 과금합니다.',
   'welcome.start': '시작하기:',
   'welcome.s1': '로그인 (브라우저가 열립니다, 약 10초)',
   'welcome.s2': '지원되는 11개 agent 보기',
@@ -740,6 +744,7 @@ export const ko: typeof en = {
 export const es: typeof en = {
   'common.notLoggedIn': 'No has iniciado sesión. Ejecuta `tokenmix login` primero.',
   'welcome.tagline': 'una cuenta, 160+ modelos, todos los agentes de programación de código abierto',
+  'welcome.why': 'El modelo que eliges es el que usas: sin cambios ocultos, facturado por uso real.',
   'welcome.start': 'Empezar:',
   'welcome.s1': 'inicia sesión (abre el navegador, ~10 s)',
   'welcome.s2': 've los 11 agentes compatibles',
@@ -911,6 +916,7 @@ export const es: typeof en = {
 export const fr: typeof en = {
   'common.notLoggedIn': 'Non connecté. Exécutez d’abord `tokenmix login`.',
   'welcome.tagline': 'un seul compte, 160+ modèles, tous les agents de codage open source',
+  'welcome.why': 'Le modèle que vous choisissez est celui que vous utilisez — sans substitution, facturé à l’usage réel.',
   'welcome.start': 'Démarrer :',
   'welcome.s1': 'connectez-vous (ouvre un navigateur, ~10 s)',
   'welcome.s2': 'voir les 11 agents pris en charge',

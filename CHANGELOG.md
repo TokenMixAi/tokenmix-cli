@@ -2,6 +2,12 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [1.4.16] - 2026-05-30
+
+### Changed
+- **The first-run screen now leads with why TokenMix is different.** Bare `tokenmix` shows a one-line, code-backed value proposition under the title — *the model you pick is the model you get, no silent swaps, billed at real usage* — so a newcomer sees the differentiator before the get-started steps. Localized in all six languages.
+- **README gains a "TokenMix vs. the grey market" comparison.** A four-row table (the model you get, billing, cache savings, your credentials) contrasting TokenMix with typical trust-broken proxy "中转站" services — every row backed by the gateway's actual behavior — plus an honest note on how TokenMix differs in focus from a mainstream gateway like OpenRouter (built for Asia/China BYOK users), without disparaging it.
+
 ## [1.4.15] - 2026-05-30
 
 **First stable (1.x) release.** The CLI is production-ready and moves out of 0.x: 11 coding agents (OpenCode, Claude Code, Aider, Kilo, Cline, Roo Code, Continue, Codex, Qwen Code, Goose, OpenHands) wired and verified end-to-end across Linux / macOS / Windows, faithful model routing, transparent billing, prompt-cache discounts, network resilience, and a localized first-run experience in six languages. Same codebase as 0.4.15 — this tags the 1.x milestone.

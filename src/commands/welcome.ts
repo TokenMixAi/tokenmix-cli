@@ -14,6 +14,7 @@ export async function welcomeCommand(): Promise<void> {
 
   console.log()
   console.log('  ' + chalk.bold.cyan('TokenMix') + chalk.dim(' — ' + t('welcome.tagline')))
+  console.log('  ' + chalk.green('✓') + ' ' + t('welcome.why'))
   console.log()
 
   if (loggedIn) {
