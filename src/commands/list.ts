@@ -35,6 +35,8 @@ function agentDesc(id: string, fallback: string): string {
       return t('desc.roo')
     case 'continue':
       return t('desc.continue')
+    case 'codex':
+      return t('desc.codex')
     default:
       return fallback
   }

@@ -95,6 +95,7 @@ export const en = {
   'desc.cline': 'cline/cline — VSCode extension (config-only)',
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode extension (config-only)',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains extension (config file)',
+  'desc.codex': 'openai/codex — OpenAI coding agent CLI',
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
@@ -148,6 +149,10 @@ export const en = {
   'continue.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
   'continue.hintMarketplace': 'Install "Continue" from the VSCode marketplace, then add the config below.',
   'continue.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Continue extension, then use the config below.',
+
+  // codex configure notes (auto-npm CLI; launched with --config provider injection)
+  'codex.noteUsing': 'Codex will use TokenMix via an OpenAI-compatible provider — your ~/.codex/config.toml is left untouched.',
+  'codex.noteModel': 'Default model: {model} — override with `--config model=...`.',
 
   // command / option descriptions (--help)
   'cmd.program': 'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
@@ -266,6 +271,7 @@ export const zh: typeof en = {
   'desc.cline': 'cline/cline — VSCode 扩展（仅配置）',
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode 扩展（仅配置）',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 扩展（配置文件）',
+  'desc.codex': 'openai/codex — OpenAI 编程 agent CLI',
 
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
@@ -313,6 +319,8 @@ export const zh: typeof en = {
   'continue.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
   'continue.hintMarketplace': '从 VSCode 应用市场安装 "Continue"，然后添加下面的配置。',
   'continue.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Continue 扩展，然后使用下面的配置。',
+  'codex.noteUsing': 'Codex 将通过 OpenAI 兼容的 provider 使用 TokenMix —— 不会改动你的 ~/.codex/config.toml。',
+  'codex.noteModel': '默认模型：{model} —— 可用 `--config model=...` 覆盖。',
 
   // command / option descriptions (--help)
   'cmd.program': '零配置 CLI：以 TokenMix 作为统一 LLM 后端，驱动任意开源编程 agent。',
@@ -420,6 +428,7 @@ export const ja: typeof en = {
   'desc.cline': 'cline/cline — VSCode 拡張機能（設定のみ）',
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode 拡張機能（設定のみ）',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 拡張機能（設定ファイル）',
+  'desc.codex': 'openai/codex — OpenAI のコーディング agent CLI',
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
   'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
@@ -462,6 +471,8 @@ export const ja: typeof en = {
   'continue.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
   'continue.hintMarketplace': 'VSCode マーケットプレイスから "Continue" をインストールし、下の設定を追加してください。',
   'continue.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Continue 拡張機能を追加してから、下の設定を使用してください。',
+  'codex.noteUsing': 'Codex は OpenAI 互換プロバイダー経由で TokenMix を使用します — ~/.codex/config.toml は変更されません。',
+  'codex.noteModel': 'デフォルトモデル：{model} — `--config model=...` で上書きできます。',
 
   'cmd.program': 'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
   'cmd.login': 'TokenMix にログイン（デフォルト：ブラウザでのデバイス認証）',
@@ -568,6 +579,7 @@ export const ko: typeof en = {
   'desc.cline': 'cline/cline — VSCode 확장 (설정 전용)',
   'desc.roo': 'RooCodeInc/Roo-Code — VSCode 확장 (설정 전용)',
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 확장 (설정 파일)',
+  'desc.codex': 'openai/codex — OpenAI 코딩 agent CLI',
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
   'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
@@ -610,6 +622,8 @@ export const ko: typeof en = {
   'continue.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
   'continue.hintMarketplace': 'VSCode 마켓플레이스에서 "Continue"를 설치한 뒤 아래 설정을 추가하세요.',
   'continue.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Continue 확장을 추가한 뒤 아래 설정을 사용하세요.',
+  'codex.noteUsing': 'Codex는 OpenAI 호환 provider를 통해 TokenMix를 사용합니다 — ~/.codex/config.toml은 변경되지 않습니다.',
+  'codex.noteModel': '기본 모델: {model} — `--config model=...`으로 재정의할 수 있습니다.',
 
   'cmd.program': 'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
   'cmd.login': 'TokenMix에 로그인 (기본값: 브라우저 기기 인증)',
@@ -716,6 +730,7 @@ export const es: typeof en = {
   'desc.cline': 'cline/cline — extensión de VSCode (solo configuración)',
   'desc.roo': 'RooCodeInc/Roo-Code — extensión de VSCode (solo configuración)',
   'desc.continue': 'continuedev/continue — extensión de VSCode/JetBrains (archivo de configuración)',
+  'desc.codex': 'openai/codex — CLI del agente de programación de OpenAI',
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
   'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
@@ -758,6 +773,8 @@ export const es: typeof en = {
   'continue.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
   'continue.hintMarketplace': 'Instala "Continue" desde el marketplace de VSCode y luego añade la configuración de abajo.',
   'continue.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Continue y luego usa la configuración de abajo.',
+  'codex.noteUsing': 'Codex usará TokenMix mediante un proveedor compatible con OpenAI: tu ~/.codex/config.toml no se modifica.',
+  'codex.noteModel': 'Modelo por defecto: {model} — anúlalo con `--config model=...`.',
 
   'cmd.program': 'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
   'cmd.login': 'Inicia sesión en TokenMix (predeterminado: autorización de dispositivo por navegador)',
@@ -864,6 +881,7 @@ export const fr: typeof en = {
   'desc.cline': 'cline/cline — extension VSCode (configuration seule)',
   'desc.roo': 'RooCodeInc/Roo-Code — extension VSCode (configuration seule)',
   'desc.continue': 'continuedev/continue — extension VSCode/JetBrains (fichier de configuration)',
+  'desc.codex': 'openai/codex — CLI de l’agent de codage d’OpenAI',
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
   'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
@@ -906,6 +924,8 @@ export const fr: typeof en = {
   'continue.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
   'continue.hintMarketplace': 'Installez « Continue » depuis la marketplace VSCode, puis ajoutez la configuration ci-dessous.',
   'continue.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Continue, puis utilisez la configuration ci-dessous.',
+  'codex.noteUsing': 'Codex utilisera TokenMix via un fournisseur compatible OpenAI — votre ~/.codex/config.toml n’est pas modifié.',
+  'codex.noteModel': 'Modèle par défaut : {model} — remplacez-le avec `--config model=...`.',
 
   'cmd.program': 'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',
   'cmd.login': 'Se connecter à TokenMix (par défaut : autorisation de l’appareil via le navigateur)',

@@ -1,6 +1,6 @@
 {
   "name": "tokenmix",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.",
   "type": "module",
   "bin": {
@@ -30,6 +30,7 @@
     "cline",
     "roo-code",
     "continue",
+    "codex",
     "coding-agent"
   ],
   "license": "MIT",

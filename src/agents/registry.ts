@@ -6,6 +6,7 @@ import { KiloAgent } from './kilo.js'
 import { ClineAgent } from './cline.js'
 import { RooAgent } from './roo.js'
 import { ContinueAgent } from './continue.js'
+import { CodexAgent } from './codex.js'
 
 // Ordered by historical ARPU on tokenmix (highest first). New agents go to the bottom.
 export const AGENTS: readonly AgentDescriptor[] = [
@@ -16,6 +17,7 @@ export const AGENTS: readonly AgentDescriptor[] = [
   ClineAgent,
   RooAgent,
   ContinueAgent,
+  CodexAgent,
 ]
 
 export function findAgent(id: string): AgentDescriptor | undefined {

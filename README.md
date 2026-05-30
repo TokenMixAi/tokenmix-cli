@@ -18,6 +18,7 @@ npx tokenmix kilo              # print Kilo Code VSCode configuration
 npx tokenmix cline             # print Cline VSCode configuration
 npx tokenmix roo               # print Roo Code VSCode configuration
 npx tokenmix continue          # print Continue config.yaml snippet
+npx tokenmix codex             # install + configure + start Codex
 ```
 
 ### Alternative login modes
@@ -38,6 +39,7 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 | [Cline](https://github.com/cline/cline) | VSCode extension | config-only |
 | [Roo Code](https://github.com/RooCodeInc/Roo-Code) | VSCode extension | config-only |
 | [Continue](https://github.com/continuedev/continue) | VSCode / JetBrains | config-only |
+| [Codex](https://github.com/openai/codex) | `npm i -g @openai/codex` | full auto |
 
 ## Commands
 
@@ -57,6 +59,7 @@ tokenmix kilo                       Print Kilo Code configuration
 tokenmix cline                      Print Cline configuration
 tokenmix roo                        Print Roo Code configuration
 tokenmix continue                   Print Continue config.yaml snippet
+tokenmix codex [args...]            Launch Codex via TokenMix
 ```
 
 ## Language

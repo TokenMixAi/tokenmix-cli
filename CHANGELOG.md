@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.7] - 2026-05-30
+
+### Added
+- **Codex support (`tokenmix codex`).** [Codex](https://github.com/openai/codex), OpenAI's coding-agent CLI, is now wired to TokenMix. `tokenmix codex` installs it if needed (`npm i -g @openai/codex`) and launches it with TokenMix registered as a custom OpenAI-compatible provider — injected entirely via `--config` overrides at launch (`wire_api = "responses"`, matching Codex 0.135+ and tokenmix's Codex-facing Responses API gateway), with the API key passed through an env var. Your `~/.codex/config.toml` and Codex login are never touched. Localized in all six languages.
+
 ## [0.4.6] - 2026-05-30
 
 ### Added
@@ -145,4 +150,4 @@ First public release.
 - **v0.2** — Browser OAuth device flow (no more pasting API keys); `tokenmix balance` reads `/api/user/wallet` directly
 - **v0.3** — `@tokenmix/opencode` plugin: toast in OpenCode showing balance, low-balance prompt, agent-callable `tokenmix_recharge` / `tokenmix_route_health` tools
 - **v0.4** — Chinese-first UI and locale-aware prompts (matches tokenmix.ai's 6-language support)
-- **Future** — Codex integration gated on data showing user demand (Cline shipped in v0.4.5; Roo Code / Continue shipped in v0.4.6)
+- All planned BYOK integrations shipped: Cline (v0.4.5), Roo Code + Continue (v0.4.6), Codex (v0.4.7).
