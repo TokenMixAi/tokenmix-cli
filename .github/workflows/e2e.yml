@@ -24,9 +24,33 @@ env:
   TM_VERSION: ${{ github.event.inputs.version || 'latest' }}
 
 jobs:
+  # Gate every test job on the just-published version ACTUALLY being installable.
+  # `release: published` fires before npm's CDN has propagated, so without this the
+  # earliest-scheduled jobs hit "No matching version found" / login failure and go
+  # red spuriously (it bit v0.4.10 and v0.4.11). Poll until it's live, then proceed.
+  wait-for-publish:
+    name: wait for npm to propagate
+    runs-on: ubuntu-latest
+    steps:
+      - name: wait until the target version is installable
+        shell: bash
+        run: |
+          VER="${{ github.event.inputs.version || github.event.release.tag_name || 'latest' }}"
+          VER="${VER#v}"   # strip leading v from a release tag (v0.4.11 -> 0.4.11)
+          if [ "$VER" = "latest" ]; then VER="$(npm view tokenmix@latest version)"; fi
+          echo "Waiting for tokenmix@$VER to be installable on npm…"
+          for i in $(seq 1 30); do
+            if npm view "tokenmix@$VER" version >/dev/null 2>&1; then
+              echo "✓ tokenmix@$VER is live"; exit 0
+            fi
+            echo "  ($i/30) not yet — sleeping 10s"; sleep 10
+          done
+          echo "✗ tokenmix@$VER never appeared after ~5 min"; exit 1
+
   # Core CLI surface that needs no agent install — fast, stable, full matrix.
   cli-core:
     name: cli-core (${{ matrix.os }}, node ${{ matrix.node }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -46,6 +70,7 @@ jobs:
 
   agent-opencode:
     name: opencode (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -64,6 +89,7 @@ jobs:
 
   agent-claude:
     name: claude (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -82,6 +108,7 @@ jobs:
 
   agent-aider:
     name: aider (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -104,6 +131,7 @@ jobs:
   # Codex & Qwen Code require Node 22+ (the CLI's minNode guard enforces this).
   agent-codex:
     name: codex (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -122,6 +150,7 @@ jobs:
 
   agent-qwen:
     name: qwen (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -141,6 +170,7 @@ jobs:
   # Goose installs via a curl script (not npm); linux/macos only (its Windows install differs).
   agent-goose:
     name: goose (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
@@ -160,6 +190,7 @@ jobs:
   # OpenHands is a Python tool (uv pulls Python 3.12); linux/macos only.
   agent-openhands:
     name: openhands (${{ matrix.os }})
+    needs: wait-for-publish
     strategy:
       fail-fast: false
       matrix:
