@@ -2,6 +2,10 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [1.4.15] - 2026-05-30
+
+**First stable (1.x) release.** The CLI is production-ready and moves out of 0.x: 11 coding agents (OpenCode, Claude Code, Aider, Kilo, Cline, Roo Code, Continue, Codex, Qwen Code, Goose, OpenHands) wired and verified end-to-end across Linux / macOS / Windows, faithful model routing, transparent billing, prompt-cache discounts, network resilience, and a localized first-run experience in six languages. Same codebase as 0.4.15 — this tags the 1.x milestone.
+
 ## [0.4.15] - 2026-05-30
 
 ### Changed
