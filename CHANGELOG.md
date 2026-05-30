@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.15] - 2026-05-30
+
+### Changed
+- **"Where do I get a key?" links in the key prompts.** The `sk-tm-` format error and the "no API key provided" message now point to https://tokenmix.ai/dashboard/keys, so a first-timer isn't left guessing where to get one. Localized in all six languages.
+
 ## [0.4.14] - 2026-05-30
 
 ### Changed
