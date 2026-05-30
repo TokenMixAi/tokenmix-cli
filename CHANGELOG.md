@@ -2,6 +2,15 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.4] - 2026-05-30
+
+### Changed
+- `tokenmix models` now shows `$0` for free models instead of `-` (which read as "unknown price").
+- The published npm package no longer ships `.js.map` sourcemaps — smaller install, and they aren't useful to CLI users.
+
+### Fixed
+- The top-level error handler no longer prints `[object Object]` for a non-Error throw.
+
 ## [0.4.3] - 2026-05-30
 
 ### Fixed
