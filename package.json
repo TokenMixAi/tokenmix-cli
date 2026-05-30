@@ -1,6 +1,6 @@
 {
   "name": "tokenmix",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.",
   "type": "module",
   "bin": {
@@ -32,6 +32,7 @@
     "continue",
     "codex",
     "qwen-code",
+    "goose",
     "coding-agent"
   ],
   "license": "MIT",

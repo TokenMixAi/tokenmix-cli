@@ -98,6 +98,7 @@ export const en = {
   'desc.continue': 'continuedev/continue — VSCode/JetBrains extension (config file)',
   'desc.codex': 'openai/codex — OpenAI coding agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — terminal coding agent (OpenAI-compatible)',
+  'desc.goose': 'block/goose — on-machine AI agent (OpenAI-compatible)',
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
@@ -159,6 +160,11 @@ export const en = {
   // qwen configure notes (env-based like aider; launched with --auth-type openai)
   'qwen.noteUsing': 'Qwen Code will use TokenMix via its OpenAI-compatible mode — your ~/.qwen/settings.json is left untouched.',
   'qwen.noteModel': 'Default model: {model} — override with OPENAI_MODEL or `qwen --model`.',
+
+  // goose configure notes (env-based; Goose appends /v1/chat/completions to OPENAI_HOST)
+  'goose.noteUsing': 'Goose will use TokenMix as its OpenAI provider — its keyring/config is left untouched.',
+  'goose.noteModel': 'Default model: {model} — override with GOOSE_MODEL.',
+  'goose.hintInstall': 'Goose is not installed. Install it (see https://block.github.io/goose), then re-run `tokenmix goose`:\n    {cmd}',
 
   // command / option descriptions (--help)
   'cmd.program': 'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
@@ -281,6 +287,7 @@ export const zh: typeof en = {
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 扩展（配置文件）',
   'desc.codex': 'openai/codex — OpenAI 编程 agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — 终端编程 agent（OpenAI 兼容）',
+  'desc.goose': 'block/goose — 本机 AI agent（OpenAI 兼容）',
 
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
@@ -332,6 +339,9 @@ export const zh: typeof en = {
   'codex.noteModel': '默认模型：{model} —— 可用 `--config model=...` 覆盖。',
   'qwen.noteUsing': 'Qwen Code 将通过其 OpenAI 兼容模式使用 TokenMix —— 不会改动你的 ~/.qwen/settings.json。',
   'qwen.noteModel': '默认模型：{model} —— 可用 OPENAI_MODEL 或 `qwen --model` 覆盖。',
+  'goose.noteUsing': 'Goose 将以 TokenMix 作为其 OpenAI provider —— 不会改动它的 keyring/配置。',
+  'goose.noteModel': '默认模型：{model} —— 可用 GOOSE_MODEL 覆盖。',
+  'goose.hintInstall': 'Goose 未安装。请先安装（见 https://block.github.io/goose），然后重新运行 `tokenmix goose`：\n    {cmd}',
 
   // command / option descriptions (--help)
   'cmd.program': '零配置 CLI：以 TokenMix 作为统一 LLM 后端，驱动任意开源编程 agent。',
@@ -443,6 +453,7 @@ export const ja: typeof en = {
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 拡張機能（設定ファイル）',
   'desc.codex': 'openai/codex — OpenAI のコーディング agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — ターミナルのコーディング agent（OpenAI 互換）',
+  'desc.goose': 'block/goose — オンマシン AI agent（OpenAI 互換）',
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
   'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
@@ -489,6 +500,9 @@ export const ja: typeof en = {
   'codex.noteModel': 'デフォルトモデル：{model} — `--config model=...` で上書きできます。',
   'qwen.noteUsing': 'Qwen Code は OpenAI 互換モードで TokenMix を使用します —— ~/.qwen/settings.json は変更されません。',
   'qwen.noteModel': 'デフォルトモデル：{model} — OPENAI_MODEL または `qwen --model` で上書きできます。',
+  'goose.noteUsing': 'Goose は TokenMix を OpenAI プロバイダーとして使用します —— keyring/設定は変更されません。',
+  'goose.noteModel': 'デフォルトモデル：{model} — GOOSE_MODEL で上書きできます。',
+  'goose.hintInstall': 'Goose がインストールされていません。インストール（https://block.github.io/goose 参照）してから `tokenmix goose` を再実行してください：\n    {cmd}',
 
   'cmd.program': 'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
   'cmd.login': 'TokenMix にログイン（デフォルト：ブラウザでのデバイス認証）',
@@ -599,6 +613,7 @@ export const ko: typeof en = {
   'desc.continue': 'continuedev/continue — VSCode/JetBrains 확장 (설정 파일)',
   'desc.codex': 'openai/codex — OpenAI 코딩 agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — 터미널 코딩 agent (OpenAI 호환)',
+  'desc.goose': 'block/goose — 온디바이스 AI agent (OpenAI 호환)',
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
   'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
@@ -645,6 +660,9 @@ export const ko: typeof en = {
   'codex.noteModel': '기본 모델: {model} — `--config model=...`으로 재정의할 수 있습니다.',
   'qwen.noteUsing': 'Qwen Code는 OpenAI 호환 모드로 TokenMix를 사용합니다 — ~/.qwen/settings.json은 변경되지 않습니다.',
   'qwen.noteModel': '기본 모델: {model} — OPENAI_MODEL 또는 `qwen --model`으로 재정의할 수 있습니다.',
+  'goose.noteUsing': 'Goose는 TokenMix를 OpenAI provider로 사용합니다 — keyring/설정은 변경되지 않습니다.',
+  'goose.noteModel': '기본 모델: {model} — GOOSE_MODEL로 재정의할 수 있습니다.',
+  'goose.hintInstall': 'Goose가 설치되어 있지 않습니다. 설치(https://block.github.io/goose 참조) 후 `tokenmix goose`를 다시 실행하세요:\n    {cmd}',
 
   'cmd.program': 'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
   'cmd.login': 'TokenMix에 로그인 (기본값: 브라우저 기기 인증)',
@@ -755,6 +773,7 @@ export const es: typeof en = {
   'desc.continue': 'continuedev/continue — extensión de VSCode/JetBrains (archivo de configuración)',
   'desc.codex': 'openai/codex — CLI del agente de programación de OpenAI',
   'desc.qwen': 'QwenLM/qwen-code — agente de programación de terminal (compatible con OpenAI)',
+  'desc.goose': 'block/goose — agente de IA en tu máquina (compatible con OpenAI)',
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
   'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
@@ -801,6 +820,9 @@ export const es: typeof en = {
   'codex.noteModel': 'Modelo por defecto: {model} — anúlalo con `--config model=...`.',
   'qwen.noteUsing': 'Qwen Code usará TokenMix mediante su modo compatible con OpenAI: tu ~/.qwen/settings.json no se modifica.',
   'qwen.noteModel': 'Modelo por defecto: {model} — anúlalo con OPENAI_MODEL o `qwen --model`.',
+  'goose.noteUsing': 'Goose usará TokenMix como su proveedor de OpenAI: su keyring/configuración no se modifica.',
+  'goose.noteModel': 'Modelo por defecto: {model} — anúlalo con GOOSE_MODEL.',
+  'goose.hintInstall': 'Goose no está instalado. Instálalo (consulta https://block.github.io/goose) y vuelve a ejecutar `tokenmix goose`:\n    {cmd}',
 
   'cmd.program': 'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
   'cmd.login': 'Inicia sesión en TokenMix (predeterminado: autorización de dispositivo por navegador)',
@@ -911,6 +933,7 @@ export const fr: typeof en = {
   'desc.continue': 'continuedev/continue — extension VSCode/JetBrains (fichier de configuration)',
   'desc.codex': 'openai/codex — CLI de l’agent de codage d’OpenAI',
   'desc.qwen': 'QwenLM/qwen-code — agent de codage en terminal (compatible OpenAI)',
+  'desc.goose': 'block/goose — agent IA sur votre machine (compatible OpenAI)',
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
   'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
@@ -957,6 +980,9 @@ export const fr: typeof en = {
   'codex.noteModel': 'Modèle par défaut : {model} — remplacez-le avec `--config model=...`.',
   'qwen.noteUsing': 'Qwen Code utilisera TokenMix via son mode compatible OpenAI — votre ~/.qwen/settings.json n’est pas modifié.',
   'qwen.noteModel': 'Modèle par défaut : {model} — remplacez-le avec OPENAI_MODEL ou `qwen --model`.',
+  'goose.noteUsing': 'Goose utilisera TokenMix comme fournisseur OpenAI — son keyring/sa configuration n’est pas modifié.',
+  'goose.noteModel': 'Modèle par défaut : {model} — remplacez-le avec GOOSE_MODEL.',
+  'goose.hintInstall': 'Goose n’est pas installé. Installez-le (voir https://block.github.io/goose), puis relancez `tokenmix goose` :\n    {cmd}',
 
   'cmd.program': 'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',
   'cmd.login': 'Se connecter à TokenMix (par défaut : autorisation de l’appareil via le navigateur)',

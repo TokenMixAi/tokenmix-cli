@@ -137,3 +137,22 @@ jobs:
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
         run: bash scripts/e2e/agent-qwen.sh
+
+  # Goose installs via a curl script (not npm); linux/macos only (its Windows install differs).
+  agent-goose:
+    name: goose (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: goose e2e
+        shell: bash
+        env:
+          TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+        run: bash scripts/e2e/agent-goose.sh

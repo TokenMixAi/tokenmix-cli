@@ -85,13 +85,13 @@ else
   nope "continue -> $(echo "$out" | mask | head -5)"
 fi
 
-echo "## list includes all 9 agents (incl. the new cline/roo/continue/codex/qwen)"
+echo "## list includes all 10 agents (incl. cline/roo/continue/codex/qwen/goose)"
 out="$("${TM[@]}" list 2>&1)"
 missing=""
-for ag in opencode claude aider kilo cline roo continue codex qwen; do
+for ag in opencode claude aider kilo cline roo continue codex qwen goose; do
   echo "$out" | grep -qE "^  $ag " || missing="$missing $ag"
 done
-[ -z "$missing" ] && ok "all 9 agents listed" || nope "missing agents:$missing"
+[ -z "$missing" ] && ok "all 10 agents listed" || nope "missing agents:$missing"
 
 echo "## balance command runs cleanly (amount intentionally not echoed)"
 if "${TM[@]}" balance >/dev/null 2>&1; then ok "balance ran"; else nope "balance failed"; fi

@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.10] - 2026-05-30
+
+### Added
+- **Goose support (`tokenmix goose`).** [Goose](https://github.com/block/goose) — Block's on-machine open-source AI agent — now runs on TokenMix in OpenAI-compatible mode (`GOOSE_PROVIDER=openai` + `OPENAI_HOST` / `OPENAI_API_KEY`, with `GOOSE_DISABLE_KEYRING` for non-interactive use). Goose installs via its own script, which the CLI **prints rather than auto-running** a `curl | bash`; once it's installed, `tokenmix goose` wires and launches it. Verified end-to-end. Localized in all six languages — brings the total to **10 agents**.
+
 ## [0.4.9] - 2026-05-30
 
 ### Added
