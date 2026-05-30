@@ -1,0 +1,102 @@
+name: e2e
+
+# Real end-to-end checks against the PUBLISHED package (what users actually get via npx),
+# across the OSes/Node versions real users run on — including Windows, which the local QA
+# could not cover. Requires the repo secret TOKENMIX_TEST_KEY.
+#
+# NOT run on pull_request: secrets are not exposed to fork PRs, and these tests hit the live
+# gateway. Trigger manually (Actions tab → Run workflow) or automatically after a release.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'tokenmix version to test (npm dist-tag or exact version)'
+        default: 'latest'
+  release:
+    types: [published]
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TM_VERSION: ${{ github.event.inputs.version || 'latest' }}
+
+jobs:
+  # Core CLI surface that needs no agent install — fast, stable, full matrix.
+  cli-core:
+    name: cli-core (${{ matrix.os }}, node ${{ matrix.node }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [18, 20]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: cli-core e2e
+        shell: bash
+        env:
+          TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+        run: bash scripts/e2e/cli-core.sh
+
+  agent-opencode:
+    name: opencode (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: opencode e2e
+        shell: bash
+        env:
+          TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+        run: bash scripts/e2e/agent-opencode.sh
+
+  agent-claude:
+    name: claude (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: claude e2e
+        shell: bash
+        env:
+          TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+        run: bash scripts/e2e/agent-claude.sh
+
+  agent-aider:
+    name: aider (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: aider e2e
+        shell: bash
+        env:
+          TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+        run: bash scripts/e2e/agent-aider.sh
