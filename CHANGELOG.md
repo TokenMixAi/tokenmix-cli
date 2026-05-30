@@ -2,6 +2,15 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.8] - 2026-05-30
+
+### Added
+- **`tokenmix models --search <keyword>`** filters the (160+) model list by name, and models are now sorted within each type — finding a specific model is no longer a scroll.
+- **A "Why TokenMix" section in the README** — a short, honest summary of what the gateway actually gives you: transparent real-time billing, automatic prompt-cache discounts, one key across the OpenAI / Anthropic / Responses protocols, and non-invasive agent config. (Only claims verifiable in this codebase — no policy promises we can't back.)
+
+### Changed
+- **Progress messages now go to stderr.** Lines like "Configuring…" / "Launching…" no longer pollute stdout, so `tokenmix kilo > config.txt`, piping an agent, or scripting `tokenmix balance` produce clean output. Command output — balance figures, the `doctor` report, model lists, config snippets — stays on stdout.
+
 ## [0.4.7] - 2026-05-30
 
 ### Added

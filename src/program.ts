@@ -60,6 +60,7 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
     .command('models')
     .description(t('cmd.models'))
     .option('-t, --type <type>', t('cmd.modelsType'))
+    .option('-s, --search <keyword>', t('cmd.modelsSearch'))
     .action(modelsCommand)
 
   program

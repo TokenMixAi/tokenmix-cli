@@ -34,11 +34,23 @@ export function formatPrice(p: number | undefined): string {
 
 export interface ModelsOptions {
   type?: string
+  search?: string
+}
+
+// Apply --type and --search filters. Exported for unit testing.
+export function filterModels(all: ApiModel[], opts: ModelsOptions): ApiModel[] {
+  let r = all
+  if (opts.type) r = r.filter((m) => m.model_type === opts.type)
+  if (opts.search) {
+    const kw = opts.search.toLowerCase()
+    r = r.filter((m) => (m.short_id || m.model_id || '').toLowerCase().includes(kw))
+  }
+  return r
 }
 
 export async function modelsCommand(opts: ModelsOptions): Promise<void> {
   const all = await listPublicModels()
-  const filtered = opts.type ? all.filter((m) => m.model_type === opts.type) : all
+  const filtered = filterModels(all, opts)
   if (filtered.length === 0) {
     logger.warn(t('models.none'))
     return
@@ -52,6 +64,10 @@ export async function modelsCommand(opts: ModelsOptions): Promise<void> {
   }
 
   for (const [type, list] of grouped) {
+    // Stable, readable order within a type (the API order is arbitrary).
+    list.sort((a, b) =>
+      (a.short_id || a.model_id || '').localeCompare(b.short_id || b.model_id || ''),
+    )
     console.log()
     console.log(chalk.bold(`${typeLabel(type)}  (${list.length})`))
     for (const m of list) {
