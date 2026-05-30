@@ -15,6 +15,7 @@ npx tokenmix opencode          # install + configure + start OpenCode
 npx tokenmix claude            # install + configure + start Claude Code
 npx tokenmix aider             # configure + start Aider (Python required)
 npx tokenmix kilo              # print Kilo Code VSCode configuration
+npx tokenmix cline             # print Cline VSCode configuration
 ```
 
 ### Alternative login modes
@@ -32,6 +33,7 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 | [Claude Code](https://github.com/anthropics/claude-code) | `npm i -g @anthropic-ai/claude-code` | full auto |
 | [Aider](https://github.com/Aider-AI/aider) | `pip install aider-chat` | semi auto |
 | [Kilo Code](https://github.com/Kilo-Org/kilocode) | VSCode extension | config-only |
+| [Cline](https://github.com/cline/cline) | VSCode extension | config-only |
 
 ## Commands
 
@@ -48,6 +50,7 @@ tokenmix opencode [args...]         Launch OpenCode via TokenMix
 tokenmix claude [args...]           Launch Claude Code via TokenMix
 tokenmix aider [args...]            Launch Aider via TokenMix
 tokenmix kilo                       Print Kilo Code configuration
+tokenmix cline                      Print Cline configuration
 ```
 
 ## Language

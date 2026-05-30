@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.5] - 2026-05-30
+
+### Added
+- **Cline support (`tokenmix cline`).** [Cline](https://github.com/cline/cline) — the fast-growing BYOK coding agent in the VSCode sidebar — is now wired to TokenMix. Like `tokenmix kilo` it is config-only: the CLI prints the exact OpenAI-Compatible provider settings (Base URL, API key, model ID) to enter in Cline's settings panel, localized in all six languages.
+
 ## [0.4.4] - 2026-05-30
 
 ### Changed
@@ -134,4 +139,4 @@ First public release.
 - **v0.2** — Browser OAuth device flow (no more pasting API keys); `tokenmix balance` reads `/api/user/wallet` directly
 - **v0.3** — `@tokenmix/opencode` plugin: toast in OpenCode showing balance, low-balance prompt, agent-callable `tokenmix_recharge` / `tokenmix_route_health` tools
 - **v0.4** — Chinese-first UI and locale-aware prompts (matches tokenmix.ai's 6-language support)
-- **Future** — Cline / Roo / Continue / Codex integrations gated on data showing user demand
+- **Future** — Roo Code / Continue / Codex integrations gated on data showing user demand (Cline shipped in v0.4.5)

@@ -29,6 +29,8 @@ function agentDesc(id: string, fallback: string): string {
       return t('desc.aider')
     case 'kilo':
       return t('desc.kilo')
+    case 'cline':
+      return t('desc.cline')
     default:
       return fallback
   }

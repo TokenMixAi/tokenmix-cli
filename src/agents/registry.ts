@@ -3,6 +3,7 @@ import { OpenCodeAgent } from './opencode.js'
 import { ClaudeCodeAgent } from './claude.js'
 import { AiderAgent } from './aider.js'
 import { KiloAgent } from './kilo.js'
+import { ClineAgent } from './cline.js'
 
 // Ordered by historical ARPU on tokenmix (highest first). New agents go to the bottom.
 export const AGENTS: readonly AgentDescriptor[] = [
@@ -10,6 +11,7 @@ export const AGENTS: readonly AgentDescriptor[] = [
   ClaudeCodeAgent,
   AiderAgent,
   KiloAgent,
+  ClineAgent,
 ]
 
 export function findAgent(id: string): AgentDescriptor | undefined {

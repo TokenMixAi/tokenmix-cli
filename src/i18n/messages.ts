@@ -92,6 +92,7 @@ export const en = {
   'desc.claude': 'anthropics/claude-code — official Anthropic CLI coding agent',
   'desc.aider': 'Aider-AI/aider — paired-programming CLI (requires Python)',
   'desc.kilo': 'Kilo-Org/kilocode — VSCode extension (config-only)',
+  'desc.cline': 'cline/cline — VSCode extension (config-only)',
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
@@ -123,6 +124,13 @@ export const en = {
   'kilo.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
   'kilo.hintMarketplace': 'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.',
   'kilo.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Kilo Code extension, then use the snippet below.',
+
+  // cline configure notes (config-only; technical lines stay verbatim)
+  'cline.noteNoLauncher': 'Cline is a VSCode extension and does not have a CLI launcher.',
+  'cline.noteConfigWith': 'Open the Cline settings panel (⚙ → API Provider) and enter:',
+  'cline.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
+  'cline.hintMarketplace': 'Install "Cline" from the VSCode marketplace, then enter the settings below in its panel.',
+  'cline.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Cline extension, then use the settings below.',
 
   // command / option descriptions (--help)
   'cmd.program': 'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
@@ -238,6 +246,7 @@ export const zh: typeof en = {
   'desc.claude': 'anthropics/claude-code — Anthropic 官方 CLI 编程 agent',
   'desc.aider': 'Aider-AI/aider — 结对编程 CLI（需要 Python）',
   'desc.kilo': 'Kilo-Org/kilocode — VSCode 扩展（仅配置）',
+  'desc.cline': 'cline/cline — VSCode 扩展（仅配置）',
 
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
@@ -269,6 +278,11 @@ export const zh: typeof en = {
   'kilo.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
   'kilo.hintMarketplace': '从 VSCode 应用市场安装 "Kilo Code"，然后将下面的片段粘贴到它的设置中。',
   'kilo.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Kilo Code 扩展，然后使用下面的片段。',
+  'cline.noteNoLauncher': 'Cline 是 VSCode 扩展，没有 CLI 启动器。',
+  'cline.noteConfigWith': '打开 Cline 设置面板（⚙ → API Provider），填入以下信息：',
+  'cline.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
+  'cline.hintMarketplace': '从 VSCode 应用市场安装 "Cline"，然后在它的设置面板中填入下面的信息。',
+  'cline.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Cline 扩展，然后使用下面的设置。',
 
   // command / option descriptions (--help)
   'cmd.program': '零配置 CLI：以 TokenMix 作为统一 LLM 后端，驱动任意开源编程 agent。',
@@ -373,6 +387,7 @@ export const ja: typeof en = {
   'desc.claude': 'anthropics/claude-code — Anthropic 公式の CLI コーディング agent',
   'desc.aider': 'Aider-AI/aider — ペアプログラミング CLI（Python が必要）',
   'desc.kilo': 'Kilo-Org/kilocode — VSCode 拡張機能（設定のみ）',
+  'desc.cline': 'cline/cline — VSCode 拡張機能（設定のみ）',
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
   'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
@@ -399,6 +414,11 @@ export const ja: typeof en = {
   'kilo.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
   'kilo.hintMarketplace': 'VSCode マーケットプレイスから "Kilo Code" をインストールし、下のスニペットを設定に貼り付けてください。',
   'kilo.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Kilo Code 拡張機能を追加してから、下のスニペットを使用してください。',
+  'cline.noteNoLauncher': 'Cline は VSCode 拡張機能で、CLI ランチャーはありません。',
+  'cline.noteConfigWith': 'Cline の設定パネル（⚙ → API Provider）を開き、次を入力してください：',
+  'cline.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
+  'cline.hintMarketplace': 'VSCode マーケットプレイスから "Cline" をインストールし、下の設定をパネルに入力してください。',
+  'cline.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Cline 拡張機能を追加してから、下の設定を使用してください。',
 
   'cmd.program': 'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
   'cmd.login': 'TokenMix にログイン（デフォルト：ブラウザでのデバイス認証）',
@@ -502,6 +522,7 @@ export const ko: typeof en = {
   'desc.claude': 'anthropics/claude-code — Anthropic 공식 CLI 코딩 agent',
   'desc.aider': 'Aider-AI/aider — 페어 프로그래밍 CLI (Python 필요)',
   'desc.kilo': 'Kilo-Org/kilocode — VSCode 확장 (설정 전용)',
+  'desc.cline': 'cline/cline — VSCode 확장 (설정 전용)',
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
   'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
@@ -528,6 +549,11 @@ export const ko: typeof en = {
   'kilo.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
   'kilo.hintMarketplace': 'VSCode 마켓플레이스에서 "Kilo Code"를 설치한 뒤 아래 스니펫을 설정에 붙여넣으세요.',
   'kilo.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Kilo Code 확장을 추가한 뒤 아래 스니펫을 사용하세요.',
+  'cline.noteNoLauncher': 'Cline은 VSCode 확장이며 CLI 런처가 없습니다.',
+  'cline.noteConfigWith': 'Cline 설정 패널(⚙ → API Provider)을 열고 다음을 입력하세요:',
+  'cline.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
+  'cline.hintMarketplace': 'VSCode 마켓플레이스에서 "Cline"을 설치한 뒤 아래 설정을 패널에 입력하세요.',
+  'cline.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Cline 확장을 추가한 뒤 아래 설정을 사용하세요.',
 
   'cmd.program': 'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
   'cmd.login': 'TokenMix에 로그인 (기본값: 브라우저 기기 인증)',
@@ -631,6 +657,7 @@ export const es: typeof en = {
   'desc.claude': 'anthropics/claude-code — agent de programación CLI oficial de Anthropic',
   'desc.aider': 'Aider-AI/aider — CLI de programación en pareja (requiere Python)',
   'desc.kilo': 'Kilo-Org/kilocode — extensión de VSCode (solo configuración)',
+  'desc.cline': 'cline/cline — extensión de VSCode (solo configuración)',
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
   'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
@@ -657,6 +684,11 @@ export const es: typeof en = {
   'kilo.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
   'kilo.hintMarketplace': 'Instala "Kilo Code" desde el marketplace de VSCode y pega el fragmento de abajo en su configuración.',
   'kilo.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Kilo Code y luego usa el fragmento de abajo.',
+  'cline.noteNoLauncher': 'Cline es una extensión de VSCode y no tiene lanzador de CLI.',
+  'cline.noteConfigWith': 'Abre el panel de configuración de Cline (⚙ → API Provider) e introduce:',
+  'cline.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
+  'cline.hintMarketplace': 'Instala "Cline" desde el marketplace de VSCode y luego introduce la configuración de abajo en su panel.',
+  'cline.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Cline y luego usa la configuración de abajo.',
 
   'cmd.program': 'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
   'cmd.login': 'Inicia sesión en TokenMix (predeterminado: autorización de dispositivo por navegador)',
@@ -760,6 +792,7 @@ export const fr: typeof en = {
   'desc.claude': 'anthropics/claude-code — agent de codage CLI officiel d’Anthropic',
   'desc.aider': 'Aider-AI/aider — CLI de programmation en binôme (nécessite Python)',
   'desc.kilo': 'Kilo-Org/kilocode — extension VSCode (configuration seule)',
+  'desc.cline': 'cline/cline — extension VSCode (configuration seule)',
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
   'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
@@ -786,6 +819,11 @@ export const fr: typeof en = {
   'kilo.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
   'kilo.hintMarketplace': 'Installez « Kilo Code » depuis la marketplace VSCode, puis collez l’extrait ci-dessous dans ses paramètres.',
   'kilo.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Kilo Code, puis utilisez l’extrait ci-dessous.',
+  'cline.noteNoLauncher': 'Cline est une extension VSCode et n’a pas de lanceur CLI.',
+  'cline.noteConfigWith': 'Ouvrez le panneau de configuration de Cline (⚙ → API Provider) et saisissez :',
+  'cline.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
+  'cline.hintMarketplace': 'Installez « Cline » depuis la marketplace VSCode, puis saisissez les paramètres ci-dessous dans son panneau.',
+  'cline.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Cline, puis utilisez les paramètres ci-dessous.',
 
   'cmd.program': 'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',
   'cmd.login': 'Se connecter à TokenMix (par défaut : autorisation de l’appareil via le navigateur)',
