@@ -30,6 +30,7 @@ npx tokenmix continue          # print Continue config.yaml snippet
 npx tokenmix codex             # install + configure + start Codex
 npx tokenmix qwen              # install + configure + start Qwen Code
 npx tokenmix goose             # configure + start Goose (install it first)
+npx tokenmix openhands         # configure + start OpenHands (install it first)
 ```
 
 ### Alternative login modes
@@ -53,6 +54,7 @@ npx tokenmix login --key sk-tm-...             # supply API key directly (for CI
 | [Codex](https://github.com/openai/codex) | `npm i -g @openai/codex` | full auto |
 | [Qwen Code](https://github.com/QwenLM/qwen-code) | `npm i -g @qwen-code/qwen-code` | full auto |
 | [Goose](https://github.com/block/goose) | [install script](https://block.github.io/goose) | semi auto |
+| [OpenHands](https://github.com/All-Hands-AI/OpenHands) | `uv tool install openhands` (Python 3.12+) | semi auto |
 
 ## Commands
 
@@ -75,6 +77,7 @@ tokenmix continue                   Print Continue config.yaml snippet
 tokenmix codex [args...]            Launch Codex via TokenMix
 tokenmix qwen [args...]             Launch Qwen Code via TokenMix
 tokenmix goose [args...]            Launch Goose via TokenMix
+tokenmix openhands [args...]        Launch OpenHands via TokenMix
 ```
 
 ## Language

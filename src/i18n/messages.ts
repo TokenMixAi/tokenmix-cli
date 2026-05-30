@@ -99,6 +99,7 @@ export const en = {
   'desc.codex': 'openai/codex — OpenAI coding agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — terminal coding agent (OpenAI-compatible)',
   'desc.goose': 'block/goose — on-machine AI agent (OpenAI-compatible)',
+  'desc.openhands': 'All-Hands-AI/OpenHands — autonomous coding agent (OpenAI-compatible)',
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
@@ -164,6 +165,11 @@ export const en = {
   // goose configure notes (env-based; Goose appends /v1/chat/completions to OPENAI_HOST)
   'goose.noteUsing': 'Goose will use TokenMix as its OpenAI provider — its keyring/config is left untouched.',
   'goose.noteModel': 'Default model: {model} — override with GOOSE_MODEL.',
+
+  // openhands configure notes (env via --override-with-envs; LLM_MODEL needs openai/ prefix)
+  'openhands.noteUsing': 'OpenHands will use TokenMix via LiteLLM (--override-with-envs) — your saved config is left untouched.',
+  'openhands.noteModel': 'Default model: openai/{model} — override with LLM_MODEL (keep the openai/ prefix).',
+  'openhands.hintInstall': 'OpenHands is not installed (needs Python 3.12+). Install it, then re-run `tokenmix openhands`:\n    {cmd}',
   'goose.hintInstall': 'Goose is not installed. Install it (see https://block.github.io/goose), then re-run `tokenmix goose`:\n    {cmd}',
 
   // command / option descriptions (--help)
@@ -288,6 +294,7 @@ export const zh: typeof en = {
   'desc.codex': 'openai/codex — OpenAI 编程 agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — 终端编程 agent（OpenAI 兼容）',
   'desc.goose': 'block/goose — 本机 AI agent（OpenAI 兼容）',
+  'desc.openhands': 'All-Hands-AI/OpenHands — 自主编程 agent（OpenAI 兼容）',
 
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
@@ -341,6 +348,9 @@ export const zh: typeof en = {
   'qwen.noteModel': '默认模型：{model} —— 可用 OPENAI_MODEL 或 `qwen --model` 覆盖。',
   'goose.noteUsing': 'Goose 将以 TokenMix 作为其 OpenAI provider —— 不会改动它的 keyring/配置。',
   'goose.noteModel': '默认模型：{model} —— 可用 GOOSE_MODEL 覆盖。',
+  'openhands.noteUsing': 'OpenHands 将通过 LiteLLM（--override-with-envs）使用 TokenMix —— 不会改动你已保存的配置。',
+  'openhands.noteModel': '默认模型：openai/{model} —— 可用 LLM_MODEL 覆盖（保留 openai/ 前缀）。',
+  'openhands.hintInstall': 'OpenHands 未安装（需要 Python 3.12+）。请先安装，然后重新运行 `tokenmix openhands`：\n    {cmd}',
   'goose.hintInstall': 'Goose 未安装。请先安装（见 https://block.github.io/goose），然后重新运行 `tokenmix goose`：\n    {cmd}',
 
   // command / option descriptions (--help)
@@ -454,6 +464,7 @@ export const ja: typeof en = {
   'desc.codex': 'openai/codex — OpenAI のコーディング agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — ターミナルのコーディング agent（OpenAI 互換）',
   'desc.goose': 'block/goose — オンマシン AI agent（OpenAI 互換）',
+  'desc.openhands': 'All-Hands-AI/OpenHands — 自律型コーディング agent（OpenAI 互換）',
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
   'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
@@ -502,6 +513,9 @@ export const ja: typeof en = {
   'qwen.noteModel': 'デフォルトモデル：{model} — OPENAI_MODEL または `qwen --model` で上書きできます。',
   'goose.noteUsing': 'Goose は TokenMix を OpenAI プロバイダーとして使用します —— keyring/設定は変更されません。',
   'goose.noteModel': 'デフォルトモデル：{model} — GOOSE_MODEL で上書きできます。',
+  'openhands.noteUsing': 'OpenHands は LiteLLM（--override-with-envs）経由で TokenMix を使用します —— 保存済みの設定は変更されません。',
+  'openhands.noteModel': 'デフォルトモデル：openai/{model} — LLM_MODEL で上書きできます（openai/ プレフィックスは残してください）。',
+  'openhands.hintInstall': 'OpenHands がインストールされていません（Python 3.12+ が必要）。インストールしてから `tokenmix openhands` を再実行してください：\n    {cmd}',
   'goose.hintInstall': 'Goose がインストールされていません。インストール（https://block.github.io/goose 参照）してから `tokenmix goose` を再実行してください：\n    {cmd}',
 
   'cmd.program': 'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
@@ -614,6 +628,7 @@ export const ko: typeof en = {
   'desc.codex': 'openai/codex — OpenAI 코딩 agent CLI',
   'desc.qwen': 'QwenLM/qwen-code — 터미널 코딩 agent (OpenAI 호환)',
   'desc.goose': 'block/goose — 온디바이스 AI agent (OpenAI 호환)',
+  'desc.openhands': 'All-Hands-AI/OpenHands — 자율 코딩 agent (OpenAI 호환)',
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
   'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
@@ -662,6 +677,9 @@ export const ko: typeof en = {
   'qwen.noteModel': '기본 모델: {model} — OPENAI_MODEL 또는 `qwen --model`으로 재정의할 수 있습니다.',
   'goose.noteUsing': 'Goose는 TokenMix를 OpenAI provider로 사용합니다 — keyring/설정은 변경되지 않습니다.',
   'goose.noteModel': '기본 모델: {model} — GOOSE_MODEL로 재정의할 수 있습니다.',
+  'openhands.noteUsing': 'OpenHands는 LiteLLM(--override-with-envs)을 통해 TokenMix를 사용합니다 — 저장된 설정은 변경되지 않습니다.',
+  'openhands.noteModel': '기본 모델: openai/{model} — LLM_MODEL로 재정의할 수 있습니다(openai/ 접두사 유지).',
+  'openhands.hintInstall': 'OpenHands가 설치되어 있지 않습니다(Python 3.12+ 필요). 설치 후 `tokenmix openhands`를 다시 실행하세요:\n    {cmd}',
   'goose.hintInstall': 'Goose가 설치되어 있지 않습니다. 설치(https://block.github.io/goose 참조) 후 `tokenmix goose`를 다시 실행하세요:\n    {cmd}',
 
   'cmd.program': 'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
@@ -774,6 +792,7 @@ export const es: typeof en = {
   'desc.codex': 'openai/codex — CLI del agente de programación de OpenAI',
   'desc.qwen': 'QwenLM/qwen-code — agente de programación de terminal (compatible con OpenAI)',
   'desc.goose': 'block/goose — agente de IA en tu máquina (compatible con OpenAI)',
+  'desc.openhands': 'All-Hands-AI/OpenHands — agente de programación autónomo (compatible con OpenAI)',
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
   'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
@@ -822,6 +841,9 @@ export const es: typeof en = {
   'qwen.noteModel': 'Modelo por defecto: {model} — anúlalo con OPENAI_MODEL o `qwen --model`.',
   'goose.noteUsing': 'Goose usará TokenMix como su proveedor de OpenAI: su keyring/configuración no se modifica.',
   'goose.noteModel': 'Modelo por defecto: {model} — anúlalo con GOOSE_MODEL.',
+  'openhands.noteUsing': 'OpenHands usará TokenMix mediante LiteLLM (--override-with-envs): tu configuración guardada no se modifica.',
+  'openhands.noteModel': 'Modelo por defecto: openai/{model} — anúlalo con LLM_MODEL (mantén el prefijo openai/).',
+  'openhands.hintInstall': 'OpenHands no está instalado (requiere Python 3.12+). Instálalo y vuelve a ejecutar `tokenmix openhands`:\n    {cmd}',
   'goose.hintInstall': 'Goose no está instalado. Instálalo (consulta https://block.github.io/goose) y vuelve a ejecutar `tokenmix goose`:\n    {cmd}',
 
   'cmd.program': 'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
@@ -934,6 +956,7 @@ export const fr: typeof en = {
   'desc.codex': 'openai/codex — CLI de l’agent de codage d’OpenAI',
   'desc.qwen': 'QwenLM/qwen-code — agent de codage en terminal (compatible OpenAI)',
   'desc.goose': 'block/goose — agent IA sur votre machine (compatible OpenAI)',
+  'desc.openhands': 'All-Hands-AI/OpenHands — agent de codage autonome (compatible OpenAI)',
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
   'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
@@ -982,6 +1005,9 @@ export const fr: typeof en = {
   'qwen.noteModel': 'Modèle par défaut : {model} — remplacez-le avec OPENAI_MODEL ou `qwen --model`.',
   'goose.noteUsing': 'Goose utilisera TokenMix comme fournisseur OpenAI — son keyring/sa configuration n’est pas modifié.',
   'goose.noteModel': 'Modèle par défaut : {model} — remplacez-le avec GOOSE_MODEL.',
+  'openhands.noteUsing': 'OpenHands utilisera TokenMix via LiteLLM (--override-with-envs) — votre configuration enregistrée n’est pas modifiée.',
+  'openhands.noteModel': 'Modèle par défaut : openai/{model} — remplacez-le avec LLM_MODEL (gardez le préfixe openai/).',
+  'openhands.hintInstall': 'OpenHands n’est pas installé (nécessite Python 3.12+). Installez-le, puis relancez `tokenmix openhands` :\n    {cmd}',
   'goose.hintInstall': 'Goose n’est pas installé. Installez-le (voir https://block.github.io/goose), puis relancez `tokenmix goose` :\n    {cmd}',
 
   'cmd.program': 'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',

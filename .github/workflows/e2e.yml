@@ -156,3 +156,22 @@ jobs:
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
         run: bash scripts/e2e/agent-goose.sh
+
+  # OpenHands is a Python tool (uv pulls Python 3.12); linux/macos only.
+  agent-openhands:
+    name: openhands (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: openhands e2e
+        shell: bash
+        env:
+          TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+        run: bash scripts/e2e/agent-openhands.sh

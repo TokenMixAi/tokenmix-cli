@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.11] - 2026-05-30
+
+### Added
+- **OpenHands support (`tokenmix openhands`).** [OpenHands](https://github.com/All-Hands-AI/OpenHands) — the autonomous coding agent — now runs on TokenMix, wired via LiteLLM env (`LLM_API_KEY` / `LLM_MODEL=openai/<model>` / `LLM_BASE_URL`) injected with `--override-with-envs` at launch (no Docker; your saved OpenHands config untouched). Install needs Python 3.12+ (`uv tool install openhands --python 3.12`), which the CLI prints. Verified end-to-end. Localized in all six languages — **11 agents total**, which closes out the mainstream BYOK CLI candidate pool.
+
 ## [0.4.10] - 2026-05-30
 
 ### Added
