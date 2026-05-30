@@ -42,8 +42,29 @@ function handleAxios(err: unknown): never {
   }
   throw new ApiError(
     0,
-    `Could not reach the TokenMix API (${e.message || 'network error'}). Check your internet connection.`,
+    `Could not reach the TokenMix API (${e.message || 'network error'}). Check your internet connection or proxy.`,
   )
+}
+
+// Network resilience for flaky / slow / GFW'd connections: a generous default
+// timeout (override with TOKENMIX_TIMEOUT_MS) and automatic retry of transient
+// TRANSPORT failures (no HTTP response) with exponential backoff. HTTP errors
+// (4xx/5xx) are real answers and are NEVER retried.
+export const REQUEST_TIMEOUT_MS = Number(process.env.TOKENMIX_TIMEOUT_MS) || 20000
+const MAX_RETRIES = 2
+
+export async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
+  let lastErr: unknown
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      return await fn()
+    } catch (err) {
+      if ((err as AxiosError).response || attempt === MAX_RETRIES) throw err
+      lastErr = err
+      await new Promise((r) => setTimeout(r, 300 * 2 ** attempt))
+    }
+  }
+  throw lastErr
 }
 
 // Public endpoint, no auth required.
@@ -52,10 +73,12 @@ function handleAxios(err: unknown): never {
 export async function listPublicModels(cfg?: UserConfig): Promise<ApiModel[]> {
   const c = cfg || (await readConfig())
   try {
-    const r = await axios.get(`${apiBaseUrl(c)}/api/models`, {
-      params: { per_page: 500 },
-      timeout: 15000,
-    })
+    const r = await withRetry(() =>
+      axios.get(`${apiBaseUrl(c)}/api/models`, {
+        params: { per_page: 500 },
+        timeout: REQUEST_TIMEOUT_MS,
+      }),
+    )
     const list = unwrap<{ list?: ApiModel[] } | ApiModel[]>(r)
     return Array.isArray(list) ? list : list?.list ?? []
   } catch (err) {
@@ -71,11 +94,13 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
   // then raises a clear "could not reach the API" ApiError, letting callers tell a
   // network problem apart from a genuinely bad key.
   try {
-    const r = await axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/models`, {
-      headers: { Authorization: `Bearer ${apiKey}` },
-      timeout: 15000,
-      validateStatus: () => true,
-    })
+    const r = await withRetry(() =>
+      axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/models`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+        timeout: REQUEST_TIMEOUT_MS,
+        validateStatus: () => true,
+      }),
+    )
     return r.status === 200
   } catch (err) {
     handleAxios(err)
@@ -95,10 +120,12 @@ export interface WalletInfo {
 
 export async function fetchWallet(apiKey: string, baseUrl?: string): Promise<WalletInfo> {
   try {
-    const r = await axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/wallet`, {
-      headers: { Authorization: `Bearer ${apiKey}` },
-      timeout: 15000,
-    })
+    const r = await withRetry(() =>
+      axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/wallet`, {
+        headers: { Authorization: `Bearer ${apiKey}` },
+        timeout: REQUEST_TIMEOUT_MS,
+      }),
+    )
     return unwrap<WalletInfo>(r)
   } catch (err) {
     handleAxios(err)
@@ -140,10 +167,12 @@ export async function startDeviceAuthorization(
   clientName: string = 'tokenmix-cli',
 ): Promise<DeviceAuthorization> {
   try {
-    const r = await axios.post(
-      `${baseUrl}/api/auth/device/code`,
-      { client_name: clientName },
-      { timeout: 15000 },
+    const r = await withRetry(() =>
+      axios.post(
+        `${baseUrl}/api/auth/device/code`,
+        { client_name: clientName },
+        { timeout: REQUEST_TIMEOUT_MS },
+      ),
     )
     return unwrap<DeviceAuthorization>(r)
   } catch (err) {
@@ -185,7 +214,7 @@ export async function pollDeviceToken(
       const r = await axios.post(
         `${baseUrl}/api/auth/device/token`,
         { device_code: auth.device_code },
-        { timeout: 15000, validateStatus: () => true },
+        { timeout: REQUEST_TIMEOUT_MS, validateStatus: () => true },
       )
       if (r.status === 200 && r.data?.code === 0) {
         const body = r.data.data as DeviceTokenBackend

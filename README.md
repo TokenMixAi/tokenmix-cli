@@ -102,6 +102,14 @@ TOKENMIX_DEFAULT_MODEL=qwen-flash       npx tokenmix aider
 
 (`tokenmix claude` and `tokenmix codex` speak the Anthropic / Responses protocols, so they need a Claude-family model; the other agents accept any chat model.)
 
+## Slow or restricted networks
+
+Requests auto-retry transient network failures (so a single hiccup won't fail a command) and time out after 20s. On a slow, proxied, or firewalled connection, raise the timeout with `TOKENMIX_TIMEOUT_MS`:
+
+```bash
+TOKENMIX_TIMEOUT_MS=60000 npx tokenmix login
+```
+
 ## Configuration Location
 
 Your TokenMix credentials are stored locally at:

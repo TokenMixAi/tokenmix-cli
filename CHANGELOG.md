@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.14] - 2026-05-30
+
+### Changed
+- **More resilient on slow / flaky / restricted networks.** API calls (login, doctor, balance, models, device-flow) now auto-retry transient transport failures with exponential backoff — a single network hiccup no longer fails the command. The timeout is configurable via `TOKENMIX_TIMEOUT_MS` (default 20s, up from 15s; raise it on slow or proxied/firewalled connections), and the "couldn't reach the API" error now suggests checking your proxy too. HTTP errors (like a bad key) are never retried. Most relevant for users on restricted or high-latency networks.
+
 ## [0.4.13] - 2026-05-30
 
 ### Added

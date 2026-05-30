@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 // Mock axios (default export) before importing the client.
 vi.mock('axios', () => ({
@@ -10,6 +10,16 @@ import axios from 'axios'
 import { unwrap, ApiError, listPublicModels, fetchWallet, verifyApiKey } from '../src/api/client.js'
 
 const mockedGet = axios.get as unknown as ReturnType<typeof vi.fn>
+
+// withRetry's backoff uses setTimeout — run its callbacks instantly so retry tests
+// don't actually wait out the exponential backoff.
+beforeEach(() => {
+  vi.spyOn(global, 'setTimeout').mockImplementation(((fn: () => void) => {
+    fn()
+    return 0 as unknown as ReturnType<typeof setTimeout>
+  }) as typeof setTimeout)
+})
+afterEach(() => vi.restoreAllMocks())
 
 describe('unwrap', () => {
   it('returns the inner data on the success envelope (code 0)', () => {
@@ -62,6 +72,20 @@ describe('listPublicModels', () => {
   it('maps a network failure (no response) to ApiError', async () => {
     mockedGet.mockRejectedValue({ message: 'connect ECONNREFUSED' })
     await expect(listPublicModels({})).rejects.toBeInstanceOf(ApiError)
+  })
+
+  it('retries a transient transport failure, then succeeds', async () => {
+    mockedGet
+      .mockRejectedValueOnce({ message: 'ETIMEDOUT' })
+      .mockResolvedValueOnce({ data: { code: 0, data: [{ short_id: 'z' }] } })
+    expect(await listPublicModels({})).toEqual([{ short_id: 'z' }])
+    expect(mockedGet).toHaveBeenCalledTimes(2)
+  })
+
+  it('does NOT retry an HTTP error response (it is a real answer)', async () => {
+    mockedGet.mockRejectedValue({ response: { status: 500, data: {} } })
+    await expect(listPublicModels({})).rejects.toBeInstanceOf(ApiError)
+    expect(mockedGet).toHaveBeenCalledTimes(1)
   })
 })
 
