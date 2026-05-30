@@ -41,9 +41,15 @@ echo "$out" | grep -qi "sk-tm-" && ok "malformed key rejected" || nope "malforme
 echo "## login with the real test key"
 if "${TM[@]}" login --key "$TOKENMIX_TEST_KEY" >/dev/null 2>&1; then ok "login"; else nope "login failed"; fi
 
-echo "## doctor reports the key valid"
-out="$("${TM[@]}" doctor 2>&1)"
-echo "$out" | grep -qiE "valid" && ok "doctor: key valid" || nope "doctor -> $(echo "$out" | mask)"
+echo "## doctor reports the key valid (retried — doctor's verify has a 15s network timeout)"
+dok=0
+for attempt in 1 2 3; do
+  out="$("${TM[@]}" doctor 2>&1)"
+  if echo "$out" | grep -qiE "is valid"; then dok=1; break; fi
+  echo "  (attempt $attempt didn't report valid — likely a transient verify timeout; retrying)"
+  sleep 3
+done
+[ "$dok" = 1 ] && ok "doctor: key valid" || nope "doctor -> $(echo "$out" | mask)"
 
 echo "## a failed (wrong) login must NOT overwrite stored good creds"
 "${TM[@]}" login --key "sk-tm-WRONG0000000000000000000000000000" >/dev/null 2>&1 || true
