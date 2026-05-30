@@ -66,6 +66,21 @@ describe('runAgent', () => {
     )
   })
 
+  it('honors TOKENMIX_DEFAULT_MODEL env over the built-in default', async () => {
+    const agent = fakeAgent()
+    process.env.TOKENMIX_DEFAULT_MODEL = 'qwen-flash'
+    try {
+      await runAgent(agent, ['chat'])
+      expect(agent.configure).toHaveBeenCalledWith('sk-tm-test', expect.any(String), 'qwen-flash')
+      expect(agent.launch).toHaveBeenCalledWith(
+        ['chat'],
+        expect.objectContaining({ TOKENMIX_DEFAULT_MODEL: 'qwen-flash' }),
+      )
+    } finally {
+      delete process.env.TOKENMIX_DEFAULT_MODEL
+    }
+  })
+
   it('refuses (exit 1) BEFORE configuring when the agent needs a newer Node', async () => {
     const exitSpy = vi.spyOn(process, 'exit').mockImplementation((() => {
       throw new Error('process.exit')

@@ -2,6 +2,11 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [0.4.12] - 2026-05-30
+
+### Added
+- **`TOKENMIX_DEFAULT_MODEL` env to override the default model.** Until now the CLI always defaulted to `claude-sonnet-4.6` with no way to change it from the CLI. Set `TOKENMIX_DEFAULT_MODEL` (e.g. `claude-haiku-4.5` or `qwen-flash`) to pick a cheaper/faster default for any agent launch. The e2e suite now uses this to run against near-free models (`qwen-flash` at ~$0.02/M, or `claude-haiku-4.5` for the Anthropic/Responses agents) instead of burning Sonnet on every CI run.
+
 ## [0.4.11] - 2026-05-30
 
 ### Added

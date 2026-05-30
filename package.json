@@ -1,6 +1,6 @@
 {
   "name": "tokenmix",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "description": "Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.",
   "type": "module",
   "bin": {

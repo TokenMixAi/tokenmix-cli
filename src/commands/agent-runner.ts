@@ -84,7 +84,9 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
     process.exit(1)
   }
   const baseUrl = apiBaseUrl(cfg)
-  const defaultModel = cfg.defaultModel || DEFAULT_MODEL
+  // TOKENMIX_DEFAULT_MODEL env overrides the model — handy for CI/scripts that want a
+  // cheap model, or as a power-user default. Falls back to stored config, then built-in.
+  const defaultModel = process.env.TOKENMIX_DEFAULT_MODEL || cfg.defaultModel || DEFAULT_MODEL
 
   // Refuse early with a friendly message if the agent's binary needs a newer Node
   // than we're running on (Codex/Qwen need 22) — avoids a cryptic npm/install error.

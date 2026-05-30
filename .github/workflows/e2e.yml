@@ -66,6 +66,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: qwen-flash   # e2e only checks the path works — use the cheapest model
         run: bash scripts/e2e/cli-core.sh
 
   agent-opencode:
@@ -85,6 +86,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: qwen-flash
         run: bash scripts/e2e/agent-opencode.sh
 
   agent-claude:
@@ -104,6 +106,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: claude-haiku-4.5   # claude agent = Anthropic messages, must be a claude model
         run: bash scripts/e2e/agent-claude.sh
 
   agent-aider:
@@ -126,6 +129,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: qwen-flash
         run: bash scripts/e2e/agent-aider.sh
 
   # Codex & Qwen Code require Node 22+ (the CLI's minNode guard enforces this).
@@ -146,6 +150,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: claude-haiku-4.5   # codex = Responses API; cheapest model that bridges there
         run: bash scripts/e2e/agent-codex.sh
 
   agent-qwen:
@@ -165,6 +170,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: qwen-flash
         run: bash scripts/e2e/agent-qwen.sh
 
   # Goose installs via a curl script (not npm); linux/macos only (its Windows install differs).
@@ -185,6 +191,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: qwen-flash
         run: bash scripts/e2e/agent-goose.sh
 
   # OpenHands is a Python tool (uv pulls Python 3.12); linux/macos only.
@@ -205,4 +212,5 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
+          TOKENMIX_DEFAULT_MODEL: qwen-flash
         run: bash scripts/e2e/agent-openhands.sh

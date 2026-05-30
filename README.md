@@ -91,6 +91,17 @@ TOKENMIX_LANG=ja npx tokenmix doctor   # 日本語
 TOKENMIX_LANG=fr npx tokenmix doctor   # Français
 ```
 
+## Default model
+
+Agents default to `claude-sonnet-4.6`. Override it for any launch with the `TOKENMIX_DEFAULT_MODEL` environment variable — handy for a cheaper/faster default or for scripting:
+
+```bash
+TOKENMIX_DEFAULT_MODEL=claude-haiku-4.5 npx tokenmix opencode
+TOKENMIX_DEFAULT_MODEL=qwen-flash       npx tokenmix aider
+```
+
+(`tokenmix claude` and `tokenmix codex` speak the Anthropic / Responses protocols, so they need a Claude-family model; the other agents accept any chat model.)
+
 ## Configuration Location
 
 Your TokenMix credentials are stored locally at:
