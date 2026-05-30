@@ -67,6 +67,32 @@ echo "$out" | grep -qi "opencode" && ok "list shows agents" || nope "list -> $ou
 echo "## kilo prints a valid, parseable JSON config"
 if "${TM[@]}" kilo 2>&1 | node "$HERE/validate-kilo.mjs"; then ok "kilo JSON valid"; else nope "kilo JSON invalid"; fi
 
+echo "## cline / roo print OpenAI-Compatible settings (config-only, no LLM call)"
+for ag in cline roo; do
+  out="$("${TM[@]}" "$ag" 2>&1)"
+  if echo "$out" | grep -qi "OpenAI Compatible" && echo "$out" | grep -q "/v1" && echo "$out" | grep -q "sk-tm-"; then
+    ok "$ag config printed"
+  else
+    nope "$ag config -> $(echo "$out" | mask | head -3)"
+  fi
+done
+
+echo "## continue prints a config.yaml block with an openai provider"
+out="$("${TM[@]}" continue 2>&1)"
+if echo "$out" | grep -q "provider: openai" && echo "$out" | grep -q "apiBase" && echo "$out" | grep -q "models:"; then
+  ok "continue yaml printed"
+else
+  nope "continue -> $(echo "$out" | mask | head -5)"
+fi
+
+echo "## list includes all 9 agents (incl. the new cline/roo/continue/codex/qwen)"
+out="$("${TM[@]}" list 2>&1)"
+missing=""
+for ag in opencode claude aider kilo cline roo continue codex qwen; do
+  echo "$out" | grep -qE "^  $ag " || missing="$missing $ag"
+done
+[ -z "$missing" ] && ok "all 9 agents listed" || nope "missing agents:$missing"
+
 echo "## balance command runs cleanly (amount intentionally not echoed)"
 if "${TM[@]}" balance >/dev/null 2>&1; then ok "balance ran"; else nope "balance failed"; fi
 
