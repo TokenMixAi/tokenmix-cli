@@ -114,7 +114,7 @@ export const en = {
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
   'aider.hintNeedPython': 'Aider requires Python 3. Install Python 3 from https://python.org/downloads, then come back and run `tokenmix aider` again.',
-  'aider.hintNotInstalled': 'Aider is not installed. Run this in another terminal:\n    {cmd}\nThen come back and run `tokenmix aider` again — your TokenMix login is already saved, so it will pick up automatically.',
+  'aider.hintNotInstalled': 'Aider is not installed. Run this in another terminal:\n    {cmd}',
 
   // opencode configure notes
   'opencode.noteModel': 'Default model set to tokenmix/{model}',
@@ -317,7 +317,7 @@ export const zh: typeof en = {
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
   'aider.hintNeedPython': 'Aider 需要 Python 3。请从 https://python.org/downloads 安装 Python 3，然后重新运行 `tokenmix aider`。',
-  'aider.hintNotInstalled': 'Aider 尚未安装。请在另一个终端运行：\n    {cmd}\n然后重新运行 `tokenmix aider` —— 你的 TokenMix 登录已保存，会自动生效。',
+  'aider.hintNotInstalled': 'Aider 尚未安装。请在另一个终端运行：\n    {cmd}',
 
   // opencode configure notes
   'opencode.noteModel': '默认模型已设为 tokenmix/{model}',
@@ -494,7 +494,7 @@ export const ja: typeof en = {
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
   'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
-  'aider.hintNotInstalled': 'Aider はインストールされていません。別のターミナルで次を実行してください：\n    {cmd}\nその後 `tokenmix aider` を再実行してください — TokenMix のログインは保存済みなので自動的に反映されます。',
+  'aider.hintNotInstalled': 'Aider はインストールされていません。別のターミナルで次を実行してください：\n    {cmd}',
 
   'opencode.noteModel': 'デフォルトモデルを tokenmix/{model} に設定しました',
   'opencode.noteSwitch': 'モデルを切り替えるには `tokenmix models` を実行するか、OpenCode 内で `/connect` を使用してください。',
@@ -666,7 +666,7 @@ export const ko: typeof en = {
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
   'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
-  'aider.hintNotInstalled': 'Aider가 설치되어 있지 않습니다. 다른 터미널에서 다음을 실행하세요:\n    {cmd}\n그런 다음 다시 `tokenmix aider`를 실행하세요 — TokenMix 로그인이 이미 저장되어 있어 자동으로 적용됩니다.',
+  'aider.hintNotInstalled': 'Aider가 설치되어 있지 않습니다. 다른 터미널에서 다음을 실행하세요:\n    {cmd}',
 
   'opencode.noteModel': '기본 모델을 tokenmix/{model}(으)로 설정했습니다',
   'opencode.noteSwitch': '모델을 바꾸려면 `tokenmix models`를 실행하거나 OpenCode 안에서 `/connect`를 사용하세요.',
@@ -838,7 +838,7 @@ export const es: typeof en = {
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
   'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
-  'aider.hintNotInstalled': 'Aider no está instalado. Ejecuta esto en otra terminal:\n    {cmd}\nLuego vuelve a ejecutar `tokenmix aider`: tu sesión de TokenMix ya está guardada, así que se detectará automáticamente.',
+  'aider.hintNotInstalled': 'Aider no está instalado. Ejecuta esto en otra terminal:\n    {cmd}',
 
   'opencode.noteModel': 'Modelo predeterminado establecido en tokenmix/{model}',
   'opencode.noteSwitch': 'Para cambiar de modelo, ejecuta `tokenmix models` o usa `/connect` dentro de OpenCode.',
@@ -1010,7 +1010,7 @@ export const fr: typeof en = {
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
   'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
-  'aider.hintNotInstalled': 'Aider n’est pas installé. Exécutez ceci dans un autre terminal :\n    {cmd}\nPuis relancez `tokenmix aider` — votre connexion TokenMix est déjà enregistrée, elle sera donc prise en compte automatiquement.',
+  'aider.hintNotInstalled': 'Aider n’est pas installé. Exécutez ceci dans un autre terminal :\n    {cmd}',
 
   'opencode.noteModel': 'Modèle par défaut défini sur tokenmix/{model}',
   'opencode.noteSwitch': 'Pour changer de modèle, exécutez `tokenmix models` ou utilisez `/connect` dans OpenCode.',

@@ -2,6 +2,12 @@
 
 All notable changes to TokenMix CLI will be documented in this file.
 
+## [1.4.17] - 2026-05-30
+
+### Fixed
+- **`tokenmix doctor` no longer contradicts itself when logged out.** The Aider "not installed" hint used to claim "your TokenMix login is already saved" even on a logged-out machine, and its last line lost its indentation. It now shows just the install command, cleanly aligned — fixed in all six languages.
+- **Config-only agents are labeled honestly in `doctor`.** Kilo / Cline / Roo / Continue are VSCode extensions with no binary to install, so `doctor` showed a confusing "✓ installed" right next to "VSCode not detected". They now read **config-only (VSCode)**, matching `tokenmix list`.
+
 ## [1.4.16] - 2026-05-30
 
 ### Changed

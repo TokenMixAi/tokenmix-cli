@@ -40,6 +40,14 @@ export async function doctorCommand(): Promise<void> {
   console.log(chalk.bold(t('doctor.agentStatus')))
   for (const a of AGENTS) {
     const r = await a.installCheck()
+    // Config-only agents (VSCode extensions) have no binary of their own to install,
+    // so installCheck always reports installed:true — labeling them "installed" is
+    // misleading. Show their install mode instead, matching `tokenmix list`.
+    if (a.installMode === 'manual-vscode') {
+      logger.success(`${a.displayName.padEnd(14)} ${chalk.dim(t('list.modeManualVscode'))}`)
+      if (r.hint) console.log(`    ${chalk.dim(r.hint)}`)
+      continue
+    }
     if (r.installed) {
       logger.success(
         `${a.displayName.padEnd(14)} ${t('doctor.installed')}${r.version ? ` (${chalk.dim(r.version)})` : ''}`,
