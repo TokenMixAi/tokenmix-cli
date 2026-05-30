@@ -8,6 +8,7 @@ One account, one balance, 160+ models routed automatically across Claude / GPT /
 
 Behind the zero-config CLI is a gateway built to be the **honest, transparent** LLM backend for BYOK coding agents:
 
+- **The model you pick is the model you get.** Your request routes to the real upstream model you named — no silent downgrade to a cheaper one (the grey market's classic "sold Opus, served Haiku"). Model aliases are name normalization only, never a swap.
 - **Transparent, real-time billing.** `tokenmix balance` shows your actual balance, gift credit, and total spent — to micro-USD precision, not opaque "credits". `tokenmix models` lists every model's real price (free models show `$0`, not a dash).
 - **Prompt caching that saves you money — automatically.** Cache hits bill at the discounted rate with nothing to configure: OpenAI / DeepSeek / Gemini / Qwen via their `cached_tokens`, Anthropic via `cache_control` pass-through (cache reads ≈10% of the input price). The savings are yours, and you can see them.
 - **One key, every protocol.** OpenAI Chat Completions, Anthropic Messages, and the Responses API — all on one account, which is why every agent below (terminal and editor alike) runs on a single balance.
