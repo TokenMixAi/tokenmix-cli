@@ -5,12 +5,8 @@
 set -u
 
 : "${TOKENMIX_TEST_KEY:?TOKENMIX_TEST_KEY env var is required}"
-if [ -n "${TM_BIN:-}" ]; then
-  # shellcheck disable=SC2206
-  TM=($TM_BIN)
-else
-  TM=(npx -y "tokenmix@${TM_VERSION:-latest}")
-fi
+# shellcheck source=resolve-tm.sh
+. "$(dirname "$0")/resolve-tm.sh"
 
 # Isolate config into a throwaway HOME so CI state never leaks between steps.
 TMPHOME="$(mktemp -d)"

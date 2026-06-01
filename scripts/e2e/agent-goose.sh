@@ -5,12 +5,8 @@
 # Requires env TOKENMIX_TEST_KEY. Optional TM_BIN / TM_VERSION (see cli-core.sh).
 set -u
 : "${TOKENMIX_TEST_KEY:?TOKENMIX_TEST_KEY env var is required}"
-if [ -n "${TM_BIN:-}" ]; then
-  # shellcheck disable=SC2206
-  TM=($TM_BIN)
-else
-  TM=(npx -y "tokenmix@${TM_VERSION:-latest}")
-fi
+# shellcheck source=resolve-tm.sh
+. "$(dirname "$0")/resolve-tm.sh"
 
 TMPHOME="$(mktemp -d)"
 export HOME="$TMPHOME" XDG_CONFIG_HOME="$TMPHOME/.config" APPDATA="$TMPHOME/AppData" USERPROFILE="$TMPHOME"

@@ -2,12 +2,8 @@
 # e2e: install Claude Code via tokenmix and get a real non-interactive reply (claude -p).
 set -u
 : "${TOKENMIX_TEST_KEY:?TOKENMIX_TEST_KEY env var is required}"
-if [ -n "${TM_BIN:-}" ]; then
-  # shellcheck disable=SC2206
-  TM=($TM_BIN)
-else
-  TM=(npx -y "tokenmix@${TM_VERSION:-latest}")
-fi
+# shellcheck source=resolve-tm.sh
+. "$(dirname "$0")/resolve-tm.sh"
 
 "${TM[@]}" login --key "$TOKENMIX_TEST_KEY" >/dev/null 2>&1 || { echo "==> FAIL: login"; exit 1; }
 
