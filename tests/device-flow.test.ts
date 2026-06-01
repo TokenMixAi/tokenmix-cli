@@ -125,4 +125,25 @@ describe('pollDeviceToken', () => {
     await vi.advanceTimersByTimeAsync(1000) // second poll → approved
     expect((await p).apiKey).toBe('sk-tm-ok')
   })
+
+  it('throws instead of returning an undefined apiKey when the success body has no token', async () => {
+    mockedPost.mockResolvedValueOnce({ status: 200, data: { code: 0, data: {} } })
+    const p = pollDeviceToken('http://api', AUTH)
+    const settled = p.catch((e) => e)
+    await vi.advanceTimersByTimeAsync(1000)
+    expect(await settled).toBeInstanceOf(DeviceFlowError)
+  })
+
+  it('clamps an absurd interval (1e308) to the 60s cap instead of busy-looping at ~1ms', async () => {
+    const auth = { ...AUTH, interval: 1e308 } as Record<string, unknown>
+    mockedPost.mockResolvedValueOnce({
+      status: 200,
+      data: { code: 0, data: { access_token: 'sk-tm-c', api_key_id: 1 } },
+    })
+    const p = pollDeviceToken('http://api', auth as unknown as DeviceAuthorization)
+    await vi.advanceTimersByTimeAsync(1000) // pre-fix this would have fired at ~1ms
+    expect(mockedPost).not.toHaveBeenCalled()
+    await vi.advanceTimersByTimeAsync(60_000) // reach the 60s clamp → first poll → approved
+    expect((await p).apiKey).toBe('sk-tm-c')
+  })
 })

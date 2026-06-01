@@ -10,6 +10,7 @@ import {
 import { run } from '../utils/exec.js'
 import { npmInstallCheck, npmInstallGlobal } from './helpers.js'
 import { v1Url } from '../config/store.js'
+import { writeFileAtomic } from '../utils/fs.js'
 import { t } from '../i18n/index.js'
 
 const OPENCODE_BIN = 'opencode'
@@ -38,10 +39,12 @@ async function configure(
   const filePath = configPath()
   let existing: Record<string, unknown> = {}
   try {
-    const raw = await fs.readFile(filePath, 'utf-8')
-    existing = JSON.parse(raw)
+    const parsed = JSON.parse(await fs.readFile(filePath, 'utf-8'))
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      existing = parsed as Record<string, unknown>
+    }
   } catch {
-    // not present yet
+    // not present yet, or corrupt — start fresh
   }
 
   // Register tokenmix as an OpenAI-compatible provider.
@@ -71,7 +74,7 @@ async function configure(
   }
 
   await fs.ensureDir(path.dirname(filePath))
-  await fs.writeFile(filePath, JSON.stringify(next, null, 2))
+  await writeFileAtomic(filePath, JSON.stringify(next, null, 2))
 
   return {
     configPath: filePath,
@@ -89,7 +92,11 @@ async function cleanup(): Promise<AgentCleanupResult> {
   const filePath = configPath()
   let existing: Record<string, unknown>
   try {
-    existing = JSON.parse(await fs.readFile(filePath, 'utf-8'))
+    const parsed = JSON.parse(await fs.readFile(filePath, 'utf-8'))
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return { reverted: false, configPath: filePath }
+    }
+    existing = parsed as Record<string, unknown>
   } catch {
     return { reverted: false }
   }
@@ -108,7 +115,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
 
   if (!changed) return { reverted: false, configPath: filePath }
 
-  await fs.writeFile(filePath, JSON.stringify(existing, null, 2))
+  await writeFileAtomic(filePath, JSON.stringify(existing, null, 2))
   return { reverted: true, configPath: filePath }
 }
 

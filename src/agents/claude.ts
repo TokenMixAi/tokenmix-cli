@@ -8,6 +8,7 @@ import {
   AgentCleanupResult,
 } from './types.js'
 import { run } from '../utils/exec.js'
+import { writeFileAtomic } from '../utils/fs.js'
 import { npmInstallCheck, npmInstallGlobal } from './helpers.js'
 import { t } from '../i18n/index.js'
 
@@ -31,10 +32,15 @@ async function configure(
   const settingsPath = path.join(os.homedir(), '.claude', 'settings.json')
   let existing: Record<string, unknown> = {}
   try {
-    const raw = await fs.readFile(settingsPath, 'utf-8')
-    existing = JSON.parse(raw)
+    const parsed = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
+    // Valid JSON that isn't a plain object (null, array, string) must be treated as
+    // "start fresh" — otherwise `existing.env` below throws (JSON.parse("null") →
+    // null → null.env → TypeError, which would block `tokenmix claude` entirely).
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+      existing = parsed as Record<string, unknown>
+    }
   } catch {
-    // first run
+    // first run, or unreadable/corrupt — start fresh
   }
 
   const existingEnv = (existing.env as Record<string, string>) || {}
@@ -61,11 +67,18 @@ async function configure(
   // Stash the user's original Anthropic env creds on the FIRST overwrite, so
   // cleanup() can put them back instead of leaving Claude Code broken. Once the
   // stored key is ours, replacingForeign is false — so we never clobber the backup.
-  const prevTm = existing.tokenmix as Record<string, unknown> | undefined
-  const alreadyBackedUp = !!(prevTm && typeof prevTm === 'object' && 'claudeEnvBackup' in prevTm)
+  // Guard: `existing.tokenmix` could be any JSON (a user or another tool might set
+  // it to a string/array). Only spread it when it's a real object — otherwise a
+  // string would explode into numeric-index keys and pollute settings.json.
+  const prevTmRaw = existing.tokenmix
+  const prevTm =
+    prevTmRaw && typeof prevTmRaw === 'object' && !Array.isArray(prevTmRaw)
+      ? (prevTmRaw as Record<string, unknown>)
+      : {}
+  const alreadyBackedUp = 'claudeEnvBackup' in prevTm
   if (replacingForeign && !alreadyBackedUp) {
     next.tokenmix = {
-      ...(prevTm ?? {}),
+      ...prevTm,
       claudeEnvBackup: {
         ANTHROPIC_API_KEY: prevKey ?? null,
         ANTHROPIC_BASE_URL: prevBase ?? null,
@@ -74,12 +87,7 @@ async function configure(
   }
 
   await fs.ensureDir(path.dirname(settingsPath))
-  await fs.writeFile(settingsPath, JSON.stringify(next, null, 2))
-  try {
-    await fs.chmod(settingsPath, 0o600)
-  } catch {
-    // ignore
-  }
+  await writeFileAtomic(settingsPath, JSON.stringify(next, null, 2), 0o600)
 
   // Claude Pro/Max users sign in via OAuth (creds live in ~/.claude/.credentials.json
   // or the OS keychain — NOT in settings.json env). Claude Code prefers
@@ -123,7 +131,11 @@ async function cleanup(): Promise<AgentCleanupResult> {
   const settingsPath = path.join(os.homedir(), '.claude', 'settings.json')
   let existing: Record<string, unknown>
   try {
-    existing = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
+    const parsed = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return { reverted: false, configPath: settingsPath }
+    }
+    existing = parsed as Record<string, unknown>
   } catch {
     return { reverted: false }
   }
@@ -169,12 +181,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
     else existing.tokenmix = tm
   }
 
-  await fs.writeFile(settingsPath, JSON.stringify(existing, null, 2))
-  try {
-    await fs.chmod(settingsPath, 0o600)
-  } catch {
-    // ignore
-  }
+  await writeFileAtomic(settingsPath, JSON.stringify(existing, null, 2), 0o600)
 
   return {
     reverted: true,

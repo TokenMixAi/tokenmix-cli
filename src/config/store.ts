@@ -1,5 +1,8 @@
 import fs from 'fs-extra'
 import { configDir, configFile } from './paths.js'
+import { writeFileAtomic } from '../utils/fs.js'
+import { logger } from '../utils/logger.js'
+import { t } from '../i18n/index.js'
 
 export interface UserConfig {
   apiKey?: string
@@ -20,23 +23,27 @@ export function v1Url(baseUrl: string): string {
 }
 
 export async function readConfig(): Promise<UserConfig> {
+  let raw: string
   try {
-    const raw = await fs.readFile(configFile(), 'utf-8')
+    raw = await fs.readFile(configFile(), 'utf-8')
+  } catch {
+    return {} // not logged in yet — the config file simply doesn't exist
+  }
+  try {
     return JSON.parse(raw) as UserConfig
   } catch {
+    // The file exists but is corrupt (e.g. a crash truncated it mid-write). Don't
+    // silently treat it as "logged out" — warn so the user knows to re-login.
+    logger.warn(t('config.corrupt'))
     return {}
   }
 }
 
 export async function writeConfig(cfg: UserConfig): Promise<void> {
   await fs.ensureDir(configDir())
-  await fs.writeFile(configFile(), JSON.stringify(cfg, null, 2))
-  // Restrict to owner read/write only (best-effort on Windows).
-  try {
-    await fs.chmod(configFile(), 0o600)
-  } catch {
-    // ignore on filesystems that don't support chmod
-  }
+  // Atomic write so a crash or a concurrent writer can't truncate the config to
+  // 0 bytes and silently lose the apiKey. 0600 = owner read/write only.
+  await writeFileAtomic(configFile(), JSON.stringify(cfg, null, 2), 0o600)
 }
 
 export async function updateConfig(patch: Partial<UserConfig>): Promise<UserConfig> {

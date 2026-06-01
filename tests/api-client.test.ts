@@ -42,6 +42,12 @@ describe('unwrap', () => {
   it('passes a code-less body straight through', () => {
     expect(unwrap({ data: [1, 2] as unknown as { code?: number } })).toEqual([1, 2])
   })
+
+  it('throws on a string error code ("1") — must not be silently swallowed', () => {
+    expect(() =>
+      unwrap({ data: { code: '1' as unknown as number, message: 'boom' } }),
+    ).toThrowError(ApiError)
+  })
 })
 
 describe('listPublicModels', () => {
@@ -151,5 +157,13 @@ describe('verifyApiKey', () => {
   it('THROWS ApiError on a transport failure (offline/DNS) so callers can tell it apart from a bad key', async () => {
     mockedGet.mockRejectedValue({ message: 'getaddrinfo EAI_AGAIN api.tokenmix.ai' })
     await expect(verifyApiKey('sk-tm-x')).rejects.toBeInstanceOf(ApiError)
+  })
+
+  it('THROWS (not false) on 5xx / 429 — a server problem must not look like a bad key', async () => {
+    for (const status of [500, 503, 429]) {
+      mockedGet.mockReset()
+      mockedGet.mockResolvedValue({ status })
+      await expect(verifyApiKey('sk-tm-x')).rejects.toBeInstanceOf(ApiError)
+    }
   })
 })

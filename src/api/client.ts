@@ -28,7 +28,10 @@ export class ApiError extends Error {
 
 export function unwrap<T>(resp: { data?: { code?: number; message?: string; data?: T } }): T {
   const body = resp.data
-  if (body && typeof body.code === 'number' && body.code !== 0) {
+  // Normalize `code` with Number() — a backend/proxy could serialize it as a string
+  // ("1"), which a strict `typeof === 'number'` check would miss, silently swallowing
+  // a real error and passing the error body downstream as if it were data.
+  if (body && body.code != null && Number(body.code) !== 0) {
     throw new ApiError(0, body.message || 'API error')
   }
   // Standard success envelope → return the inner `data`. A body with no envelope
@@ -54,7 +57,8 @@ function handleAxios(err: unknown): never {
 // timeout (override with TOKENMIX_TIMEOUT_MS) and automatic retry of transient
 // TRANSPORT failures (no HTTP response) with exponential backoff. HTTP errors
 // (4xx/5xx) are real answers and are NEVER retried.
-export const REQUEST_TIMEOUT_MS = Number(process.env.TOKENMIX_TIMEOUT_MS) || 20000
+const envTimeout = Number(process.env.TOKENMIX_TIMEOUT_MS)
+export const REQUEST_TIMEOUT_MS = Number.isFinite(envTimeout) && envTimeout > 0 ? envTimeout : 20000
 const MAX_RETRIES = 2
 
 export async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
@@ -105,8 +109,19 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
         validateStatus: () => true,
       }),
     )
-    return r.status === 200
+    if (r.status === 200) return true
+    // 401/403 = a genuinely invalid/expired key → false. But 5xx/429 are server-side
+    // problems, NOT a bad key — throw so callers report "API unavailable" instead of
+    // falsely telling the user to re-create a perfectly good key.
+    if (r.status >= 500 || r.status === 429) {
+      throw new ApiError(
+        r.status,
+        `TokenMix API is temporarily unavailable (HTTP ${r.status}). Please try again in a moment.`,
+      )
+    }
+    return false
   } catch (err) {
+    if (err instanceof ApiError) throw err
     handleAxios(err)
   }
 }
@@ -208,14 +223,29 @@ export async function pollDeviceToken(
   auth: DeviceAuthorization,
   onTick?: (secondsRemaining: number) => void,
 ): Promise<DeviceTokenResult> {
-  let intervalMs = Math.max(1, Number(auth.interval) || DEFAULT_POLL_INTERVAL_S) * 1000
-  const expiresIn = Number(auth.expires_in) > 0 ? Number(auth.expires_in) : DEFAULT_EXPIRES_IN_S
+  // Clamp the server-provided interval/deadline so a malicious or buggy server can't
+  // drive a ~1ms busy-loop — Infinity/NaN/huge values slip past a bare Math.max.
+  // Interval ∈ [1s, 60s]; the overall deadline is capped at 1h.
+  const clampIntervalMs = (s: number): number => {
+    const ms = (Number.isFinite(s) && s > 0 ? s : DEFAULT_POLL_INTERVAL_S) * 1000
+    return Math.min(60_000, Math.max(1000, ms))
+  }
+  let intervalMs = clampIntervalMs(Number(auth.interval))
+  const expiresInRaw = Number(auth.expires_in)
+  const expiresIn =
+    Number.isFinite(expiresInRaw) && expiresInRaw > 0
+      ? Math.min(expiresInRaw, 3600)
+      : DEFAULT_EXPIRES_IN_S
   const deadline = Date.now() + expiresIn * 1000
 
   while (Date.now() < deadline) {
     await new Promise((r) => setTimeout(r, intervalMs))
     if (onTick) {
-      onTick(Math.max(0, Math.round((deadline - Date.now()) / 1000)))
+      try {
+        onTick(Math.max(0, Math.round((deadline - Date.now()) / 1000)))
+      } catch {
+        // a progress callback must never be able to abort the login flow
+      }
     }
     try {
       const r = await axios.post(
@@ -224,7 +254,15 @@ export async function pollDeviceToken(
         { timeout: REQUEST_TIMEOUT_MS, validateStatus: () => true },
       )
       if (r.status === 200 && r.data?.code === 0) {
-        const body = r.data.data as DeviceTokenBackend
+        const body = r.data.data as DeviceTokenBackend | undefined
+        // A 200/code:0 with no usable token would otherwise be written to config as
+        // `apiKey: undefined` and look like a successful login. Treat it as an error.
+        if (!body || typeof body.access_token !== 'string') {
+          throw new DeviceFlowError(
+            'unknown',
+            'Server returned a success response without a token.',
+          )
+        }
         return {
           apiKey: body.access_token,
           apiKeyId: body.api_key_id,
@@ -238,7 +276,7 @@ export async function pollDeviceToken(
           continue
         case 'slow_down': {
           const ra = parseInt(String(r.headers['retry-after'] ?? '5'), 10)
-          if (Number.isFinite(ra) && ra > 0) intervalMs = ra * 1000
+          if (Number.isFinite(ra) && ra > 0) intervalMs = clampIntervalMs(ra)
           continue
         }
         case 'expired_token':

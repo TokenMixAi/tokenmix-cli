@@ -5,6 +5,19 @@ All notable changes to TokenMix CLI are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.2] - 2026-06-01
+
+### Fixed
+
+A hardening pass after an adversarial (red-team) review of the most dangerous code paths — config writes, login, and the agents that edit your `~/.claude/settings.json`. Every fix ships with a regression test.
+
+- **Config files are now written atomically** (temp file + rename). A crash or a concurrent write mid-`writeFile` could previously truncate `~/.claude/settings.json`, your `config.json`, or `opencode.json` to 0 bytes — corrupting your Claude Code setup or silently dropping your saved login. `readConfig` now also distinguishes a corrupt config from a missing one (it warns instead of looking silently logged-out).
+- **`tokenmix claude` no longer crashes on a malformed `settings.json`.** A file containing the JSON literal `null` (or an array) used to throw `Cannot read properties of null` and block launch; it is now treated as a fresh start.
+- **A gateway 5xx/429 is no longer reported as an invalid key.** `login` and `doctor` used to tell you to re-create a perfectly good key when the API was merely down; they now say it is temporarily unavailable.
+- **`tokenmix topup` / `balance` always print the dashboard URL** before trying to open a browser — so on a headless / SSH / container machine you get the link instead of nothing.
+- **Device-flow login is hardened** against a misbehaving server: the poll interval and deadline are clamped (no busy-loop from absurd values), a success response with no token is rejected instead of saving an empty login, and a progress-callback error can no longer abort the flow.
+- **Robustness:** `TOKENMIX_TIMEOUT_MS` now ignores non-positive/garbage values; a string error `code` from the API is no longer silently swallowed; a missing browser launcher can no longer crash the process.
+
 ## [1.5.1] - 2026-06-01
 
 Quality-tooling follow-up to 1.5.0. No change to runtime behavior.
