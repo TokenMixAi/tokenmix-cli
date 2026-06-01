@@ -7,6 +7,7 @@
 
 export const en = {
   'common.notLoggedIn': 'Not logged in. Run `tokenmix login` first.',
+  'cli.unknownCommand': 'Unknown command: {cmd}. Run `tokenmix --help` to see available commands.',
   'config.corrupt':
     'Your TokenMix config file was corrupt and has been ignored — run `tokenmix login` to re-create it.',
 
@@ -247,6 +248,7 @@ export type MessageKey = keyof typeof en
 
 export const zh: typeof en = {
   'common.notLoggedIn': '未登录，请先运行 `tokenmix login`。',
+  'cli.unknownCommand': '未知命令：{cmd}。运行 `tokenmix --help` 查看可用命令。',
   'config.corrupt': 'TokenMix 配置文件已损坏，已忽略 —— 请运行 `tokenmix login` 重新创建。',
   'welcome.tagline': '一个账户、160+ 模型、对接所有开源编程 agent',
   'welcome.why': '你选的模型就是你用的模型 —— 不偷换、不降级,按真实用量计费。',
@@ -448,6 +450,8 @@ export const zh: typeof en = {
 
 export const ja: typeof en = {
   'common.notLoggedIn': 'ログインしていません。まず `tokenmix login` を実行してください。',
+  'cli.unknownCommand':
+    '不明なコマンド: {cmd}。`tokenmix --help` で利用可能なコマンドを確認してください。',
   'config.corrupt':
     'TokenMix の設定ファイルが破損していたため無視しました —— `tokenmix login` を実行して再作成してください。',
   'welcome.tagline':
@@ -662,6 +666,8 @@ export const ja: typeof en = {
 
 export const ko: typeof en = {
   'common.notLoggedIn': '로그인되어 있지 않습니다. 먼저 `tokenmix login`을 실행하세요.',
+  'cli.unknownCommand':
+    '알 수 없는 명령: {cmd}. `tokenmix --help`로 사용 가능한 명령을 확인하세요.',
   'config.corrupt':
     'TokenMix 설정 파일이 손상되어 무시했습니다 —— `tokenmix login`을 실행해 다시 만드세요.',
   'welcome.tagline': '하나의 계정으로 160+ 모델, 모든 오픈소스 코딩 agent 지원',
@@ -870,6 +876,8 @@ export const ko: typeof en = {
 
 export const es: typeof en = {
   'common.notLoggedIn': 'No has iniciado sesión. Ejecuta `tokenmix login` primero.',
+  'cli.unknownCommand':
+    'Comando desconocido: {cmd}. Ejecuta `tokenmix --help` para ver los comandos disponibles.',
   'config.corrupt':
     'Tu archivo de configuración de TokenMix estaba dañado y se ha ignorado: ejecuta `tokenmix login` para volver a crearlo.',
   'welcome.tagline':
@@ -1089,6 +1097,8 @@ export const es: typeof en = {
 
 export const fr: typeof en = {
   'common.notLoggedIn': 'Non connecté. Exécutez d’abord `tokenmix login`.',
+  'cli.unknownCommand':
+    'Commande inconnue : {cmd}. Exécutez `tokenmix --help` pour voir les commandes disponibles.',
   'config.corrupt':
     'Votre fichier de configuration TokenMix était corrompu et a été ignoré — exécutez `tokenmix login` pour le recréer.',
   'welcome.tagline': 'un seul compte, 160+ modèles, tous les agents de codage open source',

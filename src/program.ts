@@ -9,6 +9,7 @@ import { listCommand } from './commands/list.js'
 import { doctorCommand } from './commands/doctor.js'
 import { welcomeCommand } from './commands/welcome.js'
 import { registerAgentCommands, AgentRunner } from './commands/agent-runner.js'
+import { logger } from './utils/logger.js'
 import { t } from './i18n/index.js'
 
 // Read version from package.json so we never have to bump it in two places.
@@ -34,7 +35,15 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
     .description(t('cmd.program'))
     .version(pkg.version)
     // Bare `tokenmix` (no command) shows a friendly onboarding screen, not raw help.
-    .action(welcomeCommand)
+    // An unrecognized command would otherwise be swallowed into this default action
+    // (printing welcome + exiting 0), so reject it explicitly instead.
+    .action((_options: Record<string, unknown>, command: Command) => {
+      if (command.args.length > 0) {
+        logger.error(t('cli.unknownCommand', { cmd: command.args.join(' ') }))
+        process.exit(1)
+      }
+      return welcomeCommand()
+    })
 
   program
     .command('login')

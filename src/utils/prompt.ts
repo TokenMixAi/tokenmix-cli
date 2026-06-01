@@ -6,7 +6,7 @@ export async function promptApiKey(): Promise<string | null> {
     type: 'password',
     name: 'apiKey',
     message: t('prompt.pasteKey'),
-    validate: (v: string) => (v && v.startsWith('sk-tm-') ? true : t('login.keyMustStart')),
+    validate: (v: string) => (v && v.trim().startsWith('sk-tm-') ? true : t('login.keyMustStart')),
   })
   const key = (r.apiKey as string | undefined)?.trim()
   return key || null

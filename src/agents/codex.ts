@@ -41,16 +41,23 @@ async function configure(
 // OpenAI-compatible provider. wire_api MUST be "responses": Codex 0.135+ dropped
 // support for "chat" (openai/codex#7782), and tokenmix's gateway implements the
 // Responses API specifically for Codex clients (POST /v1/responses).
+// Escape a value for a TOML double-quoted string (codex `--config key="value"`),
+// so a user-set model/baseUrl containing " \ or a newline can't break the parse
+// or inject extra config keys (e.g. overwrite base_url via an embedded newline).
+function tomlStr(v: string): string {
+  return v.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\r/g, '\\r').replace(/\n/g, '\\n')
+}
+
 export function providerOverrides(baseUrl: string, model: string): string[] {
   return [
     '--config',
     `model_provider="${PROVIDER_ID}"`,
     '--config',
-    `model="${model}"`,
+    `model="${tomlStr(model)}"`,
     '--config',
     `model_providers.${PROVIDER_ID}.name="TokenMix"`,
     '--config',
-    `model_providers.${PROVIDER_ID}.base_url="${baseUrl}"`,
+    `model_providers.${PROVIDER_ID}.base_url="${tomlStr(baseUrl)}"`,
     '--config',
     `model_providers.${PROVIDER_ID}.env_key="${KEY_ENV}"`,
     '--config',

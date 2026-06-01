@@ -57,6 +57,7 @@ export function registerAgentCommands(program: Command, runner: AgentRunner = ru
       .description(t('cmd.agent', { name: agent.displayName }))
       .allowUnknownOption(true)
       .passThroughOptions(true) // forward --version / --help / --any to the underlying agent
+      .helpOption(false) // so `tokenmix <agent> --help` reaches the agent, not commander's wrapper help
       .action(async (args: string[] = []) => {
         await runner(agent, args)
       })

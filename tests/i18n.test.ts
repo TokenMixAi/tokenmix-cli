@@ -46,6 +46,19 @@ describe('t', () => {
       'Waiting for authorization (expires in 300s, polling every 5s) ...',
     )
   })
+
+  it('does NOT re-substitute a {token} inside a param value (single-pass, injection-safe)', () => {
+    setLocale('en')
+    // {name}'s value contains "{min}" — it must stay literal, not get replaced by `min`
+    expect(t('agent.needsNode', { name: 'pwn {min}', min: 'SECRET', cur: '9' })).toContain(
+      'pwn {min}',
+    )
+  })
+
+  it('leaves an unknown placeholder untouched', () => {
+    setLocale('en')
+    expect(t('agent.installing', {})).toContain('{name}')
+  })
 })
 
 describe('catalog completeness', () => {

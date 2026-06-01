@@ -5,6 +5,19 @@ All notable changes to TokenMix CLI are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2026-06-01
+
+### Fixed
+
+A second adversarial-review pass over the remaining paths (commands, agent config, i18n). Each fix has a test.
+
+- **Unknown commands now error instead of silently showing the welcome screen.** `tokenmix balnce` (a typo) used to print the get-started screen and exit 0; it now reports the unknown command and exits 1.
+- **An API key pasted with leading whitespace is accepted.** The validator checked the untrimmed value, rejecting `"  sk-tm-…"` (common when copying from the dashboard) even though it trims fine.
+- **`tokenmix <agent> --help` now reaches the agent** (e.g. shows OpenCode's own help) instead of tokenmix's wrapper help.
+- **Codex / Continue config is escaped properly.** A model or base URL with special characters (`"`, `:`, `#`, newlines) no longer breaks Codex's TOML provider config or the Continue YAML snippet (and can't inject extra config keys).
+- **OpenHands model prefix** is no longer doubled (`openai/openai/…`) when the model already includes a provider prefix.
+- **`t()` placeholder interpolation is single-pass** — a value that itself contains `{token}` is no longer re-substituted by a later parameter.
+
 ## [1.5.2] - 2026-06-01
 
 ### Fixed

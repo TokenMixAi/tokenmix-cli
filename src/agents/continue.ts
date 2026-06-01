@@ -19,6 +19,9 @@ async function configure(
   // plus apiBase/apiKey for an OpenAI-compatible endpoint). We PRINT a ready-to-use
   // config rather than write the file, so we never clobber a user's existing
   // ~/.continue/config.yaml (and need no YAML dependency or cleanup step).
+  // Quote user-controlled scalars as YAML single-quoted strings so a model/baseUrl
+  // containing ':' '#' etc. can't break the structure when pasted into config.yaml.
+  const ys = (v: string): string => `'${v.replace(/'/g, "''")}'`
   const yaml = [
     'name: TokenMix',
     'version: 1.0.0',
@@ -26,9 +29,9 @@ async function configure(
     'models:',
     '  - name: TokenMix',
     '    provider: openai',
-    `    model: ${defaultModel}`,
-    `    apiBase: ${v1Url(baseUrl)}`,
-    `    apiKey: ${apiKey}`,
+    `    model: ${ys(defaultModel)}`,
+    `    apiBase: ${ys(v1Url(baseUrl))}`,
+    `    apiKey: ${ys(apiKey)}`,
   ].join('\n')
 
   return {

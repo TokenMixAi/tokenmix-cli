@@ -31,7 +31,7 @@ async function configure(
   return {
     envVars: {
       LLM_API_KEY: apiKey,
-      LLM_MODEL: `openai/${defaultModel}`,
+      LLM_MODEL: defaultModel.includes('/') ? defaultModel : `openai/${defaultModel}`,
       LLM_BASE_URL: v1Url(baseUrl),
       OPENHANDS_SUPPRESS_BANNER: '1',
     },

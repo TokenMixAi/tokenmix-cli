@@ -21,10 +21,16 @@ describe('ContinueAgent', () => {
     expect(text).toContain('version: 1.0.0')
     expect(text).toContain('schema: v1')
     expect(text).toContain('provider: openai')
-    expect(text).toContain('model: claude-sonnet-4.6')
-    expect(text).toContain('apiBase: https://api.tokenmix.ai/v1')
-    expect(text).toContain('apiKey: sk-tm-abc123')
+    expect(text).toContain("model: 'claude-sonnet-4.6'")
+    expect(text).toContain("apiBase: 'https://api.tokenmix.ai/v1'")
+    expect(text).toContain("apiKey: 'sk-tm-abc123'")
     expect(result.configPath).toBeUndefined() // we print, never write the file
+  })
+
+  it('quotes a model containing YAML-special chars so the pasted snippet stays valid', async () => {
+    const result = await ContinueAgent.configure('sk-tm-abc', 'https://api.tokenmix.ai', 'gpt:4#x')
+    const text = (result.notes ?? []).join('\n')
+    expect(text).toContain("model: 'gpt:4#x'") // ':' and '#' kept inside a quoted scalar
   })
 
   it('keeps YAML top-level keys at column 0 after agent-runner prefixes notes', async () => {
