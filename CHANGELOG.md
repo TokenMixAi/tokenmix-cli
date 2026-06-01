@@ -5,6 +5,18 @@ All notable changes to TokenMix CLI are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-06-01
+
+Quality-tooling follow-up to 1.5.0. No change to runtime behavior.
+
+### Added
+- **Test coverage reporting** — `pnpm test:coverage` (via `@vitest/coverage-v8`).
+- **Pre-commit hook** — husky + lint-staged auto-run ESLint + Prettier on staged files before each commit.
+
+### Changed
+- **Enabled `noUncheckedIndexedAccess`** for stricter array/object index safety (two `.split()[0]` sites guarded; behavior unchanged).
+- **Bumped GitHub Actions** `actions/checkout` and `actions/setup-node` to v5 (Node 24 runtime), ahead of the June 2026 Node 20 deprecation.
+
 ## [1.5.0] - 2026-06-01
 
 A codebase-quality release. **No change to how the CLI behaves** — same commands, same agents, same output — but a substantial internal cleanup and a full quality-tooling baseline, verified by an independent behavior-equivalence review plus typecheck / lint / format / build / 103 tests all green. Safe to upgrade.

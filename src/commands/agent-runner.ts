@@ -9,7 +9,7 @@ import { t } from '../i18n/index.js'
 // Major version of the running Node (e.g. 22 from "v22.9.0"). Gates agents whose
 // binary needs a newer Node than this process (Codex / Qwen Code require 22).
 export function nodeMajor(): number {
-  return parseInt(process.versions.node.split('.')[0], 10)
+  return parseInt(process.versions.node.split('.')[0] ?? '', 10)
 }
 
 // Flags that are pure information requests meant for the underlying agent binary.

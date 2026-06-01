@@ -15,7 +15,7 @@ export function detectLocale(env: NodeJS.ProcessEnv = process.env): Locale {
     .trim()
   // Primary language subtag: zh_CN.UTF-8 → zh, pt-BR → pt, fr.UTF-8 → fr.
   // Any subtag with a catalog is supported; everything else falls back to en.
-  const lang = raw.split(/[-_.@]/)[0]
+  const lang = raw.split(/[-_.@]/)[0] ?? ''
   return Object.prototype.hasOwnProperty.call(catalogs, lang) ? (lang as Locale) : 'en'
 }
 
