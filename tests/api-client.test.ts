@@ -66,7 +66,10 @@ describe('listPublicModels', () => {
 
   it('maps an HTTP error response to ApiError with its status', async () => {
     mockedGet.mockRejectedValue({ response: { status: 401, data: { message: 'unauthorized' } } })
-    await expect(listPublicModels({})).rejects.toMatchObject({ status: 401, message: 'unauthorized' })
+    await expect(listPublicModels({})).rejects.toMatchObject({
+      status: 401,
+      message: 'unauthorized',
+    })
   })
 
   it('maps a network failure (no response) to ApiError', async () => {
@@ -114,7 +117,9 @@ describe('fetchWallet', () => {
   })
 
   it('maps a 401 to ApiError', async () => {
-    mockedGet.mockRejectedValue({ response: { status: 401, data: { message: 'invalid or expired token' } } })
+    mockedGet.mockRejectedValue({
+      response: { status: 401, data: { message: 'invalid or expired token' } },
+    })
     await expect(fetchWallet('sk-tm-bad')).rejects.toMatchObject({ status: 401 })
   })
 })

@@ -1,5 +1,9 @@
 # TokenMix CLI
 
+[![CI](https://github.com/TokenMixAi/tokenmix-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/TokenMixAi/tokenmix-cli/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/tokenmix.svg)](https://www.npmjs.com/package/tokenmix)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
 Zero-config CLI to use any open-source coding agent with [TokenMix](https://tokenmix.ai) as the unified LLM backend.
 
 One account, one balance, 160+ models routed automatically across Claude / GPT / Gemini / DeepSeek / Qwen / Moonshot / ...

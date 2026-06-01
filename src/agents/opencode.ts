@@ -7,7 +7,9 @@ import {
   AgentConfigureResult,
   AgentCleanupResult,
 } from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { run } from '../utils/exec.js'
+import { npmInstallCheck, npmInstallGlobal } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
 const OPENCODE_BIN = 'opencode'
@@ -23,27 +25,10 @@ function configPath(): string {
   return path.join(xdgHome, 'opencode', 'opencode.json')
 }
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  const bin = await commandExists(OPENCODE_BIN)
-  if (!bin) {
-    const cmd = `npm install -g ${OPENCODE_NPM_PACKAGE}`
-    return {
-      installed: false,
-      hint: t('install.willInstallVia', { cmd }),
-      installCmd: cmd,
-    }
-  }
-  try {
-    const v = await captureRun(OPENCODE_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
-}
+const installCheck = (): Promise<AgentInstallStatus> =>
+  npmInstallCheck(OPENCODE_BIN, OPENCODE_NPM_PACKAGE)
 
-async function install(): Promise<void> {
-  await run('npm', ['install', '-g', OPENCODE_NPM_PACKAGE])
-}
+const install = (): Promise<void> => npmInstallGlobal(OPENCODE_NPM_PACKAGE)
 
 async function configure(
   apiKey: string,
@@ -65,7 +50,7 @@ async function configure(
     npm: '@ai-sdk/openai-compatible',
     name: 'TokenMix',
     options: {
-      baseURL: `${baseUrl}/v1`,
+      baseURL: v1Url(baseUrl),
       apiKey,
     },
     // Listed models populate /connect picker; users can still type any tokenmix short_id.
@@ -90,10 +75,7 @@ async function configure(
 
   return {
     configPath: filePath,
-    notes: [
-      t('opencode.noteModel', { model: defaultModel }),
-      t('opencode.noteSwitch'),
-    ],
+    notes: [t('opencode.noteModel', { model: defaultModel }), t('opencode.noteSwitch')],
   }
 }
 

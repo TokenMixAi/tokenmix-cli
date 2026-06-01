@@ -15,7 +15,10 @@ export async function logoutCommand(): Promise<void> {
     try {
       const r = await agent.cleanup()
       if (r.reverted) {
-        logger.success(t('logout.reverted', { name: agent.displayName }) + (r.configPath ? ` (${r.configPath})` : ''))
+        logger.success(
+          t('logout.reverted', { name: agent.displayName }) +
+            (r.configPath ? ` (${r.configPath})` : ''),
+        )
         if (r.note) logger.dim(`  ${r.note}`)
       }
     } catch {

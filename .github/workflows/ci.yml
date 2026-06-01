@@ -6,6 +6,30 @@ on:
   pull_request:
 
 jobs:
+  # Lint + format check — platform-independent, so run once on Node 22.
+  lint:
+    name: lint & format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Format check
+        run: pnpm format:check
+
   # Full check across the OSes and Node versions real users run on.
   # (vitest 4 needs Node >=20, so the test job stays on 20/22; the Node 18
   # runtime floor is smoke-tested separately below.)

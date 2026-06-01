@@ -1,21 +1,13 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { vscodeConfigOnlyCheck } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  // Roo Code is a config-only agent (VSCode extension, a Cline fork). The CLI
-  // cannot install the extension, so we always proceed to configure() and print
-  // the settings — the user may also be copying the config for another machine.
-  const code = await commandExists('code')
-  return {
-    installed: true,
-    hint: code ? t('roo.hintMarketplace') : t('roo.hintNoVscode'),
-  }
-}
+// Roo Code is a config-only agent (VSCode extension, a Cline fork): the CLI can't
+// install the extension, so installCheck always reports installed and configure()
+// prints the settings (the user may also be copying the config for another machine).
+const installCheck = (): Promise<AgentInstallStatus> =>
+  vscodeConfigOnlyCheck('roo.hintMarketplace', 'roo.hintNoVscode')
 
 async function configure(
   apiKey: string,
@@ -31,7 +23,7 @@ async function configure(
       t('roo.noteConfigWith'),
       '',
       `  Provider:   OpenAI Compatible`,
-      `  Base URL:   ${baseUrl}/v1`,
+      `  Base URL:   ${v1Url(baseUrl)}`,
       `  API Key:    ${apiKey}`,
       `  Model ID:   ${defaultModel}`,
       '',

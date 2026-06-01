@@ -1,9 +1,7 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { commandExists, run } from '../utils/exec.js'
+import { probeVersion } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
 const OPENHANDS_BIN = 'openhands'
@@ -12,20 +10,14 @@ const OPENHANDS_BIN = 'openhands'
 const OPENHANDS_INSTALL = 'uv tool install openhands --python 3.12'
 
 async function installCheck(): Promise<AgentInstallStatus> {
-  const bin = await commandExists(OPENHANDS_BIN)
-  if (!bin) {
+  if (!(await commandExists(OPENHANDS_BIN))) {
     return {
       installed: false,
       hint: t('openhands.hintInstall', { cmd: OPENHANDS_INSTALL }),
       installCmd: OPENHANDS_INSTALL,
     }
   }
-  try {
-    const v = await captureRun(OPENHANDS_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
+  return probeVersion(OPENHANDS_BIN)
 }
 
 async function configure(
@@ -40,7 +32,7 @@ async function configure(
     envVars: {
       LLM_API_KEY: apiKey,
       LLM_MODEL: `openai/${defaultModel}`,
-      LLM_BASE_URL: `${baseUrl}/v1`,
+      LLM_BASE_URL: v1Url(baseUrl),
       OPENHANDS_SUPPRESS_BANNER: '1',
     },
     notes: [t('openhands.noteUsing'), t('openhands.noteModel', { model: defaultModel })],

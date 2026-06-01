@@ -36,9 +36,7 @@ describe('ContinueAgent', () => {
       'https://api.tokenmix.ai',
       'claude-sonnet-4.6',
     )
-    const rendered = (result.notes ?? [])
-      .map((n) => (n === '' ? '' : `  ${n}`))
-      .join('\n')
+    const rendered = (result.notes ?? []).map((n) => (n === '' ? '' : `  ${n}`)).join('\n')
     expect(rendered).toMatch(/^name: TokenMix$/m)
     expect(rendered).toMatch(/^version: 1\.0\.0$/m)
     expect(rendered).toMatch(/^schema: v1$/m)

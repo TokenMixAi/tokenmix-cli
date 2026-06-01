@@ -1,9 +1,7 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { run } from '../utils/exec.js'
+import { npmInstallCheck, npmInstallGlobal } from './helpers.js'
+import { v1Url, DEFAULT_MODEL } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
 const CODEX_BIN = 'codex'
@@ -16,27 +14,10 @@ const PROVIDER_ID = 'tokenmix'
 // at launch from the user's TokenMix key — nothing is written to ~/.codex.
 const KEY_ENV = 'TOKENMIX_API_KEY'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  const bin = await commandExists(CODEX_BIN)
-  if (!bin) {
-    const cmd = `npm install -g ${CODEX_NPM_PACKAGE}`
-    return {
-      installed: false,
-      hint: t('install.willInstallVia', { cmd }),
-      installCmd: cmd,
-    }
-  }
-  try {
-    const v = await captureRun(CODEX_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
-}
+const installCheck = (): Promise<AgentInstallStatus> =>
+  npmInstallCheck(CODEX_BIN, CODEX_NPM_PACKAGE)
 
-async function install(): Promise<void> {
-  await run('npm', ['install', '-g', CODEX_NPM_PACKAGE])
-}
+const install = (): Promise<void> => npmInstallGlobal(CODEX_NPM_PACKAGE)
 
 async function configure(
   apiKey: string,
@@ -50,7 +31,7 @@ async function configure(
   return {
     envVars: {
       [KEY_ENV]: apiKey,
-      TOKENMIX_BASE_URL: `${baseUrl}/v1`,
+      TOKENMIX_BASE_URL: v1Url(baseUrl),
     },
     notes: [t('codex.noteUsing'), t('codex.noteModel', { model: defaultModel })],
   }
@@ -62,12 +43,18 @@ async function configure(
 // Responses API specifically for Codex clients (POST /v1/responses).
 export function providerOverrides(baseUrl: string, model: string): string[] {
   return [
-    '--config', `model_provider="${PROVIDER_ID}"`,
-    '--config', `model="${model}"`,
-    '--config', `model_providers.${PROVIDER_ID}.name="TokenMix"`,
-    '--config', `model_providers.${PROVIDER_ID}.base_url="${baseUrl}"`,
-    '--config', `model_providers.${PROVIDER_ID}.env_key="${KEY_ENV}"`,
-    '--config', `model_providers.${PROVIDER_ID}.wire_api="responses"`,
+    '--config',
+    `model_provider="${PROVIDER_ID}"`,
+    '--config',
+    `model="${model}"`,
+    '--config',
+    `model_providers.${PROVIDER_ID}.name="TokenMix"`,
+    '--config',
+    `model_providers.${PROVIDER_ID}.base_url="${baseUrl}"`,
+    '--config',
+    `model_providers.${PROVIDER_ID}.env_key="${KEY_ENV}"`,
+    '--config',
+    `model_providers.${PROVIDER_ID}.wire_api="responses"`,
   ]
 }
 
@@ -79,7 +66,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
     await run(CODEX_BIN, args, { env })
     return
   }
-  const model = env.TOKENMIX_DEFAULT_MODEL ?? 'claude-sonnet-4.6'
+  const model = env.TOKENMIX_DEFAULT_MODEL ?? DEFAULT_MODEL
   // Our overrides go first so user-supplied args (e.g. `--config model=...`) win.
   await run(CODEX_BIN, [...providerOverrides(baseUrl, model), ...args], { env })
 }

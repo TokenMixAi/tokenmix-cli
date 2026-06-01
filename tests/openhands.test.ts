@@ -18,7 +18,11 @@ describe('OpenHandsAgent', () => {
   })
 
   it('configure sets LiteLLM env with the openai/ model prefix and /v1 base', async () => {
-    const r = await OpenHandsAgent.configure('sk-tm-abc', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    const r = await OpenHandsAgent.configure(
+      'sk-tm-abc',
+      'https://api.tokenmix.ai',
+      'claude-sonnet-4.6',
+    )
     expect(r.configPath).toBeUndefined()
     expect(r.envVars).toEqual({
       LLM_API_KEY: 'sk-tm-abc',

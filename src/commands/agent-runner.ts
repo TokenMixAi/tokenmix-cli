@@ -1,12 +1,10 @@
 import { Command } from 'commander'
 import { logger } from '../utils/logger.js'
-import { readConfig, apiBaseUrl } from '../config/store.js'
+import { readConfig, apiBaseUrl, DEFAULT_MODEL } from '../config/store.js'
 import { confirm } from '../utils/prompt.js'
 import { AGENTS } from '../agents/registry.js'
 import { AgentDescriptor } from '../agents/types.js'
 import { t } from '../i18n/index.js'
-
-const DEFAULT_MODEL = 'claude-sonnet-4.6'
 
 // Major version of the running Node (e.g. 22 from "v22.9.0"). Gates agents whose
 // binary needs a newer Node than this process (Codex / Qwen Code require 22).

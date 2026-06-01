@@ -128,7 +128,9 @@ describe('ClaudeCodeAgent.configure overwrite warning', () => {
       env: { ANTHROPIC_API_KEY: 'sk-ant-user', ANTHROPIC_BASE_URL: 'https://api.anthropic.com' },
     })
     const res = await ClaudeCodeAgent.configure(...TM)
-    expect(res.notes?.some((n) => n.includes('Replaced your existing Anthropic settings'))).toBe(true)
+    expect(res.notes?.some((n) => n.includes('Replaced your existing Anthropic settings'))).toBe(
+      true,
+    )
   })
 
   it('does not warn on a clean machine', async () => {
@@ -138,20 +140,28 @@ describe('ClaudeCodeAgent.configure overwrite warning', () => {
 
   it('does not warn when re-running over its own tokenmix config', async () => {
     await ClaudeCodeAgent.configure(...TM)
-    const res = await ClaudeCodeAgent.configure('sk-tm-secret2', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    const res = await ClaudeCodeAgent.configure(
+      'sk-tm-secret2',
+      'https://api.tokenmix.ai',
+      'claude-sonnet-4.6',
+    )
     expect(res.notes?.some((n) => n.includes('Replaced'))).toBe(false)
   })
 
   it('warns about subscription bypass when ~/.claude/.credentials.json exists and no env key', async () => {
     await fs.ensureDir(path.join(tmp, '.claude'))
-    await fs.writeJson(path.join(tmp, '.claude', '.credentials.json'), { claudeAiOauth: { accessToken: 'x' } })
+    await fs.writeJson(path.join(tmp, '.claude', '.credentials.json'), {
+      claudeAiOauth: { accessToken: 'x' },
+    })
     const res = await ClaudeCodeAgent.configure(...TM)
     expect(res.notes?.some((n) => n.includes('subscription'))).toBe(true)
   })
 
   it('shows the replace warning (not the OAuth one) when an env key is also present', async () => {
     await fs.ensureDir(path.join(tmp, '.claude'))
-    await fs.writeJson(path.join(tmp, '.claude', '.credentials.json'), { claudeAiOauth: { accessToken: 'x' } })
+    await fs.writeJson(path.join(tmp, '.claude', '.credentials.json'), {
+      claudeAiOauth: { accessToken: 'x' },
+    })
     await fs.writeJson(settingsPath(), { env: { ANTHROPIC_API_KEY: 'sk-ant-user' } })
     const res = await ClaudeCodeAgent.configure(...TM)
     expect(res.notes?.some((n) => n.includes('Replaced'))).toBe(true)

@@ -25,7 +25,3 @@ export const AGENTS: readonly AgentDescriptor[] = [
   GooseAgent,
   OpenHandsAgent,
 ]
-
-export function findAgent(id: string): AgentDescriptor | undefined {
-  return AGENTS.find((a) => a.id === id)
-}

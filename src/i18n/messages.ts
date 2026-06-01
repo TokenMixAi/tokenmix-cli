@@ -19,19 +19,23 @@ export const en = {
   'welcome.more': 'More: `tokenmix --help` for all commands · `tokenmix balance` for your balance',
 
   // login
-  'login.keyMustStart': 'API key should start with sk-tm-. Get one at https://tokenmix.ai/dashboard/keys',
+  'login.keyMustStart':
+    'API key should start with sk-tm-. Get one at https://tokenmix.ai/dashboard/keys',
   'login.verifying': 'Verifying API key against {baseUrl} ...',
-  'login.verifyFailed': 'API key verification failed. Double-check at https://tokenmix.ai/dashboard/keys',
+  'login.verifyFailed':
+    'API key verification failed. Double-check at https://tokenmix.ai/dashboard/keys',
   'login.loggedInHint': 'Logged in. Try `tokenmix opencode` to launch your first agent.',
   'login.noKey': 'No API key provided. Get one at https://tokenmix.ai/dashboard/keys',
   'login.requesting': 'Requesting device authorization ...',
   'login.couldNotStart': 'Could not start device authorization: {msg}',
-  'login.fallbackPaste': 'Falling back to manual paste. Get an API key at https://tokenmix.ai/dashboard/keys',
+  'login.fallbackPaste':
+    'Falling back to manual paste. Get an API key at https://tokenmix.ai/dashboard/keys',
   'login.openLinkConfirm': 'Open the link below and confirm this code:',
   'login.link': 'Link:',
   'login.browserOpened': '(browser opened; if nothing happens, copy the link above)',
   'login.browserFailed': '(could not open browser; copy the link above into one)',
-  'login.waiting': 'Waiting for authorization (expires in {expires}s, polling every {interval}s) ...',
+  'login.waiting':
+    'Waiting for authorization (expires in {expires}s, polling every {interval}s) ...',
   'login.stillWaiting': '... still waiting ({seconds}s remaining)',
   'login.loggedInAs': 'Logged in as {email} (API key #{id})',
   'login.loggedInId': 'Logged in (API key #{id})',
@@ -41,13 +45,15 @@ export const en = {
   // agent install / configure / launch
   'agent.notInstalled': '{name} is not installed.',
   'agent.notInstallable': '{name} is not installable from the CLI.',
-  'agent.needsNode': '{name} needs Node {min}+ (you have Node {cur}). Upgrade Node (nvm / fnm / volta), then re-run — your TokenMix login is saved.',
+  'agent.needsNode':
+    '{name} needs Node {min}+ (you have Node {cur}). Upgrade Node (nvm / fnm / volta), then re-run — your TokenMix login is saved.',
   'agent.installPrompt': '{name} is not installed. Install now?',
   'agent.installing': 'Installing {name} ...',
   'agent.installed': '{name} installed.',
   'agent.installFailed': 'Could not install {name} automatically.',
   'agent.installFailHint1': 'This usually means npm cannot write to its global folder. Options:',
-  'agent.installFailHint2': '  • Use a Node version manager (nvm / fnm / volta) — then global installs need no sudo, or',
+  'agent.installFailHint2':
+    '  • Use a Node version manager (nvm / fnm / volta) — then global installs need no sudo, or',
   'agent.installFailHint3': '  • Install it yourself: {cmd}',
   'agent.installFailHint4': 'Then re-run this command — your TokenMix login is already saved.',
   'agent.configuring': 'Configuring {name} ...',
@@ -113,21 +119,25 @@ export const en = {
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
-  'aider.hintNeedPython': 'Aider requires Python 3. Install Python 3 from https://python.org/downloads, then come back and run `tokenmix aider` again.',
+  'aider.hintNeedPython':
+    'Aider requires Python 3. Install Python 3 from https://python.org/downloads, then come back and run `tokenmix aider` again.',
   'aider.hintNotInstalled': 'Aider is not installed. Run this in another terminal:\n    {cmd}',
 
   // opencode configure notes
   'opencode.noteModel': 'Default model set to tokenmix/{model}',
-  'opencode.noteSwitch': 'To switch models, run `tokenmix models` or use `/connect` inside OpenCode.',
+  'opencode.noteSwitch':
+    'To switch models, run `tokenmix models` or use `/connect` inside OpenCode.',
 
   // claude configure notes
-  'claude.noteModels': 'Available Claude models via tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
+  'claude.noteModels':
+    'Available Claude models via tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
   'claude.noteFullList': 'Run `tokenmix models --type chat` for the full list.',
   'claude.noteReplaced1': '⚠ Replaced your existing Anthropic settings in ~/.claude/settings.json.',
   'claude.noteReplaced2': '  `tokenmix logout` restores your original Anthropic settings.',
   'claude.cleanupNote': 'If you had your own ANTHROPIC_API_KEY here before, re-add it.',
   'claude.noteOAuthBypass1': '⚠ You appear to be signed in to a Claude subscription (Pro/Max).',
-  'claude.noteOAuthBypass2': '  TokenMix will bill per token instead; `tokenmix logout` restores your subscription.',
+  'claude.noteOAuthBypass2':
+    '  TokenMix will bill per token instead; `tokenmix logout` restores your subscription.',
   'claude.cleanupRestored': 'Restored your previous ANTHROPIC_* settings.',
 
   // aider configure notes
@@ -137,53 +147,76 @@ export const en = {
   // kilo configure notes (prose only; technical lines stay verbatim)
   'kilo.noteNoLauncher': 'Kilo Code is a VSCode extension and does not have a CLI launcher.',
   'kilo.noteConfigWith': 'Configure Kilo Code with the following:',
-  'kilo.notePasteJson': 'Or paste this JSON snippet into Kilo Code settings (Settings → Providers → JSON):',
-  'kilo.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
-  'kilo.hintMarketplace': 'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.',
-  'kilo.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Kilo Code extension, then use the snippet below.',
+  'kilo.notePasteJson':
+    'Or paste this JSON snippet into Kilo Code settings (Settings → Providers → JSON):',
+  'kilo.noteKeepPrivate':
+    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+  'kilo.hintMarketplace':
+    'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.',
+  'kilo.hintNoVscode':
+    'VSCode not detected on PATH. Install VSCode, then add the Kilo Code extension, then use the snippet below.',
 
   // cline configure notes (config-only; technical lines stay verbatim)
   'cline.noteNoLauncher': 'Cline is a VSCode extension and does not have a CLI launcher.',
   'cline.noteConfigWith': 'Open the Cline settings panel (⚙ → API Provider) and enter:',
-  'cline.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
-  'cline.hintMarketplace': 'Install "Cline" from the VSCode marketplace, then enter the settings below in its panel.',
-  'cline.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Cline extension, then use the settings below.',
+  'cline.noteKeepPrivate':
+    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+  'cline.hintMarketplace':
+    'Install "Cline" from the VSCode marketplace, then enter the settings below in its panel.',
+  'cline.hintNoVscode':
+    'VSCode not detected on PATH. Install VSCode, then add the Cline extension, then use the settings below.',
 
   // roo configure notes (config-only; technical lines stay verbatim)
   'roo.noteNoLauncher': 'Roo Code is a VSCode extension and does not have a CLI launcher.',
   'roo.noteConfigWith': 'Open the Roo Code settings panel (API Provider) and enter:',
-  'roo.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
-  'roo.hintMarketplace': 'Install "Roo Code" from the VSCode marketplace, then enter the settings below in its panel.',
-  'roo.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Roo Code extension, then use the settings below.',
+  'roo.noteKeepPrivate':
+    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+  'roo.hintMarketplace':
+    'Install "Roo Code" from the VSCode marketplace, then enter the settings below in its panel.',
+  'roo.hintNoVscode':
+    'VSCode not detected on PATH. Install VSCode, then add the Roo Code extension, then use the settings below.',
 
   // continue configure notes (config file; YAML lines stay verbatim)
-  'continue.noteNoLauncher': 'Continue is configured via ~/.continue/config.yaml; there is no CLI launcher.',
+  'continue.noteNoLauncher':
+    'Continue is configured via ~/.continue/config.yaml; there is no CLI launcher.',
   'continue.noteConfigWith': 'Add this model to your ~/.continue/config.yaml:',
-  'continue.noteMergeHint': 'If the file already exists, merge just the entry under `models:` into it.',
-  'continue.noteKeepPrivate': 'Keep this API key private — anyone with it can spend your TokenMix balance.',
-  'continue.hintMarketplace': 'Install "Continue" from the VSCode marketplace, then add the config below.',
-  'continue.hintNoVscode': 'VSCode not detected on PATH. Install VSCode, then add the Continue extension, then use the config below.',
+  'continue.noteMergeHint':
+    'If the file already exists, merge just the entry under `models:` into it.',
+  'continue.noteKeepPrivate':
+    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+  'continue.hintMarketplace':
+    'Install "Continue" from the VSCode marketplace, then add the config below.',
+  'continue.hintNoVscode':
+    'VSCode not detected on PATH. Install VSCode, then add the Continue extension, then use the config below.',
 
   // codex configure notes (auto-npm CLI; launched with --config provider injection)
-  'codex.noteUsing': 'Codex will use TokenMix via an OpenAI-compatible provider — your ~/.codex/config.toml is left untouched.',
+  'codex.noteUsing':
+    'Codex will use TokenMix via an OpenAI-compatible provider — your ~/.codex/config.toml is left untouched.',
   'codex.noteModel': 'Default model: {model} — override with `--config model=...`.',
 
   // qwen configure notes (env-based like aider; launched with --auth-type openai)
-  'qwen.noteUsing': 'Qwen Code will use TokenMix via its OpenAI-compatible mode — your ~/.qwen/settings.json is left untouched.',
+  'qwen.noteUsing':
+    'Qwen Code will use TokenMix via its OpenAI-compatible mode — your ~/.qwen/settings.json is left untouched.',
   'qwen.noteModel': 'Default model: {model} — override with OPENAI_MODEL or `qwen --model`.',
 
   // goose configure notes (env-based; Goose appends /v1/chat/completions to OPENAI_HOST)
-  'goose.noteUsing': 'Goose will use TokenMix as its OpenAI provider — its keyring/config is left untouched.',
+  'goose.noteUsing':
+    'Goose will use TokenMix as its OpenAI provider — its keyring/config is left untouched.',
   'goose.noteModel': 'Default model: {model} — override with GOOSE_MODEL.',
 
   // openhands configure notes (env via --override-with-envs; LLM_MODEL needs openai/ prefix)
-  'openhands.noteUsing': 'OpenHands will use TokenMix via LiteLLM (--override-with-envs) — your saved config is left untouched.',
-  'openhands.noteModel': 'Default model: openai/{model} — override with LLM_MODEL (keep the openai/ prefix).',
-  'openhands.hintInstall': 'OpenHands is not installed (needs Python 3.12+). Install it, then re-run `tokenmix openhands`:\n    {cmd}',
-  'goose.hintInstall': 'Goose is not installed. Install it (see https://block.github.io/goose), then re-run `tokenmix goose`:\n    {cmd}',
+  'openhands.noteUsing':
+    'OpenHands will use TokenMix via LiteLLM (--override-with-envs) — your saved config is left untouched.',
+  'openhands.noteModel':
+    'Default model: openai/{model} — override with LLM_MODEL (keep the openai/ prefix).',
+  'openhands.hintInstall':
+    'OpenHands is not installed (needs Python 3.12+). Install it, then re-run `tokenmix openhands`:\n    {cmd}',
+  'goose.hintInstall':
+    'Goose is not installed. Install it (see https://block.github.io/goose), then re-run `tokenmix goose`:\n    {cmd}',
 
   // command / option descriptions (--help)
-  'cmd.program': 'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
+  'cmd.program':
+    'Zero-config CLI to use any open-source coding agent with TokenMix as the unified LLM backend.',
   'cmd.login': 'Log in to TokenMix (default: browser device authorization)',
   'cmd.loginKey': 'Paste an API key directly (skip browser flow, useful in CI)',
   'cmd.loginPaste': 'Force interactive paste prompt instead of browser flow',
@@ -244,13 +277,15 @@ export const zh: typeof en = {
   // agent install / configure / launch
   'agent.notInstalled': '{name} 尚未安装。',
   'agent.notInstallable': '{name} 无法通过 CLI 安装。',
-  'agent.needsNode': '{name} 需要 Node {min}+（你的是 Node {cur}）。请升级 Node（nvm / fnm / volta）后重新运行 —— 你的 TokenMix 登录已保存。',
+  'agent.needsNode':
+    '{name} 需要 Node {min}+（你的是 Node {cur}）。请升级 Node（nvm / fnm / volta）后重新运行 —— 你的 TokenMix 登录已保存。',
   'agent.installPrompt': '{name} 尚未安装。现在安装？',
   'agent.installing': '正在安装 {name} ...',
   'agent.installed': '{name} 安装完成。',
   'agent.installFailed': '无法自动安装 {name}。',
   'agent.installFailHint1': '这通常是 npm 无权写入全局目录。可选方案：',
-  'agent.installFailHint2': '  • 使用 Node 版本管理器（nvm / fnm / volta）—— 全局安装即无需 sudo；或',
+  'agent.installFailHint2':
+    '  • 使用 Node 版本管理器（nvm / fnm / volta）—— 全局安装即无需 sudo；或',
   'agent.installFailHint3': '  • 自行安装：{cmd}',
   'agent.installFailHint4': '随后重新运行本命令 —— 你的 TokenMix 登录已保存。',
   'agent.configuring': '正在配置 {name} ...',
@@ -316,7 +351,8 @@ export const zh: typeof en = {
 
   // install hints
   'install.willInstallVia': '将自动安装：{cmd}',
-  'aider.hintNeedPython': 'Aider 需要 Python 3。请从 https://python.org/downloads 安装 Python 3，然后重新运行 `tokenmix aider`。',
+  'aider.hintNeedPython':
+    'Aider 需要 Python 3。请从 https://python.org/downloads 安装 Python 3，然后重新运行 `tokenmix aider`。',
   'aider.hintNotInstalled': 'Aider 尚未安装。请在另一个终端运行：\n    {cmd}',
 
   // opencode configure notes
@@ -324,7 +360,8 @@ export const zh: typeof en = {
   'opencode.noteSwitch': '切换模型：运行 `tokenmix models`，或在 OpenCode 内使用 `/connect`。',
 
   // claude configure notes
-  'claude.noteModels': '可用的 Claude 模型（经 tokenmix）：claude-opus-4.7、claude-sonnet-4.6、claude-haiku-4.5',
+  'claude.noteModels':
+    '可用的 Claude 模型（经 tokenmix）：claude-opus-4.7、claude-sonnet-4.6、claude-haiku-4.5',
   'claude.noteFullList': '完整列表请运行 `tokenmix models --type chat`。',
   'claude.noteReplaced1': '⚠ 已替换你在 ~/.claude/settings.json 中原有的 Anthropic 配置。',
   'claude.noteReplaced2': '  `tokenmix logout` 会还原你原来的 Anthropic 配置。',
@@ -343,33 +380,42 @@ export const zh: typeof en = {
   'kilo.notePasteJson': '或将以下 JSON 粘贴到 Kilo Code 设置（Settings → Providers → JSON）：',
   'kilo.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
   'kilo.hintMarketplace': '从 VSCode 应用市场安装 "Kilo Code"，然后将下面的片段粘贴到它的设置中。',
-  'kilo.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Kilo Code 扩展，然后使用下面的片段。',
+  'kilo.hintNoVscode':
+    '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Kilo Code 扩展，然后使用下面的片段。',
   'cline.noteNoLauncher': 'Cline 是 VSCode 扩展，没有 CLI 启动器。',
   'cline.noteConfigWith': '打开 Cline 设置面板（⚙ → API Provider），填入以下信息：',
   'cline.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
   'cline.hintMarketplace': '从 VSCode 应用市场安装 "Cline"，然后在它的设置面板中填入下面的信息。',
-  'cline.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Cline 扩展，然后使用下面的设置。',
+  'cline.hintNoVscode':
+    '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Cline 扩展，然后使用下面的设置。',
   'roo.noteNoLauncher': 'Roo Code 是 VSCode 扩展，没有 CLI 启动器。',
   'roo.noteConfigWith': '打开 Roo Code 设置面板（API Provider），填入以下信息：',
   'roo.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
   'roo.hintMarketplace': '从 VSCode 应用市场安装 "Roo Code"，然后在它的设置面板中填入下面的信息。',
-  'roo.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Roo Code 扩展，然后使用下面的设置。',
+  'roo.hintNoVscode':
+    '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Roo Code 扩展，然后使用下面的设置。',
   'continue.noteNoLauncher': 'Continue 通过 ~/.continue/config.yaml 配置，没有 CLI 启动器。',
   'continue.noteConfigWith': '将以下模型添加到你的 ~/.continue/config.yaml：',
   'continue.noteMergeHint': '如果该文件已存在，只需把 `models:` 下的这一项合并进去。',
   'continue.noteKeepPrivate': '请妥善保管此 API 密钥 —— 任何人拿到它都能消耗你的 TokenMix 余额。',
   'continue.hintMarketplace': '从 VSCode 应用市场安装 "Continue"，然后添加下面的配置。',
-  'continue.hintNoVscode': '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Continue 扩展，然后使用下面的配置。',
-  'codex.noteUsing': 'Codex 将通过 OpenAI 兼容的 provider 使用 TokenMix —— 不会改动你的 ~/.codex/config.toml。',
+  'continue.hintNoVscode':
+    '未在 PATH 中检测到 VSCode。请先安装 VSCode，再添加 Continue 扩展，然后使用下面的配置。',
+  'codex.noteUsing':
+    'Codex 将通过 OpenAI 兼容的 provider 使用 TokenMix —— 不会改动你的 ~/.codex/config.toml。',
   'codex.noteModel': '默认模型：{model} —— 可用 `--config model=...` 覆盖。',
-  'qwen.noteUsing': 'Qwen Code 将通过其 OpenAI 兼容模式使用 TokenMix —— 不会改动你的 ~/.qwen/settings.json。',
+  'qwen.noteUsing':
+    'Qwen Code 将通过其 OpenAI 兼容模式使用 TokenMix —— 不会改动你的 ~/.qwen/settings.json。',
   'qwen.noteModel': '默认模型：{model} —— 可用 OPENAI_MODEL 或 `qwen --model` 覆盖。',
   'goose.noteUsing': 'Goose 将以 TokenMix 作为其 OpenAI provider —— 不会改动它的 keyring/配置。',
   'goose.noteModel': '默认模型：{model} —— 可用 GOOSE_MODEL 覆盖。',
-  'openhands.noteUsing': 'OpenHands 将通过 LiteLLM（--override-with-envs）使用 TokenMix —— 不会改动你已保存的配置。',
+  'openhands.noteUsing':
+    'OpenHands 将通过 LiteLLM（--override-with-envs）使用 TokenMix —— 不会改动你已保存的配置。',
   'openhands.noteModel': '默认模型：openai/{model} —— 可用 LLM_MODEL 覆盖（保留 openai/ 前缀）。',
-  'openhands.hintInstall': 'OpenHands 未安装（需要 Python 3.12+）。请先安装，然后重新运行 `tokenmix openhands`：\n    {cmd}',
-  'goose.hintInstall': 'Goose 未安装。请先安装（见 https://block.github.io/goose），然后重新运行 `tokenmix goose`：\n    {cmd}',
+  'openhands.hintInstall':
+    'OpenHands 未安装（需要 Python 3.12+）。请先安装，然后重新运行 `tokenmix openhands`：\n    {cmd}',
+  'goose.hintInstall':
+    'Goose 未安装。请先安装（见 https://block.github.io/goose），然后重新运行 `tokenmix goose`：\n    {cmd}',
 
   // command / option descriptions (--help)
   'cmd.program': '零配置 CLI：以 TokenMix 作为统一 LLM 后端，驱动任意开源编程 agent。',
@@ -399,7 +445,8 @@ export const zh: typeof en = {
 
 export const ja: typeof en = {
   'common.notLoggedIn': 'ログインしていません。まず `tokenmix login` を実行してください。',
-  'welcome.tagline': '1 つのアカウントで 160+ モデル、あらゆるオープンソース・コーディング agent に対応',
+  'welcome.tagline':
+    '1 つのアカウントで 160+ モデル、あらゆるオープンソース・コーディング agent に対応',
   'welcome.why': '選んだモデルがそのまま使われます —— すり替えなし、実使用量で課金。',
   'welcome.start': 'はじめに：',
   'welcome.s1': 'ログイン（ブラウザが開きます、約 10 秒）',
@@ -408,14 +455,18 @@ export const ja: typeof en = {
   'welcome.loggedIn': 'ログイン済みです —— agent を起動：',
   'welcome.more': 'その他：`tokenmix --help` で全コマンド · `tokenmix balance` で残高',
 
-  'login.keyMustStart': 'API キーは sk-tm- で始まる必要があります。https://tokenmix.ai/dashboard/keys で取得できます',
+  'login.keyMustStart':
+    'API キーは sk-tm- で始まる必要があります。https://tokenmix.ai/dashboard/keys で取得できます',
   'login.verifying': '{baseUrl} で API キーを検証しています ...',
-  'login.verifyFailed': 'API キーの検証に失敗しました。https://tokenmix.ai/dashboard/keys で確認してください',
-  'login.loggedInHint': 'ログインしました。`tokenmix opencode` で最初の agent を起動してみましょう。',
+  'login.verifyFailed':
+    'API キーの検証に失敗しました。https://tokenmix.ai/dashboard/keys で確認してください',
+  'login.loggedInHint':
+    'ログインしました。`tokenmix opencode` で最初の agent を起動してみましょう。',
   'login.noKey': 'API キーが入力されていません。https://tokenmix.ai/dashboard/keys で取得できます',
   'login.requesting': 'デバイス認証をリクエストしています ...',
   'login.couldNotStart': 'デバイス認証を開始できませんでした：{msg}',
-  'login.fallbackPaste': '手動貼り付けに切り替えます。API キーは https://tokenmix.ai/dashboard/keys で取得できます',
+  'login.fallbackPaste':
+    '手動貼り付けに切り替えます。API キーは https://tokenmix.ai/dashboard/keys で取得できます',
   'login.openLinkConfirm': '下のリンクを開き、このコードを確認してください：',
   'login.link': 'リンク：',
   'login.browserOpened': '（ブラウザを開きました。反応がない場合は上のリンクをコピーしてください）',
@@ -429,15 +480,19 @@ export const ja: typeof en = {
 
   'agent.notInstalled': '{name} はインストールされていません。',
   'agent.notInstallable': '{name} は CLI からインストールできません。',
-  'agent.needsNode': '{name} には Node {min}+ が必要です（現在 Node {cur}）。Node をアップグレード（nvm / fnm / volta）してから再実行してください —— TokenMix のログインは保存済みです。',
+  'agent.needsNode':
+    '{name} には Node {min}+ が必要です（現在 Node {cur}）。Node をアップグレード（nvm / fnm / volta）してから再実行してください —— TokenMix のログインは保存済みです。',
   'agent.installPrompt': '{name} はインストールされていません。今すぐインストールしますか？',
   'agent.installing': '{name} をインストールしています ...',
   'agent.installed': '{name} をインストールしました。',
   'agent.installFailed': '{name} を自動インストールできませんでした。',
-  'agent.installFailHint1': 'これは通常、npm がグローバルフォルダに書き込めないことが原因です。対処方法：',
-  'agent.installFailHint2': '  • Node バージョンマネージャー（nvm / fnm / volta）を使う — グローバルインストールに sudo が不要になります。または',
+  'agent.installFailHint1':
+    'これは通常、npm がグローバルフォルダに書き込めないことが原因です。対処方法：',
+  'agent.installFailHint2':
+    '  • Node バージョンマネージャー（nvm / fnm / volta）を使う — グローバルインストールに sudo が不要になります。または',
   'agent.installFailHint3': '  • 手動でインストール：{cmd}',
-  'agent.installFailHint4': 'その後このコマンドを再実行してください — TokenMix のログインは保存済みです。',
+  'agent.installFailHint4':
+    'その後このコマンドを再実行してください — TokenMix のログインは保存済みです。',
   'agent.configuring': '{name} を設定しています ...',
   'agent.wrote': '{path} を書き込みました',
   'agent.configReady': '{name} の設定が完了しました。',
@@ -480,7 +535,8 @@ export const ja: typeof en = {
   'topup.opening': 'チャージページを開いています：{url}',
   'browser.manual': 'ブラウザを自動で開けませんでした。この URL を手動で開いてください：\n  {url}',
 
-  'desc.opencode': 'sst/opencode — オープンソースの AI コーディング agent（TUI / デスクトップ / IDE）',
+  'desc.opencode':
+    'sst/opencode — オープンソースの AI コーディング agent（TUI / デスクトップ / IDE）',
   'desc.claude': 'anthropics/claude-code — Anthropic 公式の CLI コーディング agent',
   'desc.aider': 'Aider-AI/aider — ペアプログラミング CLI（Python が必要）',
   'desc.kilo': 'Kilo-Org/kilocode — VSCode 拡張機能（設定のみ）',
@@ -493,19 +549,25 @@ export const ja: typeof en = {
   'desc.openhands': 'All-Hands-AI/OpenHands — 自律型コーディング agent（OpenAI 互換）',
 
   'install.willInstallVia': '次の方法でインストールします：{cmd}',
-  'aider.hintNeedPython': 'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
-  'aider.hintNotInstalled': 'Aider はインストールされていません。別のターミナルで次を実行してください：\n    {cmd}',
+  'aider.hintNeedPython':
+    'Aider には Python 3 が必要です。https://python.org/downloads から Python 3 をインストールし、再度 `tokenmix aider` を実行してください。',
+  'aider.hintNotInstalled':
+    'Aider はインストールされていません。別のターミナルで次を実行してください：\n    {cmd}',
 
   'opencode.noteModel': 'デフォルトモデルを tokenmix/{model} に設定しました',
-  'opencode.noteSwitch': 'モデルを切り替えるには `tokenmix models` を実行するか、OpenCode 内で `/connect` を使用してください。',
+  'opencode.noteSwitch':
+    'モデルを切り替えるには `tokenmix models` を実行するか、OpenCode 内で `/connect` を使用してください。',
 
-  'claude.noteModels': 'tokenmix 経由で利用できる Claude モデル：claude-opus-4.7、claude-sonnet-4.6、claude-haiku-4.5',
+  'claude.noteModels':
+    'tokenmix 経由で利用できる Claude モデル：claude-opus-4.7、claude-sonnet-4.6、claude-haiku-4.5',
   'claude.noteFullList': '完全な一覧は `tokenmix models --type chat` を実行してください。',
   'claude.noteReplaced1': '⚠ ~/.claude/settings.json の既存の Anthropic 設定を置き換えました。',
   'claude.noteReplaced2': '  `tokenmix logout` で元の Anthropic 設定に戻せます。',
-  'claude.cleanupNote': '以前ご自身の ANTHROPIC_API_KEY を設定していた場合は、再度追加してください。',
+  'claude.cleanupNote':
+    '以前ご自身の ANTHROPIC_API_KEY を設定していた場合は、再度追加してください。',
   'claude.noteOAuthBypass1': '⚠ Claude サブスクリプション（Pro/Max）にログイン済みのようです。',
-  'claude.noteOAuthBypass2': '  TokenMix はトークン課金に切り替わります。`tokenmix logout` でサブスクに戻せます。',
+  'claude.noteOAuthBypass2':
+    '  TokenMix はトークン課金に切り替わります。`tokenmix logout` でサブスクに戻せます。',
   'claude.cleanupRestored': '以前の ANTHROPIC_* 設定を復元しました。',
 
   'aider.noteUsing': 'Aider は OpenAI 互換エンドポイント経由で TokenMix を使用します。',
@@ -513,38 +575,62 @@ export const ja: typeof en = {
 
   'kilo.noteNoLauncher': 'Kilo Code は VSCode 拡張機能で、CLI ランチャーはありません。',
   'kilo.noteConfigWith': '次の内容で Kilo Code を設定してください：',
-  'kilo.notePasteJson': 'または次の JSON を Kilo Code の設定（Settings → Providers → JSON）に貼り付けてください：',
-  'kilo.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
-  'kilo.hintMarketplace': 'VSCode マーケットプレイスから "Kilo Code" をインストールし、下のスニペットを設定に貼り付けてください。',
-  'kilo.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Kilo Code 拡張機能を追加してから、下のスニペットを使用してください。',
+  'kilo.notePasteJson':
+    'または次の JSON を Kilo Code の設定（Settings → Providers → JSON）に貼り付けてください：',
+  'kilo.noteKeepPrivate':
+    'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
+  'kilo.hintMarketplace':
+    'VSCode マーケットプレイスから "Kilo Code" をインストールし、下のスニペットを設定に貼り付けてください。',
+  'kilo.hintNoVscode':
+    'PATH に VSCode が見つかりません。VSCode をインストールし、Kilo Code 拡張機能を追加してから、下のスニペットを使用してください。',
   'cline.noteNoLauncher': 'Cline は VSCode 拡張機能で、CLI ランチャーはありません。',
   'cline.noteConfigWith': 'Cline の設定パネル（⚙ → API Provider）を開き、次を入力してください：',
-  'cline.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
-  'cline.hintMarketplace': 'VSCode マーケットプレイスから "Cline" をインストールし、下の設定をパネルに入力してください。',
-  'cline.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Cline 拡張機能を追加してから、下の設定を使用してください。',
+  'cline.noteKeepPrivate':
+    'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
+  'cline.hintMarketplace':
+    'VSCode マーケットプレイスから "Cline" をインストールし、下の設定をパネルに入力してください。',
+  'cline.hintNoVscode':
+    'PATH に VSCode が見つかりません。VSCode をインストールし、Cline 拡張機能を追加してから、下の設定を使用してください。',
   'roo.noteNoLauncher': 'Roo Code は VSCode 拡張機能で、CLI ランチャーはありません。',
   'roo.noteConfigWith': 'Roo Code の設定パネル（API Provider）を開き、次を入力してください：',
-  'roo.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
-  'roo.hintMarketplace': 'VSCode マーケットプレイスから "Roo Code" をインストールし、下の設定をパネルに入力してください。',
-  'roo.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Roo Code 拡張機能を追加してから、下の設定を使用してください。',
-  'continue.noteNoLauncher': 'Continue は ~/.continue/config.yaml で設定します。CLI ランチャーはありません。',
+  'roo.noteKeepPrivate':
+    'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
+  'roo.hintMarketplace':
+    'VSCode マーケットプレイスから "Roo Code" をインストールし、下の設定をパネルに入力してください。',
+  'roo.hintNoVscode':
+    'PATH に VSCode が見つかりません。VSCode をインストールし、Roo Code 拡張機能を追加してから、下の設定を使用してください。',
+  'continue.noteNoLauncher':
+    'Continue は ~/.continue/config.yaml で設定します。CLI ランチャーはありません。',
   'continue.noteConfigWith': '次のモデルを ~/.continue/config.yaml に追加してください：',
-  'continue.noteMergeHint': 'ファイルが既にある場合は、`models:` の下のこの項目だけをマージしてください。',
-  'continue.noteKeepPrivate': 'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
-  'continue.hintMarketplace': 'VSCode マーケットプレイスから "Continue" をインストールし、下の設定を追加してください。',
-  'continue.hintNoVscode': 'PATH に VSCode が見つかりません。VSCode をインストールし、Continue 拡張機能を追加してから、下の設定を使用してください。',
-  'codex.noteUsing': 'Codex は OpenAI 互換プロバイダー経由で TokenMix を使用します — ~/.codex/config.toml は変更されません。',
+  'continue.noteMergeHint':
+    'ファイルが既にある場合は、`models:` の下のこの項目だけをマージしてください。',
+  'continue.noteKeepPrivate':
+    'この API キーは公開しないでください — 入手した人は誰でもあなたの TokenMix 残高を使えます。',
+  'continue.hintMarketplace':
+    'VSCode マーケットプレイスから "Continue" をインストールし、下の設定を追加してください。',
+  'continue.hintNoVscode':
+    'PATH に VSCode が見つかりません。VSCode をインストールし、Continue 拡張機能を追加してから、下の設定を使用してください。',
+  'codex.noteUsing':
+    'Codex は OpenAI 互換プロバイダー経由で TokenMix を使用します — ~/.codex/config.toml は変更されません。',
   'codex.noteModel': 'デフォルトモデル：{model} — `--config model=...` で上書きできます。',
-  'qwen.noteUsing': 'Qwen Code は OpenAI 互換モードで TokenMix を使用します —— ~/.qwen/settings.json は変更されません。',
-  'qwen.noteModel': 'デフォルトモデル：{model} — OPENAI_MODEL または `qwen --model` で上書きできます。',
-  'goose.noteUsing': 'Goose は TokenMix を OpenAI プロバイダーとして使用します —— keyring/設定は変更されません。',
+  'qwen.noteUsing':
+    'Qwen Code は OpenAI 互換モードで TokenMix を使用します —— ~/.qwen/settings.json は変更されません。',
+  'qwen.noteModel':
+    'デフォルトモデル：{model} — OPENAI_MODEL または `qwen --model` で上書きできます。',
+  'goose.noteUsing':
+    'Goose は TokenMix を OpenAI プロバイダーとして使用します —— keyring/設定は変更されません。',
   'goose.noteModel': 'デフォルトモデル：{model} — GOOSE_MODEL で上書きできます。',
-  'openhands.noteUsing': 'OpenHands は LiteLLM（--override-with-envs）経由で TokenMix を使用します —— 保存済みの設定は変更されません。',
-  'openhands.noteModel': 'デフォルトモデル：openai/{model} — LLM_MODEL で上書きできます（openai/ プレフィックスは残してください）。',
-  'openhands.hintInstall': 'OpenHands がインストールされていません（Python 3.12+ が必要）。インストールしてから `tokenmix openhands` を再実行してください：\n    {cmd}',
-  'goose.hintInstall': 'Goose がインストールされていません。インストール（https://block.github.io/goose 参照）してから `tokenmix goose` を再実行してください：\n    {cmd}',
+  'openhands.noteUsing':
+    'OpenHands は LiteLLM（--override-with-envs）経由で TokenMix を使用します —— 保存済みの設定は変更されません。',
+  'openhands.noteModel':
+    'デフォルトモデル：openai/{model} — LLM_MODEL で上書きできます（openai/ プレフィックスは残してください）。',
+  'openhands.hintInstall':
+    'OpenHands がインストールされていません（Python 3.12+ が必要）。インストールしてから `tokenmix openhands` を再実行してください：\n    {cmd}',
+  'goose.hintInstall':
+    'Goose がインストールされていません。インストール（https://block.github.io/goose 参照）してから `tokenmix goose` を再実行してください：\n    {cmd}',
 
-  'cmd.program': 'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
+  'cmd.program':
+    'TokenMix を統一 LLM バックエンドとして、あらゆるオープンソースのコーディング agent を使うためのゼロ設定 CLI。',
   'cmd.login': 'TokenMix にログイン（デフォルト：ブラウザでのデバイス認証）',
   'cmd.loginKey': 'API キーを直接貼り付け（ブラウザ認証をスキップ、CI に便利）',
   'cmd.loginPaste': 'ブラウザ認証の代わりに対話的な貼り付けを強制',
@@ -580,14 +666,18 @@ export const ko: typeof en = {
   'welcome.loggedIn': '로그인되었습니다 —— agent를 실행하세요:',
   'welcome.more': '더 보기: `tokenmix --help` 모든 명령 · `tokenmix balance` 잔액',
 
-  'login.keyMustStart': 'API 키는 sk-tm- 로 시작해야 합니다. https://tokenmix.ai/dashboard/keys 에서 발급받으세요',
+  'login.keyMustStart':
+    'API 키는 sk-tm- 로 시작해야 합니다. https://tokenmix.ai/dashboard/keys 에서 발급받으세요',
   'login.verifying': '{baseUrl} 에서 API 키를 확인하는 중 ...',
-  'login.verifyFailed': 'API 키 확인에 실패했습니다. https://tokenmix.ai/dashboard/keys 에서 확인하세요',
+  'login.verifyFailed':
+    'API 키 확인에 실패했습니다. https://tokenmix.ai/dashboard/keys 에서 확인하세요',
   'login.loggedInHint': '로그인되었습니다. `tokenmix opencode` 로 첫 agent를 실행해 보세요.',
-  'login.noKey': 'API 키가 입력되지 않았습니다. https://tokenmix.ai/dashboard/keys 에서 발급받으세요',
+  'login.noKey':
+    'API 키가 입력되지 않았습니다. https://tokenmix.ai/dashboard/keys 에서 발급받으세요',
   'login.requesting': '기기 인증을 요청하는 중 ...',
   'login.couldNotStart': '기기 인증을 시작할 수 없습니다: {msg}',
-  'login.fallbackPaste': '수동 붙여넣기로 전환합니다. API 키는 https://tokenmix.ai/dashboard/keys 에서 발급받으세요',
+  'login.fallbackPaste':
+    '수동 붙여넣기로 전환합니다. API 키는 https://tokenmix.ai/dashboard/keys 에서 발급받으세요',
   'login.openLinkConfirm': '아래 링크를 열고 이 코드를 확인하세요:',
   'login.link': '링크:',
   'login.browserOpened': '(브라우저를 열었습니다. 반응이 없으면 위 링크를 복사하세요)',
@@ -601,15 +691,18 @@ export const ko: typeof en = {
 
   'agent.notInstalled': '{name}이(가) 설치되어 있지 않습니다.',
   'agent.notInstallable': '{name}은(는) CLI에서 설치할 수 없습니다.',
-  'agent.needsNode': '{name}에는 Node {min}+ 가 필요합니다(현재 Node {cur}). Node를 업그레이드(nvm / fnm / volta)한 뒤 다시 실행하세요 —— TokenMix 로그인은 저장되어 있습니다.',
+  'agent.needsNode':
+    '{name}에는 Node {min}+ 가 필요합니다(현재 Node {cur}). Node를 업그레이드(nvm / fnm / volta)한 뒤 다시 실행하세요 —— TokenMix 로그인은 저장되어 있습니다.',
   'agent.installPrompt': '{name}이(가) 설치되어 있지 않습니다. 지금 설치할까요?',
   'agent.installing': '{name} 설치 중 ...',
   'agent.installed': '{name} 설치 완료.',
   'agent.installFailed': '{name}을(를) 자동으로 설치할 수 없습니다.',
   'agent.installFailHint1': '보통 npm이 전역 폴더에 쓸 수 없을 때 발생합니다. 해결 방법:',
-  'agent.installFailHint2': '  • Node 버전 매니저(nvm / fnm / volta)를 사용하세요 — 전역 설치에 sudo가 필요 없습니다. 또는',
+  'agent.installFailHint2':
+    '  • Node 버전 매니저(nvm / fnm / volta)를 사용하세요 — 전역 설치에 sudo가 필요 없습니다. 또는',
   'agent.installFailHint3': '  • 직접 설치: {cmd}',
-  'agent.installFailHint4': '그런 다음 이 명령을 다시 실행하세요 — TokenMix 로그인은 이미 저장되어 있습니다.',
+  'agent.installFailHint4':
+    '그런 다음 이 명령을 다시 실행하세요 — TokenMix 로그인은 이미 저장되어 있습니다.',
   'agent.configuring': '{name} 구성 중 ...',
   'agent.wrote': '{path} 작성 완료',
   'agent.configReady': '{name} 구성이 준비되었습니다.',
@@ -665,19 +758,24 @@ export const ko: typeof en = {
   'desc.openhands': 'All-Hands-AI/OpenHands — 자율 코딩 agent (OpenAI 호환)',
 
   'install.willInstallVia': '다음 방법으로 설치합니다: {cmd}',
-  'aider.hintNeedPython': 'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
-  'aider.hintNotInstalled': 'Aider가 설치되어 있지 않습니다. 다른 터미널에서 다음을 실행하세요:\n    {cmd}',
+  'aider.hintNeedPython':
+    'Aider에는 Python 3가 필요합니다. https://python.org/downloads 에서 Python 3를 설치한 뒤 다시 `tokenmix aider`를 실행하세요.',
+  'aider.hintNotInstalled':
+    'Aider가 설치되어 있지 않습니다. 다른 터미널에서 다음을 실행하세요:\n    {cmd}',
 
   'opencode.noteModel': '기본 모델을 tokenmix/{model}(으)로 설정했습니다',
-  'opencode.noteSwitch': '모델을 바꾸려면 `tokenmix models`를 실행하거나 OpenCode 안에서 `/connect`를 사용하세요.',
+  'opencode.noteSwitch':
+    '모델을 바꾸려면 `tokenmix models`를 실행하거나 OpenCode 안에서 `/connect`를 사용하세요.',
 
-  'claude.noteModels': 'tokenmix를 통해 사용할 수 있는 Claude 모델: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
+  'claude.noteModels':
+    'tokenmix를 통해 사용할 수 있는 Claude 모델: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
   'claude.noteFullList': '전체 목록은 `tokenmix models --type chat`을 실행하세요.',
   'claude.noteReplaced1': '⚠ ~/.claude/settings.json의 기존 Anthropic 설정을 교체했습니다.',
   'claude.noteReplaced2': '  `tokenmix logout`으로 원래 Anthropic 설정을 복원합니다.',
   'claude.cleanupNote': '이전에 직접 설정한 ANTHROPIC_API_KEY가 있었다면 다시 추가하세요.',
   'claude.noteOAuthBypass1': '⚠ Claude 구독(Pro/Max)에 로그인되어 있는 것 같습니다.',
-  'claude.noteOAuthBypass2': '  TokenMix는 토큰 단위로 청구합니다. `tokenmix logout`으로 구독으로 되돌립니다.',
+  'claude.noteOAuthBypass2':
+    '  TokenMix는 토큰 단위로 청구합니다. `tokenmix logout`으로 구독으로 되돌립니다.',
   'claude.cleanupRestored': '이전 ANTHROPIC_* 설정을 복원했습니다.',
 
   'aider.noteUsing': 'Aider는 OpenAI 호환 엔드포인트를 통해 TokenMix를 사용합니다.',
@@ -685,38 +783,60 @@ export const ko: typeof en = {
 
   'kilo.noteNoLauncher': 'Kilo Code는 VSCode 확장이며 CLI 런처가 없습니다.',
   'kilo.noteConfigWith': '다음 내용으로 Kilo Code를 설정하세요:',
-  'kilo.notePasteJson': '또는 다음 JSON을 Kilo Code 설정(Settings → Providers → JSON)에 붙여넣으세요:',
-  'kilo.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
-  'kilo.hintMarketplace': 'VSCode 마켓플레이스에서 "Kilo Code"를 설치한 뒤 아래 스니펫을 설정에 붙여넣으세요.',
-  'kilo.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Kilo Code 확장을 추가한 뒤 아래 스니펫을 사용하세요.',
+  'kilo.notePasteJson':
+    '또는 다음 JSON을 Kilo Code 설정(Settings → Providers → JSON)에 붙여넣으세요:',
+  'kilo.noteKeepPrivate':
+    '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
+  'kilo.hintMarketplace':
+    'VSCode 마켓플레이스에서 "Kilo Code"를 설치한 뒤 아래 스니펫을 설정에 붙여넣으세요.',
+  'kilo.hintNoVscode':
+    'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Kilo Code 확장을 추가한 뒤 아래 스니펫을 사용하세요.',
   'cline.noteNoLauncher': 'Cline은 VSCode 확장이며 CLI 런처가 없습니다.',
   'cline.noteConfigWith': 'Cline 설정 패널(⚙ → API Provider)을 열고 다음을 입력하세요:',
-  'cline.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
-  'cline.hintMarketplace': 'VSCode 마켓플레이스에서 "Cline"을 설치한 뒤 아래 설정을 패널에 입력하세요.',
-  'cline.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Cline 확장을 추가한 뒤 아래 설정을 사용하세요.',
+  'cline.noteKeepPrivate':
+    '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
+  'cline.hintMarketplace':
+    'VSCode 마켓플레이스에서 "Cline"을 설치한 뒤 아래 설정을 패널에 입력하세요.',
+  'cline.hintNoVscode':
+    'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Cline 확장을 추가한 뒤 아래 설정을 사용하세요.',
   'roo.noteNoLauncher': 'Roo Code는 VSCode 확장이며 CLI 런처가 없습니다.',
   'roo.noteConfigWith': 'Roo Code 설정 패널(API Provider)을 열고 다음을 입력하세요:',
-  'roo.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
-  'roo.hintMarketplace': 'VSCode 마켓플레이스에서 "Roo Code"를 설치한 뒤 아래 설정을 패널에 입력하세요.',
-  'roo.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Roo Code 확장을 추가한 뒤 아래 설정을 사용하세요.',
+  'roo.noteKeepPrivate':
+    '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
+  'roo.hintMarketplace':
+    'VSCode 마켓플레이스에서 "Roo Code"를 설치한 뒤 아래 설정을 패널에 입력하세요.',
+  'roo.hintNoVscode':
+    'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Roo Code 확장을 추가한 뒤 아래 설정을 사용하세요.',
   'continue.noteNoLauncher': 'Continue는 ~/.continue/config.yaml로 설정하며 CLI 런처가 없습니다.',
   'continue.noteConfigWith': '다음 모델을 ~/.continue/config.yaml에 추가하세요:',
   'continue.noteMergeHint': '파일이 이미 있으면 `models:` 아래의 이 항목만 병합하세요.',
-  'continue.noteKeepPrivate': '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
-  'continue.hintMarketplace': 'VSCode 마켓플레이스에서 "Continue"를 설치한 뒤 아래 설정을 추가하세요.',
-  'continue.hintNoVscode': 'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Continue 확장을 추가한 뒤 아래 설정을 사용하세요.',
-  'codex.noteUsing': 'Codex는 OpenAI 호환 provider를 통해 TokenMix를 사용합니다 — ~/.codex/config.toml은 변경되지 않습니다.',
+  'continue.noteKeepPrivate':
+    '이 API 키를 비공개로 유지하세요 — 키를 가진 사람은 누구나 당신의 TokenMix 잔액을 쓸 수 있습니다.',
+  'continue.hintMarketplace':
+    'VSCode 마켓플레이스에서 "Continue"를 설치한 뒤 아래 설정을 추가하세요.',
+  'continue.hintNoVscode':
+    'PATH에서 VSCode를 찾을 수 없습니다. VSCode를 설치하고 Continue 확장을 추가한 뒤 아래 설정을 사용하세요.',
+  'codex.noteUsing':
+    'Codex는 OpenAI 호환 provider를 통해 TokenMix를 사용합니다 — ~/.codex/config.toml은 변경되지 않습니다.',
   'codex.noteModel': '기본 모델: {model} — `--config model=...`으로 재정의할 수 있습니다.',
-  'qwen.noteUsing': 'Qwen Code는 OpenAI 호환 모드로 TokenMix를 사용합니다 — ~/.qwen/settings.json은 변경되지 않습니다.',
-  'qwen.noteModel': '기본 모델: {model} — OPENAI_MODEL 또는 `qwen --model`으로 재정의할 수 있습니다.',
-  'goose.noteUsing': 'Goose는 TokenMix를 OpenAI provider로 사용합니다 — keyring/설정은 변경되지 않습니다.',
+  'qwen.noteUsing':
+    'Qwen Code는 OpenAI 호환 모드로 TokenMix를 사용합니다 — ~/.qwen/settings.json은 변경되지 않습니다.',
+  'qwen.noteModel':
+    '기본 모델: {model} — OPENAI_MODEL 또는 `qwen --model`으로 재정의할 수 있습니다.',
+  'goose.noteUsing':
+    'Goose는 TokenMix를 OpenAI provider로 사용합니다 — keyring/설정은 변경되지 않습니다.',
   'goose.noteModel': '기본 모델: {model} — GOOSE_MODEL로 재정의할 수 있습니다.',
-  'openhands.noteUsing': 'OpenHands는 LiteLLM(--override-with-envs)을 통해 TokenMix를 사용합니다 — 저장된 설정은 변경되지 않습니다.',
-  'openhands.noteModel': '기본 모델: openai/{model} — LLM_MODEL로 재정의할 수 있습니다(openai/ 접두사 유지).',
-  'openhands.hintInstall': 'OpenHands가 설치되어 있지 않습니다(Python 3.12+ 필요). 설치 후 `tokenmix openhands`를 다시 실행하세요:\n    {cmd}',
-  'goose.hintInstall': 'Goose가 설치되어 있지 않습니다. 설치(https://block.github.io/goose 참조) 후 `tokenmix goose`를 다시 실행하세요:\n    {cmd}',
+  'openhands.noteUsing':
+    'OpenHands는 LiteLLM(--override-with-envs)을 통해 TokenMix를 사용합니다 — 저장된 설정은 변경되지 않습니다.',
+  'openhands.noteModel':
+    '기본 모델: openai/{model} — LLM_MODEL로 재정의할 수 있습니다(openai/ 접두사 유지).',
+  'openhands.hintInstall':
+    'OpenHands가 설치되어 있지 않습니다(Python 3.12+ 필요). 설치 후 `tokenmix openhands`를 다시 실행하세요:\n    {cmd}',
+  'goose.hintInstall':
+    'Goose가 설치되어 있지 않습니다. 설치(https://block.github.io/goose 참조) 후 `tokenmix goose`를 다시 실행하세요:\n    {cmd}',
 
-  'cmd.program': 'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
+  'cmd.program':
+    'TokenMix를 통합 LLM 백엔드로 사용하여 모든 오픈소스 코딩 agent를 쓰는 제로 설정 CLI.',
   'cmd.login': 'TokenMix에 로그인 (기본값: 브라우저 기기 인증)',
   'cmd.loginKey': 'API 키를 직접 붙여넣기 (브라우저 절차 생략, CI에 유용)',
   'cmd.loginPaste': '브라우저 절차 대신 대화형 붙여넣기를 강제',
@@ -743,28 +863,36 @@ export const ko: typeof en = {
 
 export const es: typeof en = {
   'common.notLoggedIn': 'No has iniciado sesión. Ejecuta `tokenmix login` primero.',
-  'welcome.tagline': 'una cuenta, 160+ modelos, todos los agentes de programación de código abierto',
-  'welcome.why': 'El modelo que eliges es el que usas: sin cambios ocultos, facturado por uso real.',
+  'welcome.tagline':
+    'una cuenta, 160+ modelos, todos los agentes de programación de código abierto',
+  'welcome.why':
+    'El modelo que eliges es el que usas: sin cambios ocultos, facturado por uso real.',
   'welcome.start': 'Empezar:',
   'welcome.s1': 'inicia sesión (abre el navegador, ~10 s)',
   'welcome.s2': 've los 11 agentes compatibles',
   'welcome.s3': 'configura y lanza uno',
   'welcome.loggedIn': 'Has iniciado sesión: lanza un agente:',
-  'welcome.more': 'Más: `tokenmix --help` para todos los comandos · `tokenmix balance` para tu saldo',
+  'welcome.more':
+    'Más: `tokenmix --help` para todos los comandos · `tokenmix balance` para tu saldo',
 
-  'login.keyMustStart': 'La clave de API debe empezar por sk-tm-. Consíguela en https://tokenmix.ai/dashboard/keys',
+  'login.keyMustStart':
+    'La clave de API debe empezar por sk-tm-. Consíguela en https://tokenmix.ai/dashboard/keys',
   'login.verifying': 'Verificando la clave de API en {baseUrl} ...',
-  'login.verifyFailed': 'Falló la verificación de la clave de API. Compruébala en https://tokenmix.ai/dashboard/keys',
+  'login.verifyFailed':
+    'Falló la verificación de la clave de API. Compruébala en https://tokenmix.ai/dashboard/keys',
   'login.loggedInHint': 'Sesión iniciada. Prueba `tokenmix opencode` para lanzar tu primer agent.',
-  'login.noKey': 'No se proporcionó ninguna clave de API. Consíguela en https://tokenmix.ai/dashboard/keys',
+  'login.noKey':
+    'No se proporcionó ninguna clave de API. Consíguela en https://tokenmix.ai/dashboard/keys',
   'login.requesting': 'Solicitando autorización del dispositivo ...',
   'login.couldNotStart': 'No se pudo iniciar la autorización del dispositivo: {msg}',
-  'login.fallbackPaste': 'Cambiando a pegado manual. Consigue una clave de API en https://tokenmix.ai/dashboard/keys',
+  'login.fallbackPaste':
+    'Cambiando a pegado manual. Consigue una clave de API en https://tokenmix.ai/dashboard/keys',
   'login.openLinkConfirm': 'Abre el enlace de abajo y confirma este código:',
   'login.link': 'Enlace:',
   'login.browserOpened': '(navegador abierto; si no pasa nada, copia el enlace de arriba)',
   'login.browserFailed': '(no se pudo abrir el navegador; copia el enlace de arriba en uno)',
-  'login.waiting': 'Esperando autorización (expira en {expires}s, consultando cada {interval}s) ...',
+  'login.waiting':
+    'Esperando autorización (expira en {expires}s, consultando cada {interval}s) ...',
   'login.stillWaiting': '... aún esperando (quedan {seconds}s)',
   'login.loggedInAs': 'Sesión iniciada como {email} (clave de API n.º {id})',
   'login.loggedInId': 'Sesión iniciada (clave de API n.º {id})',
@@ -773,15 +901,19 @@ export const es: typeof en = {
 
   'agent.notInstalled': '{name} no está instalado.',
   'agent.notInstallable': '{name} no se puede instalar desde la CLI.',
-  'agent.needsNode': '{name} necesita Node {min}+ (tienes Node {cur}). Actualiza Node (nvm / fnm / volta) y vuelve a ejecutar —— tu sesión de TokenMix está guardada.',
+  'agent.needsNode':
+    '{name} necesita Node {min}+ (tienes Node {cur}). Actualiza Node (nvm / fnm / volta) y vuelve a ejecutar —— tu sesión de TokenMix está guardada.',
   'agent.installPrompt': '{name} no está instalado. ¿Instalar ahora?',
   'agent.installing': 'Instalando {name} ...',
   'agent.installed': '{name} instalado.',
   'agent.installFailed': 'No se pudo instalar {name} automáticamente.',
-  'agent.installFailHint1': 'Esto suele significar que npm no puede escribir en su carpeta global. Opciones:',
-  'agent.installFailHint2': '  • Usa un gestor de versiones de Node (nvm / fnm / volta): así la instalación global no necesita sudo, o',
+  'agent.installFailHint1':
+    'Esto suele significar que npm no puede escribir en su carpeta global. Opciones:',
+  'agent.installFailHint2':
+    '  • Usa un gestor de versiones de Node (nvm / fnm / volta): así la instalación global no necesita sudo, o',
   'agent.installFailHint3': '  • Instálalo tú mismo: {cmd}',
-  'agent.installFailHint4': 'Luego vuelve a ejecutar este comando; tu sesión de TokenMix ya está guardada.',
+  'agent.installFailHint4':
+    'Luego vuelve a ejecutar este comando; tu sesión de TokenMix ya está guardada.',
   'agent.configuring': 'Configurando {name} ...',
   'agent.wrote': 'Se escribió {path}',
   'agent.configReady': 'Configuración de {name} lista.',
@@ -822,34 +954,44 @@ export const es: typeof en = {
 
   'balance.opening': 'Abriendo el panel para ver el saldo: {url}',
   'topup.opening': 'Abriendo la página de recarga: {url}',
-  'browser.manual': 'No se pudo abrir un navegador automáticamente. Abre esta URL manualmente:\n  {url}',
+  'browser.manual':
+    'No se pudo abrir un navegador automáticamente. Abre esta URL manualmente:\n  {url}',
 
-  'desc.opencode': 'sst/opencode — agent de programación con IA de código abierto (TUI / escritorio / IDE)',
+  'desc.opencode':
+    'sst/opencode — agent de programación con IA de código abierto (TUI / escritorio / IDE)',
   'desc.claude': 'anthropics/claude-code — agent de programación CLI oficial de Anthropic',
   'desc.aider': 'Aider-AI/aider — CLI de programación en pareja (requiere Python)',
   'desc.kilo': 'Kilo-Org/kilocode — extensión de VSCode (solo configuración)',
   'desc.cline': 'cline/cline — extensión de VSCode (solo configuración)',
   'desc.roo': 'RooCodeInc/Roo-Code — extensión de VSCode (solo configuración)',
-  'desc.continue': 'continuedev/continue — extensión de VSCode/JetBrains (archivo de configuración)',
+  'desc.continue':
+    'continuedev/continue — extensión de VSCode/JetBrains (archivo de configuración)',
   'desc.codex': 'openai/codex — CLI del agente de programación de OpenAI',
   'desc.qwen': 'QwenLM/qwen-code — agente de programación de terminal (compatible con OpenAI)',
   'desc.goose': 'block/goose — agente de IA en tu máquina (compatible con OpenAI)',
-  'desc.openhands': 'All-Hands-AI/OpenHands — agente de programación autónomo (compatible con OpenAI)',
+  'desc.openhands':
+    'All-Hands-AI/OpenHands — agente de programación autónomo (compatible con OpenAI)',
 
   'install.willInstallVia': 'Se instalará mediante: {cmd}',
-  'aider.hintNeedPython': 'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
+  'aider.hintNeedPython':
+    'Aider requiere Python 3. Instala Python 3 desde https://python.org/downloads y vuelve a ejecutar `tokenmix aider`.',
   'aider.hintNotInstalled': 'Aider no está instalado. Ejecuta esto en otra terminal:\n    {cmd}',
 
   'opencode.noteModel': 'Modelo predeterminado establecido en tokenmix/{model}',
-  'opencode.noteSwitch': 'Para cambiar de modelo, ejecuta `tokenmix models` o usa `/connect` dentro de OpenCode.',
+  'opencode.noteSwitch':
+    'Para cambiar de modelo, ejecuta `tokenmix models` o usa `/connect` dentro de OpenCode.',
 
-  'claude.noteModels': 'Modelos de Claude disponibles vía tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
+  'claude.noteModels':
+    'Modelos de Claude disponibles vía tokenmix: claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
   'claude.noteFullList': 'Ejecuta `tokenmix models --type chat` para ver la lista completa.',
-  'claude.noteReplaced1': '⚠ Se reemplazó tu configuración de Anthropic existente en ~/.claude/settings.json.',
+  'claude.noteReplaced1':
+    '⚠ Se reemplazó tu configuración de Anthropic existente en ~/.claude/settings.json.',
   'claude.noteReplaced2': '  `tokenmix logout` restaura tu configuración original de Anthropic.',
   'claude.cleanupNote': 'Si antes tenías tu propia ANTHROPIC_API_KEY aquí, vuelve a añadirla.',
-  'claude.noteOAuthBypass1': '⚠ Parece que has iniciado sesión en una suscripción de Claude (Pro/Max).',
-  'claude.noteOAuthBypass2': '  TokenMix facturará por token; `tokenmix logout` restaura tu suscripción.',
+  'claude.noteOAuthBypass1':
+    '⚠ Parece que has iniciado sesión en una suscripción de Claude (Pro/Max).',
+  'claude.noteOAuthBypass2':
+    '  TokenMix facturará por token; `tokenmix logout` restaura tu suscripción.',
   'claude.cleanupRestored': 'Se restauró tu configuración ANTHROPIC_* anterior.',
 
   'aider.noteUsing': 'Aider usará TokenMix a través del endpoint compatible con OpenAI.',
@@ -857,39 +999,62 @@ export const es: typeof en = {
 
   'kilo.noteNoLauncher': 'Kilo Code es una extensión de VSCode y no tiene lanzador de CLI.',
   'kilo.noteConfigWith': 'Configura Kilo Code con lo siguiente:',
-  'kilo.notePasteJson': 'O pega este fragmento JSON en la configuración de Kilo Code (Settings → Providers → JSON):',
-  'kilo.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
-  'kilo.hintMarketplace': 'Instala "Kilo Code" desde el marketplace de VSCode y pega el fragmento de abajo en su configuración.',
-  'kilo.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Kilo Code y luego usa el fragmento de abajo.',
+  'kilo.notePasteJson':
+    'O pega este fragmento JSON en la configuración de Kilo Code (Settings → Providers → JSON):',
+  'kilo.noteKeepPrivate':
+    'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
+  'kilo.hintMarketplace':
+    'Instala "Kilo Code" desde el marketplace de VSCode y pega el fragmento de abajo en su configuración.',
+  'kilo.hintNoVscode':
+    'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Kilo Code y luego usa el fragmento de abajo.',
   'cline.noteNoLauncher': 'Cline es una extensión de VSCode y no tiene lanzador de CLI.',
   'cline.noteConfigWith': 'Abre el panel de configuración de Cline (⚙ → API Provider) e introduce:',
-  'cline.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
-  'cline.hintMarketplace': 'Instala "Cline" desde el marketplace de VSCode y luego introduce la configuración de abajo en su panel.',
-  'cline.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Cline y luego usa la configuración de abajo.',
+  'cline.noteKeepPrivate':
+    'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
+  'cline.hintMarketplace':
+    'Instala "Cline" desde el marketplace de VSCode y luego introduce la configuración de abajo en su panel.',
+  'cline.hintNoVscode':
+    'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Cline y luego usa la configuración de abajo.',
   'roo.noteNoLauncher': 'Roo Code es una extensión de VSCode y no tiene lanzador de CLI.',
   'roo.noteConfigWith': 'Abre el panel de configuración de Roo Code (API Provider) e introduce:',
-  'roo.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
-  'roo.hintMarketplace': 'Instala "Roo Code" desde el marketplace de VSCode y luego introduce la configuración de abajo en su panel.',
-  'roo.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Roo Code y luego usa la configuración de abajo.',
-  'continue.noteNoLauncher': 'Continue se configura mediante ~/.continue/config.yaml; no tiene lanzador de CLI.',
+  'roo.noteKeepPrivate':
+    'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
+  'roo.hintMarketplace':
+    'Instala "Roo Code" desde el marketplace de VSCode y luego introduce la configuración de abajo en su panel.',
+  'roo.hintNoVscode':
+    'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Roo Code y luego usa la configuración de abajo.',
+  'continue.noteNoLauncher':
+    'Continue se configura mediante ~/.continue/config.yaml; no tiene lanzador de CLI.',
   'continue.noteConfigWith': 'Añade este modelo a tu ~/.continue/config.yaml:',
   'continue.noteMergeHint': 'Si el archivo ya existe, fusiona solo la entrada bajo `models:`.',
-  'continue.noteKeepPrivate': 'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
-  'continue.hintMarketplace': 'Instala "Continue" desde el marketplace de VSCode y luego añade la configuración de abajo.',
-  'continue.hintNoVscode': 'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Continue y luego usa la configuración de abajo.',
-  'codex.noteUsing': 'Codex usará TokenMix mediante un proveedor compatible con OpenAI: tu ~/.codex/config.toml no se modifica.',
+  'continue.noteKeepPrivate':
+    'Mantén privada esta clave de API: cualquiera que la tenga puede gastar tu saldo de TokenMix.',
+  'continue.hintMarketplace':
+    'Instala "Continue" desde el marketplace de VSCode y luego añade la configuración de abajo.',
+  'continue.hintNoVscode':
+    'No se detectó VSCode en el PATH. Instala VSCode, añade la extensión Continue y luego usa la configuración de abajo.',
+  'codex.noteUsing':
+    'Codex usará TokenMix mediante un proveedor compatible con OpenAI: tu ~/.codex/config.toml no se modifica.',
   'codex.noteModel': 'Modelo por defecto: {model} — anúlalo con `--config model=...`.',
-  'qwen.noteUsing': 'Qwen Code usará TokenMix mediante su modo compatible con OpenAI: tu ~/.qwen/settings.json no se modifica.',
+  'qwen.noteUsing':
+    'Qwen Code usará TokenMix mediante su modo compatible con OpenAI: tu ~/.qwen/settings.json no se modifica.',
   'qwen.noteModel': 'Modelo por defecto: {model} — anúlalo con OPENAI_MODEL o `qwen --model`.',
-  'goose.noteUsing': 'Goose usará TokenMix como su proveedor de OpenAI: su keyring/configuración no se modifica.',
+  'goose.noteUsing':
+    'Goose usará TokenMix como su proveedor de OpenAI: su keyring/configuración no se modifica.',
   'goose.noteModel': 'Modelo por defecto: {model} — anúlalo con GOOSE_MODEL.',
-  'openhands.noteUsing': 'OpenHands usará TokenMix mediante LiteLLM (--override-with-envs): tu configuración guardada no se modifica.',
-  'openhands.noteModel': 'Modelo por defecto: openai/{model} — anúlalo con LLM_MODEL (mantén el prefijo openai/).',
-  'openhands.hintInstall': 'OpenHands no está instalado (requiere Python 3.12+). Instálalo y vuelve a ejecutar `tokenmix openhands`:\n    {cmd}',
-  'goose.hintInstall': 'Goose no está instalado. Instálalo (consulta https://block.github.io/goose) y vuelve a ejecutar `tokenmix goose`:\n    {cmd}',
+  'openhands.noteUsing':
+    'OpenHands usará TokenMix mediante LiteLLM (--override-with-envs): tu configuración guardada no se modifica.',
+  'openhands.noteModel':
+    'Modelo por defecto: openai/{model} — anúlalo con LLM_MODEL (mantén el prefijo openai/).',
+  'openhands.hintInstall':
+    'OpenHands no está instalado (requiere Python 3.12+). Instálalo y vuelve a ejecutar `tokenmix openhands`:\n    {cmd}',
+  'goose.hintInstall':
+    'Goose no está instalado. Instálalo (consulta https://block.github.io/goose) y vuelve a ejecutar `tokenmix goose`:\n    {cmd}',
 
-  'cmd.program': 'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
-  'cmd.login': 'Inicia sesión en TokenMix (predeterminado: autorización de dispositivo por navegador)',
+  'cmd.program':
+    'CLI sin configuración para usar cualquier agent de programación de código abierto con TokenMix como backend LLM unificado.',
+  'cmd.login':
+    'Inicia sesión en TokenMix (predeterminado: autorización de dispositivo por navegador)',
   'cmd.loginKey': 'Pega una clave de API directamente (omite el navegador, útil para CI)',
   'cmd.loginPaste': 'Fuerza el pegado interactivo en lugar del flujo del navegador',
   'cmd.loginUrl': 'Anula la URL base de la API (predeterminado: https://api.tokenmix.ai)',
@@ -916,27 +1081,34 @@ export const es: typeof en = {
 export const fr: typeof en = {
   'common.notLoggedIn': 'Non connecté. Exécutez d’abord `tokenmix login`.',
   'welcome.tagline': 'un seul compte, 160+ modèles, tous les agents de codage open source',
-  'welcome.why': 'Le modèle que vous choisissez est celui que vous utilisez — sans substitution, facturé à l’usage réel.',
+  'welcome.why':
+    'Le modèle que vous choisissez est celui que vous utilisez — sans substitution, facturé à l’usage réel.',
   'welcome.start': 'Démarrer :',
   'welcome.s1': 'connectez-vous (ouvre un navigateur, ~10 s)',
   'welcome.s2': 'voir les 11 agents pris en charge',
   'welcome.s3': 'configurer et lancer un agent',
   'welcome.loggedIn': 'Vous êtes connecté — lancez un agent :',
-  'welcome.more': 'Plus : `tokenmix --help` pour toutes les commandes · `tokenmix balance` pour votre solde',
+  'welcome.more':
+    'Plus : `tokenmix --help` pour toutes les commandes · `tokenmix balance` pour votre solde',
 
-  'login.keyMustStart': 'La clé API doit commencer par sk-tm-. Obtenez-en une sur https://tokenmix.ai/dashboard/keys',
+  'login.keyMustStart':
+    'La clé API doit commencer par sk-tm-. Obtenez-en une sur https://tokenmix.ai/dashboard/keys',
   'login.verifying': 'Vérification de la clé API sur {baseUrl} ...',
-  'login.verifyFailed': 'Échec de la vérification de la clé API. Vérifiez sur https://tokenmix.ai/dashboard/keys',
+  'login.verifyFailed':
+    'Échec de la vérification de la clé API. Vérifiez sur https://tokenmix.ai/dashboard/keys',
   'login.loggedInHint': 'Connecté. Essayez `tokenmix opencode` pour lancer votre premier agent.',
   'login.noKey': 'Aucune clé API fournie. Obtenez-en une sur https://tokenmix.ai/dashboard/keys',
   'login.requesting': 'Demande d’autorisation de l’appareil ...',
   'login.couldNotStart': 'Impossible de démarrer l’autorisation de l’appareil : {msg}',
-  'login.fallbackPaste': 'Passage au collage manuel. Obtenez une clé API sur https://tokenmix.ai/dashboard/keys',
+  'login.fallbackPaste':
+    'Passage au collage manuel. Obtenez une clé API sur https://tokenmix.ai/dashboard/keys',
   'login.openLinkConfirm': 'Ouvrez le lien ci-dessous et confirmez ce code :',
   'login.link': 'Lien :',
   'login.browserOpened': '(navigateur ouvert ; s’il ne se passe rien, copiez le lien ci-dessus)',
-  'login.browserFailed': '(impossible d’ouvrir le navigateur ; copiez le lien ci-dessus dans un navigateur)',
-  'login.waiting': 'En attente de l’autorisation (expire dans {expires}s, vérification toutes les {interval}s) ...',
+  'login.browserFailed':
+    '(impossible d’ouvrir le navigateur ; copiez le lien ci-dessus dans un navigateur)',
+  'login.waiting':
+    'En attente de l’autorisation (expire dans {expires}s, vérification toutes les {interval}s) ...',
   'login.stillWaiting': '... toujours en attente ({seconds}s restantes)',
   'login.loggedInAs': 'Connecté en tant que {email} (clé API n° {id})',
   'login.loggedInId': 'Connecté (clé API n° {id})',
@@ -945,15 +1117,19 @@ export const fr: typeof en = {
 
   'agent.notInstalled': '{name} n’est pas installé.',
   'agent.notInstallable': '{name} ne peut pas être installé depuis la CLI.',
-  'agent.needsNode': '{name} nécessite Node {min}+ (vous avez Node {cur}). Mettez Node à jour (nvm / fnm / volta), puis relancez —— votre connexion TokenMix est enregistrée.',
+  'agent.needsNode':
+    '{name} nécessite Node {min}+ (vous avez Node {cur}). Mettez Node à jour (nvm / fnm / volta), puis relancez —— votre connexion TokenMix est enregistrée.',
   'agent.installPrompt': '{name} n’est pas installé. Installer maintenant ?',
   'agent.installing': 'Installation de {name} ...',
   'agent.installed': '{name} installé.',
   'agent.installFailed': 'Impossible d’installer {name} automatiquement.',
-  'agent.installFailHint1': 'Cela signifie généralement que npm ne peut pas écrire dans son dossier global. Options :',
-  'agent.installFailHint2': '  • Utilisez un gestionnaire de versions Node (nvm / fnm / volta) — l’installation globale ne nécessite alors pas sudo, ou',
+  'agent.installFailHint1':
+    'Cela signifie généralement que npm ne peut pas écrire dans son dossier global. Options :',
+  'agent.installFailHint2':
+    '  • Utilisez un gestionnaire de versions Node (nvm / fnm / volta) — l’installation globale ne nécessite alors pas sudo, ou',
   'agent.installFailHint3': '  • Installez-le vous-même : {cmd}',
-  'agent.installFailHint4': 'Puis relancez cette commande — votre connexion TokenMix est déjà enregistrée.',
+  'agent.installFailHint4':
+    'Puis relancez cette commande — votre connexion TokenMix est déjà enregistrée.',
   'agent.configuring': 'Configuration de {name} ...',
   'agent.wrote': '{path} écrit',
   'agent.configReady': 'Configuration de {name} prête.',
@@ -994,7 +1170,8 @@ export const fr: typeof en = {
 
   'balance.opening': 'Ouverture du tableau de bord pour voir le solde : {url}',
   'topup.opening': 'Ouverture de la page de recharge : {url}',
-  'browser.manual': 'Impossible d’ouvrir un navigateur automatiquement. Ouvrez cette URL manuellement :\n  {url}',
+  'browser.manual':
+    'Impossible d’ouvrir un navigateur automatiquement. Ouvrez cette URL manuellement :\n  {url}',
 
   'desc.opencode': 'sst/opencode — agent de codage IA open source (TUI / bureau / IDE)',
   'desc.claude': 'anthropics/claude-code — agent de codage CLI officiel d’Anthropic',
@@ -1009,19 +1186,25 @@ export const fr: typeof en = {
   'desc.openhands': 'All-Hands-AI/OpenHands — agent de codage autonome (compatible OpenAI)',
 
   'install.willInstallVia': 'Sera installé via : {cmd}',
-  'aider.hintNeedPython': 'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
-  'aider.hintNotInstalled': 'Aider n’est pas installé. Exécutez ceci dans un autre terminal :\n    {cmd}',
+  'aider.hintNeedPython':
+    'Aider nécessite Python 3. Installez Python 3 depuis https://python.org/downloads, puis relancez `tokenmix aider`.',
+  'aider.hintNotInstalled':
+    'Aider n’est pas installé. Exécutez ceci dans un autre terminal :\n    {cmd}',
 
   'opencode.noteModel': 'Modèle par défaut défini sur tokenmix/{model}',
-  'opencode.noteSwitch': 'Pour changer de modèle, exécutez `tokenmix models` ou utilisez `/connect` dans OpenCode.',
+  'opencode.noteSwitch':
+    'Pour changer de modèle, exécutez `tokenmix models` ou utilisez `/connect` dans OpenCode.',
 
-  'claude.noteModels': 'Modèles Claude disponibles via tokenmix : claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
+  'claude.noteModels':
+    'Modèles Claude disponibles via tokenmix : claude-opus-4.7, claude-sonnet-4.6, claude-haiku-4.5',
   'claude.noteFullList': 'Exécutez `tokenmix models --type chat` pour la liste complète.',
-  'claude.noteReplaced1': '⚠ Vos paramètres Anthropic existants dans ~/.claude/settings.json ont été remplacés.',
+  'claude.noteReplaced1':
+    '⚠ Vos paramètres Anthropic existants dans ~/.claude/settings.json ont été remplacés.',
   'claude.noteReplaced2': '  `tokenmix logout` restaure votre configuration Anthropic initiale.',
   'claude.cleanupNote': 'Si vous aviez votre propre ANTHROPIC_API_KEY ici, rajoutez-la.',
   'claude.noteOAuthBypass1': '⚠ Vous semblez connecté à un abonnement Claude (Pro/Max).',
-  'claude.noteOAuthBypass2': '  TokenMix facturera au token ; `tokenmix logout` restaure votre abonnement.',
+  'claude.noteOAuthBypass2':
+    '  TokenMix facturera au token ; `tokenmix logout` restaure votre abonnement.',
   'claude.cleanupRestored': 'Configuration ANTHROPIC_* précédente restaurée.',
 
   'aider.noteUsing': 'Aider utilisera TokenMix via le point de terminaison compatible OpenAI.',
@@ -1029,39 +1212,66 @@ export const fr: typeof en = {
 
   'kilo.noteNoLauncher': 'Kilo Code est une extension VSCode et n’a pas de lanceur CLI.',
   'kilo.noteConfigWith': 'Configurez Kilo Code avec les éléments suivants :',
-  'kilo.notePasteJson': 'Ou collez cet extrait JSON dans les paramètres de Kilo Code (Settings → Providers → JSON) :',
-  'kilo.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
-  'kilo.hintMarketplace': 'Installez « Kilo Code » depuis la marketplace VSCode, puis collez l’extrait ci-dessous dans ses paramètres.',
-  'kilo.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Kilo Code, puis utilisez l’extrait ci-dessous.',
+  'kilo.notePasteJson':
+    'Ou collez cet extrait JSON dans les paramètres de Kilo Code (Settings → Providers → JSON) :',
+  'kilo.noteKeepPrivate':
+    'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
+  'kilo.hintMarketplace':
+    'Installez « Kilo Code » depuis la marketplace VSCode, puis collez l’extrait ci-dessous dans ses paramètres.',
+  'kilo.hintNoVscode':
+    'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Kilo Code, puis utilisez l’extrait ci-dessous.',
   'cline.noteNoLauncher': 'Cline est une extension VSCode et n’a pas de lanceur CLI.',
-  'cline.noteConfigWith': 'Ouvrez le panneau de configuration de Cline (⚙ → API Provider) et saisissez :',
-  'cline.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
-  'cline.hintMarketplace': 'Installez « Cline » depuis la marketplace VSCode, puis saisissez les paramètres ci-dessous dans son panneau.',
-  'cline.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Cline, puis utilisez les paramètres ci-dessous.',
+  'cline.noteConfigWith':
+    'Ouvrez le panneau de configuration de Cline (⚙ → API Provider) et saisissez :',
+  'cline.noteKeepPrivate':
+    'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
+  'cline.hintMarketplace':
+    'Installez « Cline » depuis la marketplace VSCode, puis saisissez les paramètres ci-dessous dans son panneau.',
+  'cline.hintNoVscode':
+    'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Cline, puis utilisez les paramètres ci-dessous.',
   'roo.noteNoLauncher': 'Roo Code est une extension VSCode et n’a pas de lanceur CLI.',
-  'roo.noteConfigWith': 'Ouvrez le panneau de configuration de Roo Code (API Provider) et saisissez :',
-  'roo.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
-  'roo.hintMarketplace': 'Installez « Roo Code » depuis la marketplace VSCode, puis saisissez les paramètres ci-dessous dans son panneau.',
-  'roo.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Roo Code, puis utilisez les paramètres ci-dessous.',
-  'continue.noteNoLauncher': 'Continue se configure via ~/.continue/config.yaml ; il n’a pas de lanceur CLI.',
+  'roo.noteConfigWith':
+    'Ouvrez le panneau de configuration de Roo Code (API Provider) et saisissez :',
+  'roo.noteKeepPrivate':
+    'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
+  'roo.hintMarketplace':
+    'Installez « Roo Code » depuis la marketplace VSCode, puis saisissez les paramètres ci-dessous dans son panneau.',
+  'roo.hintNoVscode':
+    'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Roo Code, puis utilisez les paramètres ci-dessous.',
+  'continue.noteNoLauncher':
+    'Continue se configure via ~/.continue/config.yaml ; il n’a pas de lanceur CLI.',
   'continue.noteConfigWith': 'Ajoutez ce modèle à votre ~/.continue/config.yaml :',
-  'continue.noteMergeHint': 'Si le fichier existe déjà, fusionnez uniquement l’entrée sous `models:`.',
-  'continue.noteKeepPrivate': 'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
-  'continue.hintMarketplace': 'Installez « Continue » depuis la marketplace VSCode, puis ajoutez la configuration ci-dessous.',
-  'continue.hintNoVscode': 'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Continue, puis utilisez la configuration ci-dessous.',
-  'codex.noteUsing': 'Codex utilisera TokenMix via un fournisseur compatible OpenAI — votre ~/.codex/config.toml n’est pas modifié.',
+  'continue.noteMergeHint':
+    'Si le fichier existe déjà, fusionnez uniquement l’entrée sous `models:`.',
+  'continue.noteKeepPrivate':
+    'Gardez cette clé API privée — quiconque la détient peut dépenser votre solde TokenMix.',
+  'continue.hintMarketplace':
+    'Installez « Continue » depuis la marketplace VSCode, puis ajoutez la configuration ci-dessous.',
+  'continue.hintNoVscode':
+    'VSCode introuvable dans le PATH. Installez VSCode, ajoutez l’extension Continue, puis utilisez la configuration ci-dessous.',
+  'codex.noteUsing':
+    'Codex utilisera TokenMix via un fournisseur compatible OpenAI — votre ~/.codex/config.toml n’est pas modifié.',
   'codex.noteModel': 'Modèle par défaut : {model} — remplacez-le avec `--config model=...`.',
-  'qwen.noteUsing': 'Qwen Code utilisera TokenMix via son mode compatible OpenAI — votre ~/.qwen/settings.json n’est pas modifié.',
-  'qwen.noteModel': 'Modèle par défaut : {model} — remplacez-le avec OPENAI_MODEL ou `qwen --model`.',
-  'goose.noteUsing': 'Goose utilisera TokenMix comme fournisseur OpenAI — son keyring/sa configuration n’est pas modifié.',
+  'qwen.noteUsing':
+    'Qwen Code utilisera TokenMix via son mode compatible OpenAI — votre ~/.qwen/settings.json n’est pas modifié.',
+  'qwen.noteModel':
+    'Modèle par défaut : {model} — remplacez-le avec OPENAI_MODEL ou `qwen --model`.',
+  'goose.noteUsing':
+    'Goose utilisera TokenMix comme fournisseur OpenAI — son keyring/sa configuration n’est pas modifié.',
   'goose.noteModel': 'Modèle par défaut : {model} — remplacez-le avec GOOSE_MODEL.',
-  'openhands.noteUsing': 'OpenHands utilisera TokenMix via LiteLLM (--override-with-envs) — votre configuration enregistrée n’est pas modifiée.',
-  'openhands.noteModel': 'Modèle par défaut : openai/{model} — remplacez-le avec LLM_MODEL (gardez le préfixe openai/).',
-  'openhands.hintInstall': 'OpenHands n’est pas installé (nécessite Python 3.12+). Installez-le, puis relancez `tokenmix openhands` :\n    {cmd}',
-  'goose.hintInstall': 'Goose n’est pas installé. Installez-le (voir https://block.github.io/goose), puis relancez `tokenmix goose` :\n    {cmd}',
+  'openhands.noteUsing':
+    'OpenHands utilisera TokenMix via LiteLLM (--override-with-envs) — votre configuration enregistrée n’est pas modifiée.',
+  'openhands.noteModel':
+    'Modèle par défaut : openai/{model} — remplacez-le avec LLM_MODEL (gardez le préfixe openai/).',
+  'openhands.hintInstall':
+    'OpenHands n’est pas installé (nécessite Python 3.12+). Installez-le, puis relancez `tokenmix openhands` :\n    {cmd}',
+  'goose.hintInstall':
+    'Goose n’est pas installé. Installez-le (voir https://block.github.io/goose), puis relancez `tokenmix goose` :\n    {cmd}',
 
-  'cmd.program': 'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',
-  'cmd.login': 'Se connecter à TokenMix (par défaut : autorisation de l’appareil via le navigateur)',
+  'cmd.program':
+    'CLI sans configuration pour utiliser n’importe quel agent de codage open source avec TokenMix comme backend LLM unifié.',
+  'cmd.login':
+    'Se connecter à TokenMix (par défaut : autorisation de l’appareil via le navigateur)',
   'cmd.loginKey': 'Coller directement une clé API (ignore le navigateur, utile pour la CI)',
   'cmd.loginPaste': 'Forcer le collage interactif au lieu du flux navigateur',
   'cmd.loginUrl': 'Remplacer l’URL de base de l’API (par défaut : https://api.tokenmix.ai)',
@@ -1082,7 +1292,8 @@ export const fr: typeof en = {
   'balance.spentLabel': 'Total dépensé',
   'balance.reservedLabel': 'Réservé',
   'balance.topupAt': 'Recharger sur {url}',
-  'balance.fetchFailed': 'Impossible de récupérer le solde en direct ; ouverture du tableau de bord.',
+  'balance.fetchFailed':
+    'Impossible de récupérer le solde en direct ; ouverture du tableau de bord.',
 }
 
 export const catalogs = { en, zh, ja, ko, es, fr }

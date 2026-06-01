@@ -117,7 +117,9 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
     await updateConfig({ apiKey: result.apiKey, apiBaseUrl: baseUrl })
     console.log()
     if (result.userEmail) {
-      logger.success(t('login.loggedInAs', { email: chalk.bold(result.userEmail), id: result.apiKeyId }))
+      logger.success(
+        t('login.loggedInAs', { email: chalk.bold(result.userEmail), id: result.apiKeyId }),
+      )
     } else {
       logger.success(t('login.loggedInId', { id: result.apiKeyId }))
     }

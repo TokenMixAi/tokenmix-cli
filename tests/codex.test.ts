@@ -21,7 +21,11 @@ describe('CodexAgent descriptor', () => {
   })
 
   it('configure passes credentials via env and writes no config file', async () => {
-    const result = await CodexAgent.configure('sk-tm-abc123', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    const result = await CodexAgent.configure(
+      'sk-tm-abc123',
+      'https://api.tokenmix.ai',
+      'claude-sonnet-4.6',
+    )
     expect(result.configPath).toBeUndefined()
     expect(result.envVars?.TOKENMIX_API_KEY).toBe('sk-tm-abc123')
     expect(result.envVars?.TOKENMIX_BASE_URL).toBe('https://api.tokenmix.ai/v1')

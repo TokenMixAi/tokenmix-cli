@@ -5,11 +5,19 @@ export interface UserConfig {
   apiKey?: string
   apiBaseUrl?: string
   defaultModel?: string
-  defaultSmallModel?: string
-  preferredAgent?: string
 }
 
 export const DEFAULT_API_BASE = 'https://api.tokenmix.ai'
+
+// The model agents default to when the user hasn't chosen one (overridable via
+// the TOKENMIX_DEFAULT_MODEL env var or stored config). Single source of truth.
+export const DEFAULT_MODEL = 'claude-sonnet-4.6'
+
+// Append the OpenAI-compatible `/v1` suffix to a base URL, tolerating a trailing
+// slash so `https://host/` doesn't yield `https://host//v1`.
+export function v1Url(baseUrl: string): string {
+  return `${baseUrl.replace(/\/+$/, '')}/v1`
+}
 
 export async function readConfig(): Promise<UserConfig> {
   try {

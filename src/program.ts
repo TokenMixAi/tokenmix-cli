@@ -44,20 +44,11 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
     .option('-u, --url <baseUrl>', t('cmd.loginUrl'))
     .action(loginCommand)
 
-  program
-    .command('logout')
-    .description(t('cmd.logout'))
-    .action(logoutCommand)
+  program.command('logout').description(t('cmd.logout')).action(logoutCommand)
 
-  program
-    .command('balance')
-    .description(t('cmd.balance'))
-    .action(balanceCommand)
+  program.command('balance').description(t('cmd.balance')).action(balanceCommand)
 
-  program
-    .command('topup')
-    .description(t('cmd.topup'))
-    .action(topupCommand)
+  program.command('topup').description(t('cmd.topup')).action(topupCommand)
 
   program
     .command('models')
@@ -66,15 +57,9 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
     .option('-s, --search <keyword>', t('cmd.modelsSearch'))
     .action(modelsCommand)
 
-  program
-    .command('list')
-    .description(t('cmd.list'))
-    .action(listCommand)
+  program.command('list').description(t('cmd.list')).action(listCommand)
 
-  program
-    .command('doctor')
-    .description(t('cmd.doctor'))
-    .action(doctorCommand)
+  program.command('doctor').description(t('cmd.doctor')).action(doctorCommand)
 
   // Register one subcommand per supported agent (opencode, claude, aider, kilo, ...).
   registerAgentCommands(program, deps.runAgent)

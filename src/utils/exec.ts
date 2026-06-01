@@ -23,7 +23,10 @@ export async function run(cmd: string, args: string[], opts: RunOptions = {}): P
   })
 }
 
-export async function captureRun(cmd: string, args: string[]): Promise<{ stdout: string; stderr: string }> {
+export async function captureRun(
+  cmd: string,
+  args: string[],
+): Promise<{ stdout: string; stderr: string }> {
   const r = await execa(cmd, args, { stdio: 'pipe' })
   return { stdout: r.stdout?.toString() ?? '', stderr: r.stderr?.toString() ?? '' }
 }

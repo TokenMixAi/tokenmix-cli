@@ -1,22 +1,13 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { vscodeConfigOnlyCheck } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  // Kilo Code is a config-only agent (VSCode extension). The CLI cannot install
-  // the extension on the user's behalf, so we always proceed to `configure()` and
-  // print the snippet — even if VSCode isn't installed locally yet, the user
-  // may be copying the config for another machine.
-  const code = await commandExists('code')
-  return {
-    installed: true,
-    hint: code ? t('kilo.hintMarketplace') : t('kilo.hintNoVscode'),
-  }
-}
+// Kilo Code is a config-only agent (VSCode extension): the CLI can't install the
+// extension, so installCheck always reports installed and configure() prints the
+// snippet (the user may even be copying the config for another machine).
+const installCheck = (): Promise<AgentInstallStatus> =>
+  vscodeConfigOnlyCheck('kilo.hintMarketplace', 'kilo.hintNoVscode')
 
 async function configure(
   apiKey: string,
@@ -31,7 +22,7 @@ async function configure(
       t('kilo.noteConfigWith'),
       '',
       `  Provider:      OpenAI Compatible`,
-      `  Base URL:      ${baseUrl}/v1`,
+      `  Base URL:      ${v1Url(baseUrl)}`,
       `  API Key:       ${apiKey}`,
       `  Default Model: ${defaultModel}`,
       '',
@@ -40,7 +31,7 @@ async function configure(
       JSON.stringify(
         {
           provider: 'openai-compatible',
-          openAiBaseUrl: `${baseUrl}/v1`,
+          openAiBaseUrl: v1Url(baseUrl),
           openAiApiKey: apiKey,
           defaultModelId: defaultModel,
         },

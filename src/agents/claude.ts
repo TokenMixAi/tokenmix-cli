@@ -7,33 +7,17 @@ import {
   AgentConfigureResult,
   AgentCleanupResult,
 } from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { run } from '../utils/exec.js'
+import { npmInstallCheck, npmInstallGlobal } from './helpers.js'
 import { t } from '../i18n/index.js'
 
 const CLAUDE_BIN = 'claude'
 const CLAUDE_NPM_PACKAGE = '@anthropic-ai/claude-code'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  const bin = await commandExists(CLAUDE_BIN)
-  if (!bin) {
-    const cmd = `npm install -g ${CLAUDE_NPM_PACKAGE}`
-    return {
-      installed: false,
-      hint: t('install.willInstallVia', { cmd }),
-      installCmd: cmd,
-    }
-  }
-  try {
-    const v = await captureRun(CLAUDE_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
-}
+const installCheck = (): Promise<AgentInstallStatus> =>
+  npmInstallCheck(CLAUDE_BIN, CLAUDE_NPM_PACKAGE)
 
-async function install(): Promise<void> {
-  await run('npm', ['install', '-g', CLAUDE_NPM_PACKAGE])
-}
+const install = (): Promise<void> => npmInstallGlobal(CLAUDE_NPM_PACKAGE)
 
 async function configure(
   apiKey: string,

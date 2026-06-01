@@ -1,6 +1,28 @@
 # Changelog
 
-All notable changes to TokenMix CLI will be documented in this file.
+All notable changes to TokenMix CLI are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.5.0] - 2026-06-01
+
+A codebase-quality release. **No change to how the CLI behaves** — same commands, same agents, same output — but a substantial internal cleanup and a full quality-tooling baseline, verified by an independent behavior-equivalence review plus typecheck / lint / format / build / 103 tests all green. Safe to upgrade.
+
+### Added
+- **Lint + format tooling.** ESLint (flat config, typescript-eslint) and Prettier, wired as `pnpm lint` / `pnpm format` / `pnpm format:check`, enforced by a dedicated CI job, with an `.editorconfig`.
+- **Open-source governance.** `CONTRIBUTING.md`, `SECURITY.md`, `CODE_OF_CONDUCT.md`, issue/PR templates, README status badges, and a Keep a Changelog / Semantic Versioning declaration.
+
+### Changed
+- **De-duplicated the agent layer.** Four shared helpers (`probeVersion`, `npmInstallCheck`, `npmInstallGlobal`, `vscodeConfigOnlyCheck`) replace ~14 copies of the same install-check / install boilerplate across the agents; the default model, the `/v1` URL join, and the dashboard URLs are now single sources of truth. Behavior unchanged (independently reviewed).
+- **Stricter TypeScript:** enabled `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, and `noImplicitOverride`.
+- **More honest `unwrap()` typing** and a `balance` error path that surfaces the failure reason, consistent with `doctor` / `login`.
+
+### Fixed
+- **`repository` URL in `package.json`** pointed at the wrong org (`tokenmix/` → `TokenMixAi/`); added `bugs` and `author` fields.
+
+### Removed
+- Dead code (`findAgent`, an unused `select` / `SelectChoice` prompt helper, two never-read `UserConfig` fields) and a stale internal QA report.
 
 ## [1.4.17] - 2026-05-30
 

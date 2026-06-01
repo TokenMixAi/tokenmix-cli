@@ -1,22 +1,13 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { vscodeConfigOnlyCheck } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  // Cline is a config-only agent (VSCode extension). The CLI cannot install the
-  // extension on the user's behalf, so we always proceed to `configure()` and
-  // print the settings — even if VSCode isn't installed locally yet, the user
-  // may be copying the config for another machine.
-  const code = await commandExists('code')
-  return {
-    installed: true,
-    hint: code ? t('cline.hintMarketplace') : t('cline.hintNoVscode'),
-  }
-}
+// Cline is a config-only agent (VSCode extension): the CLI can't install the
+// extension, so installCheck always reports installed and configure() prints the
+// settings to paste (the user may even be copying the config for another machine).
+const installCheck = (): Promise<AgentInstallStatus> =>
+  vscodeConfigOnlyCheck('cline.hintMarketplace', 'cline.hintNoVscode')
 
 async function configure(
   apiKey: string,
@@ -33,7 +24,7 @@ async function configure(
       t('cline.noteConfigWith'),
       '',
       `  Provider:   OpenAI Compatible`,
-      `  Base URL:   ${baseUrl}/v1`,
+      `  Base URL:   ${v1Url(baseUrl)}`,
       `  API Key:    ${apiKey}`,
       `  Model ID:   ${defaultModel}`,
       '',

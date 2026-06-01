@@ -18,7 +18,10 @@ export interface ApiModel {
 }
 
 export class ApiError extends Error {
-  constructor(public status: number, message: string) {
+  constructor(
+    public status: number,
+    message: string,
+  ) {
     super(message)
   }
 }
@@ -28,16 +31,17 @@ export function unwrap<T>(resp: { data?: { code?: number; message?: string; data
   if (body && typeof body.code === 'number' && body.code !== 0) {
     throw new ApiError(0, body.message || 'API error')
   }
-  return (body?.data as T) ?? (body as unknown as T)
+  // Standard success envelope → return the inner `data`. A body with no envelope
+  // (no `data` field — e.g. a raw array) is passed straight through: a deliberate
+  // fallback for endpoints that don't wrap their payload (locked by a unit test).
+  if (body && body.data != null) return body.data
+  return body as unknown as T
 }
 
 function handleAxios(err: unknown): never {
   const e = err as AxiosError<{ message?: string; error?: { message?: string } }>
   if (e.response) {
-    const msg =
-      e.response.data?.message ||
-      e.response.data?.error?.message ||
-      e.message
+    const msg = e.response.data?.message || e.response.data?.error?.message || e.message
     throw new ApiError(e.response.status, msg)
   }
   throw new ApiError(
@@ -80,7 +84,7 @@ export async function listPublicModels(cfg?: UserConfig): Promise<ApiModel[]> {
       }),
     )
     const list = unwrap<{ list?: ApiModel[] } | ApiModel[]>(r)
-    return Array.isArray(list) ? list : list?.list ?? []
+    return Array.isArray(list) ? list : (list?.list ?? [])
   } catch (err) {
     handleAxios(err)
   }
@@ -146,8 +150,8 @@ export interface DeviceAuthorization {
   user_code: string
   verification_uri: string
   verification_uri_complete: string
-  expires_in: number  // seconds
-  interval: number    // recommended polling interval in seconds
+  expires_in: number // seconds
+  interval: number // recommended polling interval in seconds
 }
 
 export interface DeviceTokenResult {
@@ -157,7 +161,10 @@ export interface DeviceTokenResult {
 }
 
 export class DeviceFlowError extends Error {
-  constructor(public code: string, message: string) {
+  constructor(
+    public code: string,
+    message: string,
+  ) {
     super(message)
   }
 }
@@ -235,16 +242,25 @@ export async function pollDeviceToken(
           continue
         }
         case 'expired_token':
-          throw new DeviceFlowError('expired_token', 'Authorization expired. Run `tokenmix login` again.')
+          throw new DeviceFlowError(
+            'expired_token',
+            'Authorization expired. Run `tokenmix login` again.',
+          )
         case 'access_denied':
-          throw new DeviceFlowError('access_denied', 'Authorization was denied or the code is invalid.')
+          throw new DeviceFlowError(
+            'access_denied',
+            'Authorization was denied or the code is invalid.',
+          )
         case 'api_key_limit_reached':
           throw new DeviceFlowError(
             'api_key_limit_reached',
             'You have reached the 20 API keys per account limit. Delete unused keys at https://tokenmix.ai/dashboard/keys',
           )
         default:
-          throw new DeviceFlowError(code || 'unknown', `Unexpected device token response: ${code || r.status}`)
+          throw new DeviceFlowError(
+            code || 'unknown',
+            `Unexpected device token response: ${code || r.status}`,
+          )
       }
     } catch (err) {
       if (err instanceof DeviceFlowError) throw err
@@ -255,5 +271,8 @@ export async function pollDeviceToken(
       continue
     }
   }
-  throw new DeviceFlowError('timeout', 'Authorization timed out before the user approved. Run `tokenmix login` again.')
+  throw new DeviceFlowError(
+    'timeout',
+    'Authorization timed out before the user approved. Run `tokenmix login` again.',
+  )
 }

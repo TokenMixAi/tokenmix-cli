@@ -115,12 +115,10 @@ describe('pollDeviceToken', () => {
   })
 
   it('retries through a transient network error and still succeeds', async () => {
-    mockedPost
-      .mockRejectedValueOnce(new Error('socket hang up'))
-      .mockResolvedValueOnce({
-        status: 200,
-        data: { code: 0, data: { access_token: 'sk-tm-ok', api_key_id: 2 } },
-      })
+    mockedPost.mockRejectedValueOnce(new Error('socket hang up')).mockResolvedValueOnce({
+      status: 200,
+      data: { code: 0, data: { access_token: 'sk-tm-ok', api_key_id: 2 } },
+    })
 
     const p = pollDeviceToken('http://api', AUTH)
     await vi.advanceTimersByTimeAsync(1000) // first poll throws → swallowed, retry

@@ -1,21 +1,13 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { vscodeConfigOnlyCheck } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  // Continue is a config-only agent (VSCode/JetBrains extension). The CLI cannot
-  // install the extension, so we always proceed to configure() and print the
-  // config the user pastes into ~/.continue/config.yaml.
-  const code = await commandExists('code')
-  return {
-    installed: true,
-    hint: code ? t('continue.hintMarketplace') : t('continue.hintNoVscode'),
-  }
-}
+// Continue is a config-only agent (VSCode/JetBrains extension): the CLI can't
+// install the extension, so installCheck always reports installed and configure()
+// prints the config to paste into ~/.continue/config.yaml.
+const installCheck = (): Promise<AgentInstallStatus> =>
+  vscodeConfigOnlyCheck('continue.hintMarketplace', 'continue.hintNoVscode')
 
 async function configure(
   apiKey: string,
@@ -35,7 +27,7 @@ async function configure(
     '  - name: TokenMix',
     '    provider: openai',
     `    model: ${defaultModel}`,
-    `    apiBase: ${baseUrl}/v1`,
+    `    apiBase: ${v1Url(baseUrl)}`,
     `    apiKey: ${apiKey}`,
   ].join('\n')
 

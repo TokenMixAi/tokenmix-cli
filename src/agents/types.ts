@@ -29,14 +29,14 @@ export interface AgentCleanupResult {
 }
 
 export type AgentInstallMode =
-  | 'auto-npm'        // installed via `npm install -g <pkg>`
-  | 'auto-pip'        // requires Python; CLI guides install
-  | 'manual-vscode'   // VSCode extension; CLI prints config only
-  | 'manual'          // unknown install path; CLI prints hint
+  | 'auto-npm' // installed via `npm install -g <pkg>`
+  | 'auto-pip' // requires Python; CLI guides install
+  | 'manual-vscode' // VSCode extension; CLI prints config only
+  | 'manual' // unknown install path; CLI prints hint
 
 export interface AgentDescriptor {
-  id: string                 // short ID used as subcommand name (e.g. 'opencode')
-  displayName: string        // human-readable name
+  id: string // short ID used as subcommand name (e.g. 'opencode')
+  displayName: string // human-readable name
   description: string
   installMode: AgentInstallMode
   // Minimum Node major version the agent's binary needs (Codex & Qwen Code need 22).
@@ -45,11 +45,7 @@ export interface AgentDescriptor {
 
   installCheck(): Promise<AgentInstallStatus>
   install?(): Promise<void>
-  configure(
-    apiKey: string,
-    baseUrl: string,
-    defaultModel: string,
-  ): Promise<AgentConfigureResult>
+  configure(apiKey: string, baseUrl: string, defaultModel: string): Promise<AgentConfigureResult>
   launch?(args: string[], env: Record<string, string>): Promise<void>
 
   // Undo whatever configure() wrote (used by `tokenmix logout`). Optional:

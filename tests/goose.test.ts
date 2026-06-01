@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 
 vi.mock('../src/utils/exec.js', async (importOriginal) => {
   const actual = await importOriginal<typeof import('../src/utils/exec.js')>()
@@ -18,7 +18,11 @@ describe('GooseAgent', () => {
   })
 
   it('configure sets Goose OpenAI env with a BARE host (no /v1) and disables keyring', async () => {
-    const r = await GooseAgent.configure('sk-tm-abc', 'https://api.tokenmix.ai', 'claude-sonnet-4.6')
+    const r = await GooseAgent.configure(
+      'sk-tm-abc',
+      'https://api.tokenmix.ai',
+      'claude-sonnet-4.6',
+    )
     expect(r.configPath).toBeUndefined()
     expect(r.envVars).toEqual({
       GOOSE_PROVIDER: 'openai',

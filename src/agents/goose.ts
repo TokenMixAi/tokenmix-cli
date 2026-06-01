@@ -1,9 +1,6 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { commandExists, run } from '../utils/exec.js'
+import { probeVersion } from './helpers.js'
 import { t } from '../i18n/index.js'
 
 const GOOSE_BIN = 'goose'
@@ -13,20 +10,14 @@ const GOOSE_INSTALL =
   'curl -fsSL https://github.com/block/goose/releases/download/stable/download_cli.sh | bash'
 
 async function installCheck(): Promise<AgentInstallStatus> {
-  const bin = await commandExists(GOOSE_BIN)
-  if (!bin) {
+  if (!(await commandExists(GOOSE_BIN))) {
     return {
       installed: false,
       hint: t('goose.hintInstall', { cmd: GOOSE_INSTALL }),
       installCmd: GOOSE_INSTALL,
     }
   }
-  try {
-    const v = await captureRun(GOOSE_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
+  return probeVersion(GOOSE_BIN)
 }
 
 async function configure(

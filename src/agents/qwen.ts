@@ -1,35 +1,15 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { run } from '../utils/exec.js'
+import { npmInstallCheck, npmInstallGlobal } from './helpers.js'
+import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
 const QWEN_BIN = 'qwen'
 const QWEN_NPM_PACKAGE = '@qwen-code/qwen-code'
 
-async function installCheck(): Promise<AgentInstallStatus> {
-  const bin = await commandExists(QWEN_BIN)
-  if (!bin) {
-    const cmd = `npm install -g ${QWEN_NPM_PACKAGE}`
-    return {
-      installed: false,
-      hint: t('install.willInstallVia', { cmd }),
-      installCmd: cmd,
-    }
-  }
-  try {
-    const v = await captureRun(QWEN_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
-}
+const installCheck = (): Promise<AgentInstallStatus> => npmInstallCheck(QWEN_BIN, QWEN_NPM_PACKAGE)
 
-async function install(): Promise<void> {
-  await run('npm', ['install', '-g', `${QWEN_NPM_PACKAGE}@latest`])
-}
+const install = (): Promise<void> => npmInstallGlobal(`${QWEN_NPM_PACKAGE}@latest`)
 
 async function configure(
   apiKey: string,
@@ -43,7 +23,7 @@ async function configure(
   return {
     envVars: {
       OPENAI_API_KEY: apiKey,
-      OPENAI_BASE_URL: `${baseUrl}/v1`,
+      OPENAI_BASE_URL: v1Url(baseUrl),
       OPENAI_MODEL: defaultModel,
     },
     notes: [t('qwen.noteUsing'), t('qwen.noteModel', { model: defaultModel })],

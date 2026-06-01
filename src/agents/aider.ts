@@ -1,9 +1,7 @@
-import {
-  AgentDescriptor,
-  AgentInstallStatus,
-  AgentConfigureResult,
-} from './types.js'
-import { commandExists, run, captureRun } from '../utils/exec.js'
+import { AgentDescriptor, AgentInstallStatus, AgentConfigureResult } from './types.js'
+import { commandExists, run } from '../utils/exec.js'
+import { probeVersion } from './helpers.js'
+import { v1Url, DEFAULT_MODEL } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
 const AIDER_BIN = 'aider'
@@ -25,12 +23,7 @@ async function installCheck(): Promise<AgentInstallStatus> {
       hint: t('aider.hintNotInstalled', { cmd: installCmd }),
     }
   }
-  try {
-    const v = await captureRun(AIDER_BIN, ['--version'])
-    return { installed: true, version: v.stdout.trim() }
-  } catch {
-    return { installed: true }
-  }
+  return probeVersion(AIDER_BIN)
 }
 
 async function configure(
@@ -43,13 +36,10 @@ async function configure(
   return {
     envVars: {
       OPENAI_API_KEY: apiKey,
-      OPENAI_API_BASE: `${baseUrl}/v1`,
+      OPENAI_API_BASE: v1Url(baseUrl),
       TOKENMIX_DEFAULT_MODEL: defaultModel,
     },
-    notes: [
-      t('aider.noteUsing'),
-      t('aider.noteModel', { model: defaultModel }),
-    ],
+    notes: [t('aider.noteUsing'), t('aider.noteModel', { model: defaultModel })],
   }
 }
 
@@ -83,7 +73,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
   // Inject our default --model only if the user didn't already pick a model.
   const finalArgs = userSelectedModel(args)
     ? args
-    : ['--model', `openai/${env.TOKENMIX_DEFAULT_MODEL ?? 'claude-sonnet-4.6'}`, ...args]
+    : ['--model', `openai/${env.TOKENMIX_DEFAULT_MODEL ?? DEFAULT_MODEL}`, ...args]
   await run(AIDER_BIN, finalArgs, { env })
 }
 
