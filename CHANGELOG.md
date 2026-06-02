@@ -5,6 +5,11 @@ All notable changes to TokenMix CLI are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.4] - 2026-06-01
+
+### Added
+- **Mirror / proxy hint for slow or restricted networks.** When an npm-based agent fails to install, the CLI now suggests a registry mirror (`npm config set registry https://registry.npmmirror.com`) or a proxy — aimed at users on slow or firewalled connections (e.g. mainland China, where the npm registry is reachable but slow). Localized in all six languages. (Note: this only helps the npm install step; whether the gateway and GitHub/PyPI-based agents are reachable behind the GFW still needs real in-region verification — it can't be solved in the CLI.)
+
 ## [1.5.3] - 2026-06-01
 
 ### Fixed

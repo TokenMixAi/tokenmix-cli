@@ -59,6 +59,8 @@ export const en = {
     '  • Use a Node version manager (nvm / fnm / volta) — then global installs need no sudo, or',
   'agent.installFailHint3': '  • Install it yourself: {cmd}',
   'agent.installFailHint4': 'Then re-run this command — your TokenMix login is already saved.',
+  'agent.installFailHintMirror':
+    'On a slow or restricted network (e.g. mainland China): try a mirror (`npm config set registry https://registry.npmmirror.com`) or set a proxy.',
   'agent.configuring': 'Configuring {name} ...',
   'agent.wrote': 'Wrote {path}',
   'agent.configReady': '{name} configuration ready.',
@@ -293,6 +295,8 @@ export const zh: typeof en = {
     '  • 使用 Node 版本管理器（nvm / fnm / volta）—— 全局安装即无需 sudo；或',
   'agent.installFailHint3': '  • 自行安装：{cmd}',
   'agent.installFailHint4': '随后重新运行本命令 —— 你的 TokenMix 登录已保存。',
+  'agent.installFailHintMirror':
+    '网络慢或受限（如中国大陆）：可换镜像（`npm config set registry https://registry.npmmirror.com`）或设置代理。',
   'agent.configuring': '正在配置 {name} ...',
   'agent.wrote': '已写入 {path}',
   'agent.configReady': '{name} 配置已就绪。',
@@ -502,6 +506,8 @@ export const ja: typeof en = {
   'agent.installFailHint3': '  • 手動でインストール：{cmd}',
   'agent.installFailHint4':
     'その後このコマンドを再実行してください — TokenMix のログインは保存済みです。',
+  'agent.installFailHintMirror':
+    'ネットワークが遅い/制限されている場合（中国本土など）：ミラー（`npm config set registry https://registry.npmmirror.com`）を試すか、プロキシを設定してください。',
   'agent.configuring': '{name} を設定しています ...',
   'agent.wrote': '{path} を書き込みました',
   'agent.configReady': '{name} の設定が完了しました。',
@@ -716,6 +722,8 @@ export const ko: typeof en = {
   'agent.installFailHint3': '  • 직접 설치: {cmd}',
   'agent.installFailHint4':
     '그런 다음 이 명령을 다시 실행하세요 — TokenMix 로그인은 이미 저장되어 있습니다.',
+  'agent.installFailHintMirror':
+    '네트워크가 느리거나 제한된 경우(중국 본토 등): 미러(`npm config set registry https://registry.npmmirror.com`)를 사용하거나 프록시를 설정하세요.',
   'agent.configuring': '{name} 구성 중 ...',
   'agent.wrote': '{path} 작성 완료',
   'agent.configReady': '{name} 구성이 준비되었습니다.',
@@ -931,6 +939,8 @@ export const es: typeof en = {
   'agent.installFailHint3': '  • Instálalo tú mismo: {cmd}',
   'agent.installFailHint4':
     'Luego vuelve a ejecutar este comando; tu sesión de TokenMix ya está guardada.',
+  'agent.installFailHintMirror':
+    'En una red lenta o restringida (p. ej. China continental): prueba un mirror (`npm config set registry https://registry.npmmirror.com`) o configura un proxy.',
   'agent.configuring': 'Configurando {name} ...',
   'agent.wrote': 'Se escribió {path}',
   'agent.configReady': 'Configuración de {name} lista.',
@@ -1151,6 +1161,8 @@ export const fr: typeof en = {
   'agent.installFailHint3': '  • Installez-le vous-même : {cmd}',
   'agent.installFailHint4':
     'Puis relancez cette commande — votre connexion TokenMix est déjà enregistrée.',
+  'agent.installFailHintMirror':
+    'Sur un réseau lent ou restreint (p. ex. Chine continentale) : essayez un miroir (`npm config set registry https://registry.npmmirror.com`) ou configurez un proxy.',
   'agent.configuring': 'Configuration de {name} ...',
   'agent.wrote': '{path} écrit',
   'agent.configReady': 'Configuration de {name} prête.',

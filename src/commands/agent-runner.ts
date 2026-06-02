@@ -126,6 +126,9 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
           logger.info(t('agent.installFailHint3', { cmd: status.installCmd }))
         }
         logger.info(t('agent.installFailHint4'))
+        // Slow / restricted networks (e.g. mainland China) are a common install
+        // failure too — the registry is reachable but slow/blocked. Point at a mirror.
+        logger.info(t('agent.installFailHintMirror'))
         process.exit(1)
       }
       logger.success(t('agent.installed', { name: agent.displayName }))
