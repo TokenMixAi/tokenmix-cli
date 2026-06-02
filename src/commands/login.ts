@@ -21,13 +21,13 @@ export async function loginCommand(opts: LoginOptions): Promise<void> {
   const cfg = await readConfig()
   const baseUrl = opts.url || apiBaseUrl(cfg)
 
-  // 显式 --key 走老路径（适合 CI/无浏览器环境）
+  // Explicit --key: direct path, best for CI and headless/no-browser setups.
   if (opts.key) {
     await loginByKey(opts.key, baseUrl)
     return
   }
 
-  // 显式 --paste 让用户手动粘贴
+  // Explicit --paste: prompt the user to paste a key manually.
   if (opts.paste) {
     const entered = await promptApiKey()
     if (!entered) {
@@ -38,7 +38,7 @@ export async function loginCommand(opts: LoginOptions): Promise<void> {
     return
   }
 
-  // 默认走 device flow（浏览器扫码授权）
+  // Default: browser-based OAuth device authorization flow.
   await loginByDeviceFlow(baseUrl)
 }
 
