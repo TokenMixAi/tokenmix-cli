@@ -150,6 +150,20 @@ Your TokenMix credentials are stored locally at:
 
 File permissions are restricted to `0600` (owner read/write only).
 
+## FAQ
+
+**The browser didn't open when I ran `tokenmix login`.**
+Expected on a server, in a container, or over SSH. The device flow prints the URL and a short code, so open the URL on any device and enter the code. To skip the browser entirely, use `tokenmix login --paste` to paste a key, or `tokenmix login --key sk-tm-...` in CI.
+
+**Something isn't working - where do I start?**
+Run `tokenmix doctor`. It checks whether your key is valid and reports each agent's install and config status, which usually points straight at the problem.
+
+**How do I change the model an agent uses?**
+Agents default to `claude-sonnet-4.6`. Set `TOKENMIX_DEFAULT_MODEL` to switch it (see [Default model](#default-model)), and run `tokenmix models` to list everything available. `claude` and `codex` need a Claude-family model; the others take any chat model.
+
+**How do I log out or uninstall?**
+`tokenmix logout` removes your stored key and reverts any agent config the CLI changed. Run via `npx`, the CLI leaves nothing behind; if you installed it globally, `npm uninstall -g tokenmix`.
+
 ## Development
 
 ```bash

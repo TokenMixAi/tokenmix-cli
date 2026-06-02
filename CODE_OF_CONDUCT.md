@@ -38,8 +38,6 @@ This Code of Conduct applies within all community spaces, and also applies when 
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement privately through the project's [GitHub repository](https://github.com/TokenMixAi/tokenmix-cli). All complaints will be reviewed and investigated promptly and fairly.
 
-<!-- Maintainers: you may replace the line above with a dedicated conduct contact email. -->
-
 All community leaders are obligated to respect the privacy and security of the reporter of any incident.
 
 ## Attribution
