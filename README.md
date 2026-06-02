@@ -31,24 +31,38 @@ The grey-market proxy scene is cheap but trust-broken: independent audits have d
 
 Versus a mainstream gateway like [OpenRouter](https://openrouter.ai), the difference is focus, not a knock on them: TokenMix is built for Asia/China BYOK users, with a six-language CLI and dashboard, networking tuned for slow or restricted connections, and one balance across the Anthropic, OpenAI, and Responses protocols.
 
+## Requirements
+
+- **Node.js 18 or newer.** Check with `node --version`; if you don't have it, install it from [nodejs.org](https://nodejs.org).
+- **A TokenMix account.** Sign up at [tokenmix.ai](https://tokenmix.ai), then add a little credit on the dashboard - you only pay for what you actually use.
+
 ## Quick Start
 
+New here? Two steps to your first agent:
+
 ```bash
-# 1. Log in (opens browser, confirm a short code)
+# 1. Log in. This opens your browser - sign in to your TokenMix account,
+#    then confirm the short code shown in the terminal.
 npx tokenmix login
 
-# 2. Launch an agent
-npx tokenmix opencode          # install + configure + start OpenCode
-npx tokenmix claude            # install + configure + start Claude Code
-npx tokenmix aider             # configure + start Aider (Python required)
-npx tokenmix kilo              # print Kilo Code VSCode configuration
-npx tokenmix cline             # print Cline VSCode configuration
-npx tokenmix roo               # print Roo Code VSCode configuration
-npx tokenmix continue          # print Continue config.yaml snippet
-npx tokenmix codex             # install + configure + start Codex
-npx tokenmix qwen              # install + configure + start Qwen Code
-npx tokenmix goose             # configure + start Goose (install it first)
-npx tokenmix openhands         # configure + start OpenHands (install it first)
+# 2. Launch your first agent. OpenCode is the easiest to start with: the CLI
+#    installs it (first run only), points it at TokenMix, and launches it.
+npx tokenmix opencode
+```
+
+After the first run, `npx tokenmix opencode` just starts it. The other agents work the same way:
+
+```bash
+npx tokenmix claude            # Claude Code (installs automatically)
+npx tokenmix aider             # Aider (needs Python)
+npx tokenmix codex             # Codex (installs automatically)
+npx tokenmix qwen              # Qwen Code (installs automatically)
+npx tokenmix goose             # Goose (install Goose itself first, see below)
+npx tokenmix openhands         # OpenHands (install it first, see below)
+npx tokenmix kilo              # prints config for the Kilo Code VSCode extension
+npx tokenmix cline             # prints config for the Cline VSCode extension
+npx tokenmix roo               # prints config for the Roo Code VSCode extension
+npx tokenmix continue          # prints a Continue config snippet
 ```
 
 ### Alternative login modes
