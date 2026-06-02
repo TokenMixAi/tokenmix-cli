@@ -34,7 +34,7 @@ Versus a mainstream gateway like [OpenRouter](https://openrouter.ai), the differ
 ## Requirements
 
 - **Node.js 18 or newer.** Check with `node --version`; if you don't have it, install it from [nodejs.org](https://nodejs.org).
-- **A TokenMix account.** Sign up at [tokenmix.ai](https://tokenmix.ai), then add a little credit on the dashboard - you only pay for what you actually use.
+- **A TokenMix account.** Sign up at [tokenmix.ai](https://tokenmix.ai). New accounts get $1 of free credit to start (see [Free trial](#free-trial)); after that you only pay for what you use.
 
 ## Quick Start
 
@@ -71,6 +71,16 @@ npx tokenmix continue          # prints a Continue config snippet
 npx tokenmix login --paste                     # interactive paste prompt (no browser)
 npx tokenmix login --key sk-tm-...             # supply API key directly (for CI / scripts)
 ```
+
+## Free trial
+
+New accounts get $1 of credit so you can try things before paying. It doesn't cover the premium models (Claude, GPT, Gemini, and the image/video/audio models), but it works on plenty of capable cheaper ones. To run an agent end to end at zero cost, point it at a trial-eligible model. `qwen-flash` is the cheapest and supports tool calling, so $1 goes a long way:
+
+```bash
+TOKENMIX_DEFAULT_MODEL=qwen-flash npx tokenmix opencode
+```
+
+If you want one tuned for coding, `qwen3-coder-flash` is also trial-eligible. Run `tokenmix models` for the full list, and switch to a premium model (and add credit) whenever you want more power.
 
 ## Supported Agents
 
