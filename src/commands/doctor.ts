@@ -18,8 +18,11 @@ export async function doctorCommand(): Promise<void> {
   const cfg = await readConfig()
   console.log(chalk.bold(t('doctor.credentials')))
   if (cfg.apiKey) {
-    logger.success(`${t('doctor.apiKeyLabel')}  ${chalk.cyan(maskKey(cfg.apiKey))}`)
-    logger.success(`${t('doctor.apiBaseLabel')}  ${chalk.cyan(apiBaseUrl(cfg))}`)
+    // Key and base are just "what you have stored" - show them neutrally. The only
+    // pass/fail signal here is the verify result below, so a green check on these two
+    // would clash with a `did not validate` line right after.
+    logger.info(`  ${t('doctor.apiKeyLabel')}  ${chalk.cyan(maskKey(cfg.apiKey))}`)
+    logger.info(`  ${t('doctor.apiBaseLabel')}  ${chalk.cyan(apiBaseUrl(cfg))}`)
     try {
       const ok = await verifyApiKey(cfg.apiKey, apiBaseUrl(cfg))
       if (ok) {
@@ -40,11 +43,11 @@ export async function doctorCommand(): Promise<void> {
   console.log(chalk.bold(t('doctor.agentStatus')))
   for (const a of AGENTS) {
     const r = await a.installCheck()
-    // Config-only agents (VSCode extensions) have no binary, so installCheck always
-    // says installed:true. "installed" would mislead - show their install mode instead,
-    // matching `tokenmix list`.
+    // Config-only agents (VSCode extensions) have no binary, so they're neither
+    // "installed" nor "not installed". Show them neutrally (no green check, which would
+    // clash with a "VSCode not detected" hint); the hint says what to do in the editor.
     if (a.installMode === 'manual-vscode') {
-      logger.success(`${a.displayName.padEnd(14)} ${chalk.dim(t('list.modeManualVscode'))}`)
+      logger.info(`  ${a.displayName.padEnd(14)} ${chalk.dim(t('list.modeManualVscode'))}`)
       if (r.hint) console.log(`    ${chalk.dim(r.hint)}`)
       continue
     }
