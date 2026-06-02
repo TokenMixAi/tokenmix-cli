@@ -127,6 +127,19 @@ Requests auto-retry transient network failures (so a single hiccup won't fail a 
 TOKENMIX_TIMEOUT_MS=60000 npx tokenmix login
 ```
 
+If the default gateway host is unreachable from your network, point the CLI at a self-hosted or backup endpoint with `TOKENMIX_API_BASE`. It overrides the stored config at runtime only and is never written to disk, so it stays safe for one-off use, containers, and CI:
+
+```bash
+TOKENMIX_API_BASE=https://your-gateway.example.com npx tokenmix doctor
+```
+
+Behind a package-registry mirror (for example in mainland China), install through your mirror so the CLI and its agents download quickly:
+
+```bash
+npm config set registry https://registry.npmmirror.com
+npm install -g tokenmix
+```
+
 ## Configuration Location
 
 Your TokenMix credentials are stored locally at:

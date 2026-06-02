@@ -19,11 +19,15 @@ export interface LoginOptions {
 
 export async function loginCommand(opts: LoginOptions): Promise<void> {
   const cfg = await readConfig()
+  // Login requests honor the env override (so you can authenticate through a
+  // backup or self-hosted gateway), but only an explicit --url is persisted: the
+  // env value stays a pure runtime override and is never written to config.
   const baseUrl = opts.url || apiBaseUrl(cfg)
+  const persistUrl = opts.url
 
   // Explicit --key: direct path, best for CI and headless/no-browser setups.
   if (opts.key) {
-    await loginByKey(opts.key, baseUrl)
+    await loginByKey(opts.key, baseUrl, persistUrl)
     return
   }
 
@@ -34,15 +38,15 @@ export async function loginCommand(opts: LoginOptions): Promise<void> {
       logger.error(t('login.noKey'))
       process.exit(1)
     }
-    await loginByKey(entered, baseUrl)
+    await loginByKey(entered, baseUrl, persistUrl)
     return
   }
 
   // Default: browser-based OAuth device authorization flow.
-  await loginByDeviceFlow(baseUrl)
+  await loginByDeviceFlow(baseUrl, persistUrl)
 }
 
-async function loginByKey(apiKey: string, baseUrl: string): Promise<void> {
+async function loginByKey(apiKey: string, baseUrl: string, persistUrl?: string): Promise<void> {
   if (!apiKey.startsWith('sk-tm-')) {
     logger.error(t('login.keyMustStart'))
     process.exit(1)
@@ -61,11 +65,11 @@ async function loginByKey(apiKey: string, baseUrl: string): Promise<void> {
     logger.error(t('login.verifyFailed'))
     process.exit(1)
   }
-  await updateConfig({ apiKey, apiBaseUrl: baseUrl })
+  await updateConfig(persistUrl ? { apiKey, apiBaseUrl: persistUrl } : { apiKey })
   logger.success(t('login.loggedInHint'))
 }
 
-async function loginByDeviceFlow(baseUrl: string): Promise<void> {
+async function loginByDeviceFlow(baseUrl: string, persistUrl?: string): Promise<void> {
   logger.step(t('login.requesting'))
   let auth
   try {
@@ -76,7 +80,7 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
     logger.info(t('login.fallbackPaste'))
     const entered = await promptApiKey()
     if (!entered) process.exit(1)
-    await loginByKey(entered, baseUrl)
+    await loginByKey(entered, baseUrl, persistUrl)
     return
   }
 
@@ -114,7 +118,9 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
         logger.dim('  ' + t('login.stillWaiting', { seconds: secondsRemaining }))
       }
     })
-    await updateConfig({ apiKey: result.apiKey, apiBaseUrl: baseUrl })
+    await updateConfig(
+      persistUrl ? { apiKey: result.apiKey, apiBaseUrl: persistUrl } : { apiKey: result.apiKey },
+    )
     console.log()
     if (result.userEmail) {
       logger.success(
@@ -133,7 +139,7 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
       if ((err.code === 'expired_token' || err.code === 'timeout') && process.stdin.isTTY) {
         const retry = await confirm(t('login.tryAgain'), true)
         if (retry) {
-          await loginByDeviceFlow(baseUrl)
+          await loginByDeviceFlow(baseUrl, persistUrl)
           return
         }
       }

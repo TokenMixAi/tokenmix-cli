@@ -5,6 +5,16 @@ All notable changes to TokenMix CLI are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.5] - 2026-06-02
+
+### Added
+
+- **`TOKENMIX_API_BASE` to override the gateway endpoint at runtime.** Point the CLI at a self-hosted or backup gateway (handy on slow or restricted networks) without touching your stored config. The env value takes precedence for the current run but is never written to disk, so `login` still persists only an explicit `--url`. The "Slow or restricted networks" section of the README now also covers installing through a package-registry mirror.
+
+### Changed
+
+- **Repository housekeeping for a global audience.** Inline code comments and documentation are now uniformly English, and punctuation was normalized across the codebase, CI configuration, and scripts. No runtime behavior changes.
+
 ## [1.5.4] - 2026-06-01
 
 ### Added

@@ -61,6 +61,11 @@ export async function clearConfig(): Promise<void> {
   }
 }
 
+// Resolve the gateway base URL. Precedence: the TOKENMIX_API_BASE env var (a pure
+// runtime override, useful for a self-hosted or backup gateway and for restricted
+// networks) > the stored config > the built-in default. The env value is never
+// written to disk by `login`; unset it and you fall back to config or the default.
 export function apiBaseUrl(cfg?: Pick<UserConfig, 'apiBaseUrl'>): string {
-  return cfg?.apiBaseUrl || DEFAULT_API_BASE
+  const env = process.env.TOKENMIX_API_BASE?.trim()
+  return env || cfg?.apiBaseUrl || DEFAULT_API_BASE
 }
