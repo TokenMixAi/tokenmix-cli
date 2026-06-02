@@ -4,17 +4,16 @@ import { t } from '../i18n/index.js'
 
 export async function openInBrowser(url: string): Promise<void> {
   const child = await open(url)
-  // open() spawns a detached, unref'd child; if the launcher binary is missing its
-  // async 'error' event would otherwise be uncaught (→ process crash). Swallow it -
-  // callers print the URL and treat a browser failure as non-fatal.
+  // open() spawns a detached child; if the launcher binary is missing its async
+  // 'error' event is uncaught and crashes us. Swallow it - callers print the URL
+  // and treat a browser failure as non-fatal.
   child.on('error', () => {})
 }
 
-// Print the URL, then best-effort open the browser. We print UNCONDITIONALLY and
-// first: without `{ wait: true }`, open() resolves immediately even when no browser
-// actually launches (headless / SSH / container / no desktop), so a catch-based
-// fallback would never fire and the user would be left staring at nothing. Printing
-// first guarantees they can always copy the link.
+// Print the URL first, then try to open the browser. Without `{ wait: true }`,
+// open() resolves immediately even when nothing actually launches (headless / SSH /
+// container), so a catch-based fallback never fires. Printing first means the user
+// can always copy the link.
 export async function openOrHint(url: string): Promise<void> {
   logger.info(t('browser.manual', { url }))
   try {

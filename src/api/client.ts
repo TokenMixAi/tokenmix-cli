@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios'
 import { readConfig, apiBaseUrl, DEFAULT_API_BASE, UserConfig } from '../config/store.js'
 
-// Public, unauthenticated model listing returned by /api/models.
-// Mirrors only the fields we render; backend returns more.
+// Public, unauthenticated model listing from /api/models.
+// Only the fields we render; backend returns more.
 export interface ApiModel {
   model_id: string
   short_id: string
@@ -28,15 +28,13 @@ export class ApiError extends Error {
 
 export function unwrap<T>(resp: { data?: { code?: number; message?: string; data?: T } }): T {
   const body = resp.data
-  // Normalize `code` with Number() - a backend/proxy could serialize it as a string
-  // ("1"), which a strict `typeof === 'number'` check would miss, silently swallowing
-  // a real error and passing the error body downstream as if it were data.
+  // Some proxies send `code` as a string ("1"); a typeof-number check would miss it
+  // and pass the error body through as data. Number() handles both.
   if (body && body.code != null && Number(body.code) !== 0) {
     throw new ApiError(0, body.message || 'API error')
   }
-  // Standard success envelope → return the inner `data`. A body with no envelope
-  // (no `data` field - e.g. a raw array) is passed straight through: a deliberate
-  // fallback for endpoints that don't wrap their payload (locked by a unit test).
+  // Success envelope -> inner `data`. A body with no `data` field (e.g. a raw array)
+  // passes straight through, for endpoints that don't wrap their payload (locked by a test).
   if (body && body.data != null) return body.data
   return body as unknown as T
 }
@@ -53,10 +51,10 @@ function handleAxios(err: unknown): never {
   )
 }
 
-// Network resilience for flaky / slow / GFW'd connections: a generous default
-// timeout (override with TOKENMIX_TIMEOUT_MS) and automatic retry of transient
-// TRANSPORT failures (no HTTP response) with exponential backoff. HTTP errors
-// (4xx/5xx) are real answers and are NEVER retried.
+// For flaky / slow / GFW'd connections: a generous default timeout (override with
+// TOKENMIX_TIMEOUT_MS) and retry of transient transport failures (no HTTP response)
+// with exponential backoff. A 4xx/5xx is a real answer, not a transport failure, so
+// those aren't retried.
 const envTimeout = Number(process.env.TOKENMIX_TIMEOUT_MS)
 export const REQUEST_TIMEOUT_MS = Number.isFinite(envTimeout) && envTimeout > 0 ? envTimeout : 20000
 const MAX_RETRIES = 2
@@ -75,9 +73,8 @@ export async function withRetry<T>(fn: () => Promise<T>): Promise<T> {
   throw lastErr
 }
 
-// Public endpoint, no auth required.
-// Note: backend pagination uses `per_page` (NOT `page_size`); max 500 (anything >500 falls back to 20).
-// 162 active models today, so per_page=500 fetches all in one round-trip.
+// Public endpoint, no auth. Pagination is `per_page` (not `page_size`), max 500
+// (anything >500 falls back to 20). ~162 active models today, so 500 gets them all in one go.
 export async function listPublicModels(cfg?: UserConfig): Promise<ApiModel[]> {
   const c = cfg || (await readConfig())
   try {
@@ -94,13 +91,12 @@ export async function listPublicModels(cfg?: UserConfig): Promise<ApiModel[]> {
   }
 }
 
-// Verify the API key works by calling the OpenAI-compatible /v1/models endpoint.
-// A 200 implies the key is valid and not revoked/expired/over-quota.
+// Verify the key by calling the OpenAI-compatible /v1/models endpoint.
+// A 200 means the key is valid and not revoked/expired/over-quota.
 export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<boolean> {
-  // validateStatus:true so an HTTP 401/403 resolves (→ invalid key, return false)
-  // while only a transport failure (DNS / refused / timeout) throws. handleAxios
-  // then raises a clear "could not reach the API" ApiError, letting callers tell a
-  // network problem apart from a genuinely bad key.
+  // validateStatus:true so a 401/403 resolves (bad key -> false) while only a
+  // transport failure (DNS / refused / timeout) throws. handleAxios then raises a
+  // clear "could not reach the API", so callers can tell a network problem from a bad key.
   try {
     const r = await withRetry(() =>
       axios.get(`${baseUrl || DEFAULT_API_BASE}/v1/models`, {
@@ -110,9 +106,9 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
       }),
     )
     if (r.status === 200) return true
-    // 401/403 = a genuinely invalid/expired key → false. But 5xx/429 are server-side
-    // problems, NOT a bad key - throw so callers report "API unavailable" instead of
-    // falsely telling the user to re-create a perfectly good key.
+    // 401/403 = invalid/expired key -> false. But 5xx/429 are server-side problems,
+    // not a bad key - throw so callers report "API unavailable" instead of telling the
+    // user to re-create a perfectly good key.
     if (r.status >= 500 || r.status === 429) {
       throw new ApiError(
         r.status,
@@ -126,7 +122,7 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
   }
 }
 
-// Wallet info for the API key's owner - GET /v1/wallet (API-key authenticated).
+// Wallet for the key's owner - GET /v1/wallet (API-key auth).
 // Money fields are micro-USD (1 USD = 1_000_000); callers format for display.
 export interface WalletInfo {
   balance: number
@@ -151,14 +147,10 @@ export async function fetchWallet(apiKey: string, baseUrl?: string): Promise<Wal
   }
 }
 
-// ============================================================
-// OAuth 2.0 Device Authorization Grant (RFC 8628)
-//
-// Lets the CLI obtain an API key through a browser flow instead of having
-// the user paste sk-tm-... manually. Backend endpoints:
-//   POST /api/auth/device/code   → device_code + user_code + verification_uri
-//   POST /api/auth/device/token  → polled until approved → access_token (API Key)
-// ============================================================
+// OAuth 2.0 Device Authorization Grant (RFC 8628).
+// Lets the CLI get an API key via a browser flow instead of pasting sk-tm-... by hand.
+//   POST /api/auth/device/code   -> device_code + user_code + verification_uri
+//   POST /api/auth/device/token  -> polled until approved -> access_token (API Key)
 
 export interface DeviceAuthorization {
   device_code: string
@@ -209,23 +201,24 @@ interface DeviceTokenBackend {
   user_email?: string
 }
 
-// RFC 8628 defaults, used when the server omits these fields - and to guard
-// against a missing/0/NaN interval that would otherwise busy-loop, or a missing
-// expires_in that would make the loop time out immediately.
+// RFC 8628 defaults for when the server omits these fields. Also covers a
+// missing/0/NaN interval (would busy-loop) or a missing expires_in (would time out
+// immediately).
 const DEFAULT_POLL_INTERVAL_S = 5
 const DEFAULT_EXPIRES_IN_S = 900
 
 // Poll until approved, denied, or expired. Returns the API key when approved.
-// Throws DeviceFlowError with code ∈ {expired_token, access_denied, api_key_limit_reached, timeout} on terminal failures.
-// onTick is called once per polling iteration with the seconds remaining (for progress display).
+// On terminal failure throws DeviceFlowError, code is one of expired_token,
+// access_denied, api_key_limit_reached, timeout.
+// onTick fires once per iteration with the seconds remaining, for progress display.
 export async function pollDeviceToken(
   baseUrl: string,
   auth: DeviceAuthorization,
   onTick?: (secondsRemaining: number) => void,
 ): Promise<DeviceTokenResult> {
-  // Clamp the server-provided interval/deadline so a malicious or buggy server can't
+  // Clamp the server-provided interval/deadline so a buggy or hostile server can't
   // drive a ~1ms busy-loop - Infinity/NaN/huge values slip past a bare Math.max.
-  // Interval ∈ [1s, 60s]; the overall deadline is capped at 1h.
+  // Interval stays in [1s, 60s]; deadline capped at 1h.
   const clampIntervalMs = (s: number): number => {
     const ms = (Number.isFinite(s) && s > 0 ? s : DEFAULT_POLL_INTERVAL_S) * 1000
     return Math.min(60_000, Math.max(1000, ms))
@@ -255,8 +248,8 @@ export async function pollDeviceToken(
       )
       if (r.status === 200 && r.data?.code === 0) {
         const body = r.data.data as DeviceTokenBackend | undefined
-        // A 200/code:0 with no usable token would otherwise be written to config as
-        // `apiKey: undefined` and look like a successful login. Treat it as an error.
+        // A 200/code:0 without a token would get written to config as `apiKey: undefined`
+        // and look like a successful login. Treat it as an error.
         if (!body || typeof body.access_token !== 'string') {
           throw new DeviceFlowError(
             'unknown',

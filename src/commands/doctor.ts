@@ -28,7 +28,7 @@ export async function doctorCommand(): Promise<void> {
         logger.error(t('doctor.keyInvalid'))
       }
     } catch (err: unknown) {
-      // Network problem, not necessarily a bad key - say so rather than claiming
+      // Network problem, not necessarily a bad key - say so instead of claiming
       // the key failed to validate.
       logger.warn(err instanceof Error ? err.message : String(err))
     }
@@ -40,9 +40,9 @@ export async function doctorCommand(): Promise<void> {
   console.log(chalk.bold(t('doctor.agentStatus')))
   for (const a of AGENTS) {
     const r = await a.installCheck()
-    // Config-only agents (VSCode extensions) have no binary of their own to install,
-    // so installCheck always reports installed:true - labeling them "installed" is
-    // misleading. Show their install mode instead, matching `tokenmix list`.
+    // Config-only agents (VSCode extensions) have no binary, so installCheck always
+    // says installed:true. "installed" would mislead - show their install mode instead,
+    // matching `tokenmix list`.
     if (a.installMode === 'manual-vscode') {
       logger.success(`${a.displayName.padEnd(14)} ${chalk.dim(t('list.modeManualVscode'))}`)
       if (r.hint) console.log(`    ${chalk.dim(r.hint)}`)

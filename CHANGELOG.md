@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-A second deep review of the remaining paths (commands, agent config, i18n). Each fix has a test.
+More fixes across commands, agent config, and i18n. Each one has a test.
 
 - **Unknown commands now error instead of silently showing the welcome screen.** `tokenmix balnce` (a typo) used to print the get-started screen and exit 0; it now reports the unknown command and exits 1.
 - **An API key pasted with leading whitespace is accepted.** The validator checked the untrimmed value, rejecting `"  sk-tm-…"` (common when copying from the dashboard) even though it trims fine.
@@ -37,7 +37,7 @@ A second deep review of the remaining paths (commands, agent config, i18n). Each
 
 ### Fixed
 
-A hardening pass after a deep review of the most dangerous code paths: config writes, login, and the agents that edit your `~/.claude/settings.json`. Every fix ships with a regression test.
+Fixes to the riskiest paths: config writes, login, and the agents that touch your `~/.claude/settings.json`. Each ships with a regression test.
 
 - **Config files are now written atomically** (temp file + rename). A crash or a concurrent write mid-`writeFile` could previously truncate `~/.claude/settings.json`, your `config.json`, or `opencode.json` to 0 bytes - corrupting your Claude Code setup or silently dropping your saved login. `readConfig` now also distinguishes a corrupt config from a missing one (it warns instead of looking silently logged-out).
 - **`tokenmix claude` no longer crashes on a malformed `settings.json`.** A file containing the JSON literal `null` (or an array) used to throw `Cannot read properties of null` and block launch; it is now treated as a fresh start.

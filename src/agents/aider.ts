@@ -31,8 +31,8 @@ async function configure(
   baseUrl: string,
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
-  // Aider reads OPENAI_API_KEY and OPENAI_API_BASE. We pass via env at launch
-  // and avoid writing to global ~/.aider.conf.yml - keeps user's existing config clean.
+  // Aider reads OPENAI_API_KEY and OPENAI_API_BASE. Pass them via env at launch
+  // rather than writing global ~/.aider.conf.yml, so the user's config stays clean.
   return {
     envVars: {
       OPENAI_API_KEY: apiKey,
@@ -43,9 +43,9 @@ async function configure(
   }
 }
 
-// Aider lets you pick a model with --model OR one of its built-in alias flags
-// (--sonnet, --opus, ...). If the user used any of them, we must not inject our
-// own --model on top, which would be a conflicting second model specifier.
+// Aider takes a model via --model or one of its built-in alias flags
+// (--sonnet, --opus, ...). If the user passed any of them, injecting our own
+// --model would be a conflicting second model specifier.
 const AIDER_MODEL_ALIAS_FLAGS = new Set([
   '--sonnet',
   '--opus',

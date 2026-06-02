@@ -3,9 +3,9 @@ import { vscodeConfigOnlyCheck } from './helpers.js'
 import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-// Roo Code is a config-only agent (VSCode extension, a Cline fork): the CLI can't
-// install the extension, so installCheck always reports installed and configure()
-// prints the settings (the user may also be copying the config for another machine).
+// Config-only agent (VSCode extension, a Cline fork): the CLI can't install the
+// extension, so installCheck always reports installed and configure() prints the
+// settings (the user may be copying the config for another machine).
 const installCheck = (): Promise<AgentInstallStatus> =>
   vscodeConfigOnlyCheck('roo.hintMarketplace', 'roo.hintNoVscode')
 
@@ -14,9 +14,9 @@ async function configure(
   baseUrl: string,
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
-  // Roo Code is configured through its settings panel (API Provider →
-  // "OpenAI Compatible"), exactly like Cline. No documented settings.json
-  // import, so we only print the field values to enter by hand.
+  // Configured through the settings panel (API Provider -> "OpenAI Compatible"),
+  // like Cline. No documented settings.json import, so we print the field values
+  // to enter by hand.
   return {
     notes: [
       t('roo.noteNoLauncher'),

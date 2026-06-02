@@ -6,8 +6,8 @@ import { fetchWallet } from '../api/client.js'
 import { DASHBOARD_URL, DASHBOARD_CREDITS_URL } from '../config/urls.js'
 import { t } from '../i18n/index.js'
 
-// micro-USD → display string. Mirrors the platform / plugin: 2 decimals for
-// amounts >= $1 (trailing zeros trimmed), more precision for sub-dollar amounts.
+// micro-USD -> display string, matching the platform/plugin: 2 decimals for
+// amounts >= $1 (trailing zeros trimmed), more precision below a dollar.
 export function formatUSD(microUsd: number): string {
   const usd = microUsd / 1_000_000
   if (Math.abs(usd) >= 1) return usd.toFixed(2).replace(/\.?0+$/, '')
@@ -36,9 +36,8 @@ export async function balanceCommand(): Promise<void> {
     logger.dim(t('balance.topupAt', { url: DASHBOARD_CREDITS_URL }))
     console.log()
   } catch (err) {
-    // Couldn't fetch the wallet (network failure, or an invalid/expired key).
-    // Surface the reason - consistent with doctor/login - then fall back to the
-    // dashboard so the user isn't stuck.
+    // Wallet fetch failed (network, or a bad/expired key). Show the reason, then
+    // fall back to the dashboard so the user isn't stuck.
     logger.warn(t('balance.fetchFailed'))
     if (err instanceof Error && err.message) logger.dim(err.message)
     logger.step(t('balance.opening', { url: DASHBOARD_URL }))

@@ -13,10 +13,9 @@ export async function promptApiKey(): Promise<string | null> {
 }
 
 export async function confirm(message: string, initial: boolean = true): Promise<boolean> {
-  // Non-interactive (CI, piped, no TTY): we cannot ask. Return the default instead
-  // of rendering an unanswerable prompt that then silently no-ops - otherwise a
-  // script running e.g. `tokenmix opencode` sees the question flash by, nothing
-  // installs, and the process still exits 0.
+  // No TTY (CI, piped): can't ask, so return the default. Rendering the prompt here
+  // would flash by and silently no-op - `tokenmix opencode` would exit 0 having
+  // installed nothing.
   if (!process.stdin.isTTY) return initial
   const r = await prompts({
     type: 'confirm',

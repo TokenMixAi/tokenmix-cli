@@ -12,8 +12,8 @@ export function nodeMajor(): number {
   return parseInt(process.versions.node.split('.')[0] ?? '', 10)
 }
 
-// Flags that are pure information requests meant for the underlying agent binary.
-// For these we must NOT rewrite global config or require login - just forward them.
+// Pure info requests meant for the underlying agent binary. For these, don't
+// rewrite global config or require login - just forward them.
 const INFO_ONLY_FLAGS = new Set(['--version', '-V', '--help', '-h'])
 
 export function isInfoOnlyInvocation(args: string[]): boolean {
@@ -25,7 +25,7 @@ interface ExecaLikeError {
   message?: string
 }
 
-// Forward to the agent binary, mirroring its exit code; re-throw non-exec errors.
+// Forward to the agent binary, propagating its exit code; re-throw non-exec errors.
 async function launchOrExit(
   launch: NonNullable<AgentDescriptor['launch']>,
   args: string[],
@@ -42,8 +42,8 @@ async function launchOrExit(
   }
 }
 
-// The function that actually configures + launches an agent. Injectable so tests
-// can assert how commander parses/forwards args without triggering real side effects.
+// Configures + launches an agent. Injectable so tests can check how commander
+// parses/forwards args without real side effects.
 export type AgentRunner = (agent: AgentDescriptor, args: string[]) => Promise<void>
 
 export function registerAgentCommands(program: Command, runner: AgentRunner = runAgent): void {
@@ -65,8 +65,8 @@ export function registerAgentCommands(program: Command, runner: AgentRunner = ru
 }
 
 export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<void> {
-  // `tokenmix <agent> --version|--help`: forward straight to the binary without
-  // rewriting global config or requiring login - a query must not have side effects.
+  // `tokenmix <agent> --version|--help`: forward straight to the binary, no config
+  // rewrite or login - a query shouldn't have side effects.
   if (agent.launch && isInfoOnlyInvocation(args)) {
     const status = await agent.installCheck()
     if (!status.installed) {
@@ -87,8 +87,8 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
   // cheap model, or as a power-user default. Falls back to stored config, then built-in.
   const defaultModel = process.env.TOKENMIX_DEFAULT_MODEL || cfg.defaultModel || DEFAULT_MODEL
 
-  // Refuse early with a friendly message if the agent's binary needs a newer Node
-  // than we're running on (Codex/Qwen need 22) - avoids a cryptic npm/install error.
+  // Bail early with a clear message if the agent needs a newer Node than we're on
+  // (Codex/Qwen need 22) - beats a cryptic npm/install error later.
   if (agent.minNode && nodeMajor() < agent.minNode) {
     logger.error(
       t('agent.needsNode', {
@@ -116,9 +116,8 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
       try {
         await agent.install()
       } catch {
-        // The most common global-install failure worldwide is npm lacking
-        // permission to write to the global prefix. Give actionable guidance
-        // instead of dumping execa's raw error.
+        // Most global-install failures are npm lacking permission to write the
+        // global prefix. Give actionable guidance instead of execa's raw error.
         logger.error(t('agent.installFailed', { name: agent.displayName }))
         logger.info(t('agent.installFailHint1'))
         logger.info(t('agent.installFailHint2'))

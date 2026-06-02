@@ -3,9 +3,9 @@ import { vscodeConfigOnlyCheck } from './helpers.js'
 import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-// Continue is a config-only agent (VSCode/JetBrains extension): the CLI can't
-// install the extension, so installCheck always reports installed and configure()
-// prints the config to paste into ~/.continue/config.yaml.
+// Config-only agent (VSCode/JetBrains extension): the CLI can't install the
+// extension, so installCheck always reports installed and configure() prints the
+// config to paste into ~/.continue/config.yaml.
 const installCheck = (): Promise<AgentInstallStatus> =>
   vscodeConfigOnlyCheck('continue.hintMarketplace', 'continue.hintNoVscode')
 
@@ -14,13 +14,12 @@ async function configure(
   baseUrl: string,
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
-  // Continue is driven by ~/.continue/config.yaml (verified schema: top-level
-  // name/version/schema + a `models:` list; each model needs name/provider/model,
-  // plus apiBase/apiKey for an OpenAI-compatible endpoint). We PRINT a ready-to-use
-  // config rather than write the file, so we never clobber a user's existing
-  // ~/.continue/config.yaml (and need no YAML dependency or cleanup step).
-  // Quote user-controlled scalars as YAML single-quoted strings so a model/baseUrl
-  // containing ':' '#' etc. can't break the structure when pasted into config.yaml.
+  // ~/.continue/config.yaml schema: top-level name/version/schema + a `models:`
+  // list; each model needs name/provider/model, plus apiBase/apiKey for an
+  // OpenAI-compatible endpoint. We print the config rather than write the file, so
+  // we don't clobber an existing config.yaml (and need no YAML dep or cleanup).
+  // Quote user-controlled scalars as YAML single-quoted strings, or a model/baseUrl
+  // with ':' '#' etc. would break the structure when pasted in.
   const ys = (v: string): string => `'${v.replace(/'/g, "''")}'`
   const yaml = [
     'name: TokenMix',
@@ -39,7 +38,7 @@ async function configure(
       t('continue.noteNoLauncher'),
       t('continue.noteConfigWith'),
       // Leading '\n' so agent-runner's 2-space note prefix lands on a blank line,
-      // keeping the YAML top-level keys at column 0 (valid YAML when pasted).
+      // keeping the YAML top-level keys at column 0 - otherwise it's invalid YAML.
       '\n' + yaml,
       '',
       t('continue.noteMergeHint'),

@@ -17,7 +17,7 @@ const OPENCODE_BIN = 'opencode'
 const OPENCODE_NPM_PACKAGE = 'opencode-ai'
 
 // OpenCode config search order (lowest to highest priority):
-//   ~/.config/opencode/opencode.json  ← we write here
+//   ~/.config/opencode/opencode.json  <- we write here
 //   $OPENCODE_CONFIG
 //   ./opencode.json (project)
 //   $OPENCODE_CONFIG_CONTENT (inline)
@@ -47,8 +47,8 @@ async function configure(
     // not present yet, or corrupt - start fresh
   }
 
-  // Register tokenmix as an OpenAI-compatible provider.
-  // OpenCode uses @ai-sdk/openai-compatible under the hood for custom providers.
+  // Register tokenmix as an OpenAI-compatible provider. OpenCode drives custom
+  // providers through @ai-sdk/openai-compatible.
   const tokenmixProvider = {
     npm: '@ai-sdk/openai-compatible',
     name: 'TokenMix',

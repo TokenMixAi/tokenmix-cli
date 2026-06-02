@@ -17,9 +17,9 @@ async function configure(
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
   // Qwen Code (a Gemini CLI fork) reads OPENAI_API_KEY / OPENAI_BASE_URL /
-  // OPENAI_MODEL when launched with `--auth-type openai` - VERIFIED end-to-end
-  // against tokenmix (`qwen -p` replied via the gateway). We pass these via env
-  // at launch and never touch the user's ~/.qwen/settings.json.
+  // OPENAI_MODEL when launched with `--auth-type openai`. Verified end-to-end
+  // against tokenmix (`qwen -p` replied via the gateway). Passed via env at launch;
+  // we never touch the user's ~/.qwen/settings.json.
   return {
     envVars: {
       OPENAI_API_KEY: apiKey,

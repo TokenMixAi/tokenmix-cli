@@ -7,11 +7,11 @@ import { t } from '../i18n/index.js'
 const CODEX_BIN = 'codex'
 const CODEX_NPM_PACKAGE = '@openai/codex'
 
-// Codex custom provider id. Must NOT collide with Codex's reserved built-in
-// provider ids (openai / ollama / lmstudio).
+// Custom provider id; can't collide with Codex's reserved built-in ids
+// (openai / ollama / lmstudio).
 const PROVIDER_ID = 'tokenmix'
-// Env var Codex reads for the bearer token (the provider's `env_key`). We set it
-// at launch from the user's TokenMix key - nothing is written to ~/.codex.
+// Env var Codex reads for the bearer token (the provider's `env_key`). Set at
+// launch from the user's TokenMix key; nothing is written to ~/.codex.
 const KEY_ENV = 'TOKENMIX_API_KEY'
 
 const installCheck = (): Promise<AgentInstallStatus> =>
@@ -24,10 +24,10 @@ async function configure(
   baseUrl: string,
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
-  // We do NOT write ~/.codex/config.toml. Codex accepts a whole custom provider
-  // via `--config` overrides at launch, and reads the key from the env var named
-  // by the provider's env_key - so we pass everything through env and inject the
-  // overrides in launch(). This never touches the user's Codex config or login.
+  // We don't write ~/.codex/config.toml. Codex accepts a whole custom provider via
+  // `--config` overrides at launch and reads the key from the env var named by the
+  // provider's env_key, so we pass everything through env and inject the overrides
+  // in launch(). This never touches the user's Codex config or login.
   return {
     envVars: {
       [KEY_ENV]: apiKey,
@@ -37,17 +37,17 @@ async function configure(
   }
 }
 
-// Build the `--config key=value` overrides that register tokenmix as a custom
-// OpenAI-compatible provider. wire_api MUST be "responses": Codex 0.135+ dropped
-// support for "chat" (openai/codex#7782), and tokenmix's gateway implements the
-// Responses API specifically for Codex clients (POST /v1/responses).
-// Escape a value for a TOML double-quoted string (codex `--config key="value"`),
-// so a user-set model/baseUrl containing " \ or a newline can't break the parse
+// Escape a value for a TOML double-quoted string (codex `--config key="value"`).
+// A user-set model/baseUrl with " \ or a newline could otherwise break the parse
 // or inject extra config keys (e.g. overwrite base_url via an embedded newline).
 function tomlStr(v: string): string {
   return v.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\r/g, '\\r').replace(/\n/g, '\\n')
 }
 
+// `--config key=value` overrides that register tokenmix as a custom
+// OpenAI-compatible provider. wire_api has to be "responses": Codex 0.135+ dropped
+// "chat" (openai/codex#7782), and tokenmix's gateway implements the Responses API
+// for Codex clients (POST /v1/responses).
 export function providerOverrides(baseUrl: string, model: string): string[] {
   return [
     '--config',
@@ -67,8 +67,8 @@ export function providerOverrides(baseUrl: string, model: string): string[] {
 
 async function launch(args: string[], env: Record<string, string>): Promise<void> {
   const baseUrl = env.TOKENMIX_BASE_URL
-  // Info-only invocations (`codex --version` / `--help`) reach launch with an
-  // empty env (no credentials). Just forward - don't inject a half-built provider.
+  // Info-only invocations (`codex --version` / `--help`) reach launch with an empty
+  // env (no credentials). Just forward; don't inject a half-built provider.
   if (!baseUrl) {
     await run(CODEX_BIN, args, { env })
     return

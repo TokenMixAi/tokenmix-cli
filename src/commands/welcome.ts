@@ -2,9 +2,8 @@ import chalk from 'chalk'
 import { readConfig } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-// Shown for a bare `tokenmix` (no command) - friendly, localized onboarding for
-// first-timers instead of commander's raw help. `tokenmix --help` still prints the
-// full command reference. Adapts to whether the user is logged in yet.
+// Shown for a bare `tokenmix` - localized onboarding instead of commander's raw help.
+// `tokenmix --help` still prints the full reference. Adapts to login state.
 export async function welcomeCommand(): Promise<void> {
   const cfg = await readConfig()
   const loggedIn = Boolean(cfg.apiKey)

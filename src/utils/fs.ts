@@ -1,10 +1,9 @@
 import fs from 'fs-extra'
 
-// Atomically write a file: write to a temp file alongside the target, then rename
-// it over the target. Rename is atomic on the same filesystem, so a crash or a
-// concurrent writer can never observe a half-written / 0-byte target - which is how
-// a plain `fs.writeFile` (open with O_TRUNC) would otherwise corrupt user config
-// (e.g. truncating ~/.claude/settings.json or our own config.json to 0 bytes).
+// Write to a temp file alongside the target, then rename over it. Rename is atomic
+// on the same filesystem, so a crash or concurrent writer can't leave a half-written
+// or 0-byte target - which is exactly how a plain fs.writeFile (O_TRUNC) can wipe
+// config like ~/.claude/settings.json or our own config.json.
 export async function writeFileAtomic(
   filePath: string,
   data: string,

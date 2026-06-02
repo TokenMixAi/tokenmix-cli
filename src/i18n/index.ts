@@ -13,7 +13,7 @@ export function detectLocale(env: NodeJS.ProcessEnv = process.env): Locale {
   const raw = (env.TOKENMIX_LANG || env.LC_ALL || env.LC_MESSAGES || env.LANG || '')
     .toLowerCase()
     .trim()
-  // Primary language subtag: zh_CN.UTF-8 → zh, pt-BR → pt, fr.UTF-8 → fr.
+  // Primary language subtag: zh_CN.UTF-8 -> zh, pt-BR -> pt, fr.UTF-8 -> fr.
   // Any subtag with a catalog is supported; everything else falls back to en.
   const lang = raw.split(/[-_.@]/)[0] ?? ''
   return Object.prototype.hasOwnProperty.call(catalogs, lang) ? (lang as Locale) : 'en'
@@ -32,8 +32,8 @@ export function getLocale(): Locale {
 export function t(key: MessageKey, params?: Record<string, string | number>): string {
   const s: string = catalogs[current]?.[key] ?? en[key] ?? key
   if (!params) return s
-  // Single-pass replacement so a value that itself contains "{other}" is NOT
-  // re-substituted by a later param (order-independent and injection-safe).
+  // Single pass, so a value that itself contains "{other}" won't get re-substituted
+  // by a later param - order-independent and injection-safe.
   return s.replace(/\{(\w+)\}/g, (match, name: string) =>
     Object.prototype.hasOwnProperty.call(params, name) ? String(params[name]) : match,
   )

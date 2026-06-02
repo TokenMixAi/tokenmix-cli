@@ -20,8 +20,8 @@ export interface ProgramDeps {
   runAgent?: AgentRunner
 }
 
-// Build the fully-wired commander program WITHOUT parsing argv.
-// Keeping construction separate from execution makes the CLI unit-testable.
+// Build the wired-up commander program without parsing argv - keeps construction
+// separate from execution so the CLI stays unit-testable.
 export function buildProgram(deps: ProgramDeps = {}): Command {
   const program = new Command()
 
@@ -34,9 +34,9 @@ export function buildProgram(deps: ProgramDeps = {}): Command {
     .name('tokenmix')
     .description(t('cmd.program'))
     .version(pkg.version)
-    // Bare `tokenmix` (no command) shows a friendly onboarding screen, not raw help.
-    // An unrecognized command would otherwise be swallowed into this default action
-    // (printing welcome + exiting 0), so reject it explicitly instead.
+    // Bare `tokenmix` shows the onboarding screen, not raw help. But an unknown
+    // command also lands in this default action, so reject it here rather than
+    // printing welcome and exiting 0.
     .action((_options: Record<string, unknown>, command: Command) => {
       if (command.args.length > 0) {
         logger.error(t('cli.unknownCommand', { cmd: command.args.join(' ') }))

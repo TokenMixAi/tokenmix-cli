@@ -12,12 +12,12 @@ export interface UserConfig {
 
 export const DEFAULT_API_BASE = 'https://api.tokenmix.ai'
 
-// The model agents default to when the user hasn't chosen one (overridable via
-// the TOKENMIX_DEFAULT_MODEL env var or stored config). Single source of truth.
+// Default model when the user hasn't picked one (override via TOKENMIX_DEFAULT_MODEL
+// or stored config).
 export const DEFAULT_MODEL = 'claude-sonnet-4.6'
 
-// Append the OpenAI-compatible `/v1` suffix to a base URL, tolerating a trailing
-// slash so `https://host/` doesn't yield `https://host//v1`.
+// Append the OpenAI-style /v1 suffix, tolerating a trailing slash so `https://host/`
+// doesn't become `https://host//v1`.
 export function v1Url(baseUrl: string): string {
   return `${baseUrl.replace(/\/+$/, '')}/v1`
 }
@@ -27,13 +27,13 @@ export async function readConfig(): Promise<UserConfig> {
   try {
     raw = await fs.readFile(configFile(), 'utf-8')
   } catch {
-    return {} // not logged in yet - the config file simply doesn't exist
+    return {} // not logged in yet - no config file
   }
   try {
     return JSON.parse(raw) as UserConfig
   } catch {
-    // The file exists but is corrupt (e.g. a crash truncated it mid-write). Don't
-    // silently treat it as "logged out" - warn so the user knows to re-login.
+    // File exists but is corrupt (e.g. a crash truncated it mid-write). Warn instead
+    // of silently treating it as logged-out, so the user knows to re-login.
     logger.warn(t('config.corrupt'))
     return {}
   }
@@ -41,8 +41,8 @@ export async function readConfig(): Promise<UserConfig> {
 
 export async function writeConfig(cfg: UserConfig): Promise<void> {
   await fs.ensureDir(configDir())
-  // Atomic write so a crash or a concurrent writer can't truncate the config to
-  // 0 bytes and silently lose the apiKey. 0600 = owner read/write only.
+  // Atomic write so a crash or concurrent writer can't truncate the config to 0
+  // bytes and lose the apiKey. 0600 = owner read/write only.
   await writeFileAtomic(configFile(), JSON.stringify(cfg, null, 2), 0o600)
 }
 
@@ -61,10 +61,9 @@ export async function clearConfig(): Promise<void> {
   }
 }
 
-// Resolve the gateway base URL. Precedence: the TOKENMIX_API_BASE env var (a pure
-// runtime override, useful for a self-hosted or backup gateway and for restricted
-// networks) > the stored config > the built-in default. The env value is never
-// written to disk by `login`; unset it and you fall back to config or the default.
+// Gateway base URL: TOKENMIX_API_BASE env var > stored config > built-in default.
+// The env var is a runtime-only override (self-hosted/backup gateway, restricted
+// networks) and is never written to disk - unset it and you're back to config/default.
 export function apiBaseUrl(cfg?: Pick<UserConfig, 'apiBaseUrl'>): string {
   const env = process.env.TOKENMIX_API_BASE?.trim()
   return env || cfg?.apiBaseUrl || DEFAULT_API_BASE

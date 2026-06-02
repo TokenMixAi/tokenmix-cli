@@ -3,9 +3,9 @@ import { vscodeConfigOnlyCheck } from './helpers.js'
 import { v1Url } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-// Kilo Code is a config-only agent (VSCode extension): the CLI can't install the
-// extension, so installCheck always reports installed and configure() prints the
-// snippet (the user may even be copying the config for another machine).
+// Config-only agent (VSCode extension): the CLI can't install the extension, so
+// installCheck always reports installed and configure() prints the snippet (the
+// user may be copying the config for another machine).
 const installCheck = (): Promise<AgentInstallStatus> =>
   vscodeConfigOnlyCheck('kilo.hintMarketplace', 'kilo.hintNoVscode')
 
@@ -14,8 +14,7 @@ async function configure(
   baseUrl: string,
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
-  // Kilo Code is a VSCode extension; there is no CLI launcher.
-  // We print the configuration values for the user to paste into Kilo settings.
+  // Values to paste into Kilo's settings panel.
   return {
     notes: [
       t('kilo.noteNoLauncher'),
