@@ -77,7 +77,7 @@ A codebase-quality release. **No change to how the CLI behaves** - same commands
 
 ### Changed
 - **The first-run screen now leads with why TokenMix is different.** Bare `tokenmix` shows a one-line, code-backed value proposition under the title - *the model you pick is the model you get, no silent swaps, billed at real usage* - so a newcomer sees the differentiator before the get-started steps. Localized in all six languages.
-- **README gains a "TokenMix vs. the grey market" comparison.** A four-row table (the model you get, billing, cache savings, your credentials) contrasting TokenMix with typical trust-broken proxy "中转站" services - every row backed by the gateway's actual behavior - plus an honest note on how TokenMix differs in focus from a mainstream gateway like OpenRouter (built for Asia/China BYOK users), without disparaging it.
+- **README gains a "TokenMix vs. the grey market" comparison.** A four-row table (the model you get, billing, cache savings, your credentials) contrasting TokenMix with typical trust-broken proxy services - every row backed by the gateway's actual behavior - plus an honest note on how TokenMix differs in focus from a mainstream gateway like OpenRouter (built for Asia/China BYOK users), without disparaging it.
 
 ## [1.4.15] - 2026-05-30
 
