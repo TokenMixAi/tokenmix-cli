@@ -21,6 +21,8 @@ export async function welcomeCommand(): Promise<void> {
     console.log(row('tokenmix opencode', t('welcome.s3')))
     console.log(row('tokenmix list', t('welcome.s2')))
   } else {
+    console.log('  ' + chalk.dim(t('welcome.signup')))
+    console.log()
     console.log('  ' + chalk.bold(t('welcome.start')))
     console.log(row('1. tokenmix login', t('welcome.s1')))
     console.log(row('2. tokenmix list', t('welcome.s2')))

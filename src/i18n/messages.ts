@@ -1,7 +1,7 @@
 // User-facing message catalogs. `en` is the source of truth; `zh` is typed as
 // `typeof en`, so the compiler forces every key to be translated (no missing
 // strings can ship). Add a new language by adding another `typeof en` catalog
-// to `catalogs` below — nothing else needs to change.
+// to `catalogs` below - nothing else needs to change.
 //
 // `{name}`-style placeholders are filled by t() at call time.
 
@@ -9,16 +9,17 @@ export const en = {
   'common.notLoggedIn': 'Not logged in. Run `tokenmix login` first.',
   'cli.unknownCommand': 'Unknown command: {cmd}. Run `tokenmix --help` to see available commands.',
   'config.corrupt':
-    'Your TokenMix config file was corrupt and has been ignored — run `tokenmix login` to re-create it.',
+    'Your TokenMix config file was corrupt and has been ignored - run `tokenmix login` to re-create it.',
 
-  // welcome screen (bare `tokenmix`, no args — onboarding for first-time users)
+  // welcome screen (bare `tokenmix`, no args - onboarding for first-time users)
   'welcome.tagline': 'one account, 160+ models, every open-source coding agent',
-  'welcome.why': 'The model you pick is the model you get — no silent swaps, billed at real usage.',
+  'welcome.why': 'The model you pick is the model you get - no silent swaps, billed at real usage.',
   'welcome.start': 'Get started:',
   'welcome.s1': 'log in (opens a browser, ~10s)',
   'welcome.s2': 'see all 11 supported agents',
   'welcome.s3': 'configure & launch one',
-  'welcome.loggedIn': "You're logged in — launch an agent:",
+  'welcome.signup': 'No account yet? Create one free at tokenmix.ai',
+  'welcome.loggedIn': "You're logged in - launch an agent:",
   'welcome.more': 'More: `tokenmix --help` for all commands · `tokenmix balance` for your balance',
 
   // login
@@ -49,16 +50,16 @@ export const en = {
   'agent.notInstalled': '{name} is not installed.',
   'agent.notInstallable': '{name} is not installable from the CLI.',
   'agent.needsNode':
-    '{name} needs Node {min}+ (you have Node {cur}). Upgrade Node (nvm / fnm / volta), then re-run — your TokenMix login is saved.',
+    '{name} needs Node {min}+ (you have Node {cur}). Upgrade Node (nvm / fnm / volta), then re-run - your TokenMix login is saved.',
   'agent.installPrompt': '{name} is not installed. Install now?',
   'agent.installing': 'Installing {name} ...',
   'agent.installed': '{name} installed.',
   'agent.installFailed': 'Could not install {name} automatically.',
   'agent.installFailHint1': 'This usually means npm cannot write to its global folder. Options:',
   'agent.installFailHint2':
-    '  • Use a Node version manager (nvm / fnm / volta) — then global installs need no sudo, or',
+    '  • Use a Node version manager (nvm / fnm / volta) - then global installs need no sudo, or',
   'agent.installFailHint3': '  • Install it yourself: {cmd}',
-  'agent.installFailHint4': 'Then re-run this command — your TokenMix login is already saved.',
+  'agent.installFailHint4': 'Then re-run this command - your TokenMix login is already saved.',
   'agent.installFailHintMirror':
     'On a slow or restricted network (e.g. mainland China): try a mirror (`npm config set registry https://registry.npmmirror.com`) or set a proxy.',
   'agent.configuring': 'Configuring {name} ...',
@@ -110,17 +111,17 @@ export const en = {
   'browser.manual': 'Could not open a browser automatically. Open this URL manually:\n  {url}',
 
   // agent taglines (shown in `list`)
-  'desc.opencode': 'sst/opencode — open source AI coding agent (TUI / Desktop / IDE)',
-  'desc.claude': 'anthropics/claude-code — official Anthropic CLI coding agent',
-  'desc.aider': 'Aider-AI/aider — paired-programming CLI (requires Python)',
-  'desc.kilo': 'Kilo-Org/kilocode — VSCode extension (config-only)',
-  'desc.cline': 'cline/cline — VSCode extension (config-only)',
-  'desc.roo': 'RooCodeInc/Roo-Code — VSCode extension (config-only)',
-  'desc.continue': 'continuedev/continue — VSCode/JetBrains extension (config file)',
-  'desc.codex': 'openai/codex — OpenAI coding agent CLI',
-  'desc.qwen': 'QwenLM/qwen-code — terminal coding agent (OpenAI-compatible)',
-  'desc.goose': 'block/goose — on-machine AI agent (OpenAI-compatible)',
-  'desc.openhands': 'All-Hands-AI/OpenHands — autonomous coding agent (OpenAI-compatible)',
+  'desc.opencode': 'sst/opencode - open source AI coding agent (TUI / Desktop / IDE)',
+  'desc.claude': 'anthropics/claude-code - official Anthropic CLI coding agent',
+  'desc.aider': 'Aider-AI/aider - paired-programming CLI (requires Python)',
+  'desc.kilo': 'Kilo-Org/kilocode - VSCode extension (config-only)',
+  'desc.cline': 'cline/cline - VSCode extension (config-only)',
+  'desc.roo': 'RooCodeInc/Roo-Code - VSCode extension (config-only)',
+  'desc.continue': 'continuedev/continue - VSCode/JetBrains extension (config file)',
+  'desc.codex': 'openai/codex - OpenAI coding agent CLI',
+  'desc.qwen': 'QwenLM/qwen-code - terminal coding agent (OpenAI-compatible)',
+  'desc.goose': 'block/goose - on-machine AI agent (OpenAI-compatible)',
+  'desc.openhands': 'All-Hands-AI/OpenHands - autonomous coding agent (OpenAI-compatible)',
 
   // install hints
   'install.willInstallVia': 'Will install via: {cmd}',
@@ -147,7 +148,7 @@ export const en = {
 
   // aider configure notes
   'aider.noteUsing': 'Aider will use TokenMix via OpenAI-compatible endpoint.',
-  'aider.noteModel': 'Default model: openai/{model} — override with --model.',
+  'aider.noteModel': 'Default model: openai/{model} - override with --model.',
 
   // kilo configure notes (prose only; technical lines stay verbatim)
   'kilo.noteNoLauncher': 'Kilo Code is a VSCode extension and does not have a CLI launcher.',
@@ -155,7 +156,7 @@ export const en = {
   'kilo.notePasteJson':
     'Or paste this JSON snippet into Kilo Code settings (Settings → Providers → JSON):',
   'kilo.noteKeepPrivate':
-    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+    'Keep this API key private - anyone with it can spend your TokenMix balance.',
   'kilo.hintMarketplace':
     'Install "Kilo Code" from the VSCode marketplace, then paste the snippet below into its settings.',
   'kilo.hintNoVscode':
@@ -165,7 +166,7 @@ export const en = {
   'cline.noteNoLauncher': 'Cline is a VSCode extension and does not have a CLI launcher.',
   'cline.noteConfigWith': 'Open the Cline settings panel (⚙ → API Provider) and enter:',
   'cline.noteKeepPrivate':
-    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+    'Keep this API key private - anyone with it can spend your TokenMix balance.',
   'cline.hintMarketplace':
     'Install "Cline" from the VSCode marketplace, then enter the settings below in its panel.',
   'cline.hintNoVscode':
@@ -175,7 +176,7 @@ export const en = {
   'roo.noteNoLauncher': 'Roo Code is a VSCode extension and does not have a CLI launcher.',
   'roo.noteConfigWith': 'Open the Roo Code settings panel (API Provider) and enter:',
   'roo.noteKeepPrivate':
-    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+    'Keep this API key private - anyone with it can spend your TokenMix balance.',
   'roo.hintMarketplace':
     'Install "Roo Code" from the VSCode marketplace, then enter the settings below in its panel.',
   'roo.hintNoVscode':
@@ -188,7 +189,7 @@ export const en = {
   'continue.noteMergeHint':
     'If the file already exists, merge just the entry under `models:` into it.',
   'continue.noteKeepPrivate':
-    'Keep this API key private — anyone with it can spend your TokenMix balance.',
+    'Keep this API key private - anyone with it can spend your TokenMix balance.',
   'continue.hintMarketplace':
     'Install "Continue" from the VSCode marketplace, then add the config below.',
   'continue.hintNoVscode':
@@ -196,24 +197,24 @@ export const en = {
 
   // codex configure notes (auto-npm CLI; launched with --config provider injection)
   'codex.noteUsing':
-    'Codex will use TokenMix via an OpenAI-compatible provider — your ~/.codex/config.toml is left untouched.',
-  'codex.noteModel': 'Default model: {model} — override with `--config model=...`.',
+    'Codex will use TokenMix via an OpenAI-compatible provider - your ~/.codex/config.toml is left untouched.',
+  'codex.noteModel': 'Default model: {model} - override with `--config model=...`.',
 
   // qwen configure notes (env-based like aider; launched with --auth-type openai)
   'qwen.noteUsing':
-    'Qwen Code will use TokenMix via its OpenAI-compatible mode — your ~/.qwen/settings.json is left untouched.',
-  'qwen.noteModel': 'Default model: {model} — override with OPENAI_MODEL or `qwen --model`.',
+    'Qwen Code will use TokenMix via its OpenAI-compatible mode - your ~/.qwen/settings.json is left untouched.',
+  'qwen.noteModel': 'Default model: {model} - override with OPENAI_MODEL or `qwen --model`.',
 
   // goose configure notes (env-based; Goose appends /v1/chat/completions to OPENAI_HOST)
   'goose.noteUsing':
-    'Goose will use TokenMix as its OpenAI provider — its keyring/config is left untouched.',
-  'goose.noteModel': 'Default model: {model} — override with GOOSE_MODEL.',
+    'Goose will use TokenMix as its OpenAI provider - its keyring/config is left untouched.',
+  'goose.noteModel': 'Default model: {model} - override with GOOSE_MODEL.',
 
   // openhands configure notes (env via --override-with-envs; LLM_MODEL needs openai/ prefix)
   'openhands.noteUsing':
-    'OpenHands will use TokenMix via LiteLLM (--override-with-envs) — your saved config is left untouched.',
+    'OpenHands will use TokenMix via LiteLLM (--override-with-envs) - your saved config is left untouched.',
   'openhands.noteModel':
-    'Default model: openai/{model} — override with LLM_MODEL (keep the openai/ prefix).',
+    'Default model: openai/{model} - override with LLM_MODEL (keep the openai/ prefix).',
   'openhands.hintInstall':
     'OpenHands is not installed (needs Python 3.12+). Install it, then re-run `tokenmix openhands`:\n    {cmd}',
   'goose.hintInstall':
@@ -258,6 +259,7 @@ export const zh: typeof en = {
   'welcome.s1': '登录（打开浏览器，约 10 秒）',
   'welcome.s2': '查看支持的 11 个 agent',
   'welcome.s3': '配置并启动一个',
+  'welcome.signup': '还没有账号？到 tokenmix.ai 免费注册',
   'welcome.loggedIn': '你已登录 —— 启动一个 agent：',
   'welcome.more': '更多：`tokenmix --help` 查看全部命令 · `tokenmix balance` 查看余额',
 
@@ -465,6 +467,7 @@ export const ja: typeof en = {
   'welcome.s1': 'ログイン（ブラウザが開きます、約 10 秒）',
   'welcome.s2': 'サポートされている 11 の agent を表示',
   'welcome.s3': '設定して起動',
+  'welcome.signup': 'アカウントがまだの方は tokenmix.ai で無料登録',
   'welcome.loggedIn': 'ログイン済みです —— agent を起動：',
   'welcome.more': 'その他：`tokenmix --help` で全コマンド · `tokenmix balance` で残高',
 
@@ -682,6 +685,7 @@ export const ko: typeof en = {
   'welcome.s1': '로그인 (브라우저가 열립니다, 약 10초)',
   'welcome.s2': '지원되는 11개 agent 보기',
   'welcome.s3': '설정하고 실행',
+  'welcome.signup': '계정이 없으신가요? tokenmix.ai에서 무료로 가입하세요',
   'welcome.loggedIn': '로그인되었습니다 —— agent를 실행하세요:',
   'welcome.more': '더 보기: `tokenmix --help` 모든 명령 · `tokenmix balance` 잔액',
 
@@ -896,6 +900,7 @@ export const es: typeof en = {
   'welcome.s1': 'inicia sesión (abre el navegador, ~10 s)',
   'welcome.s2': 've los 11 agentes compatibles',
   'welcome.s3': 'configura y lanza uno',
+  'welcome.signup': '¿Aún no tienes cuenta? Créala gratis en tokenmix.ai',
   'welcome.loggedIn': 'Has iniciado sesión: lanza un agente:',
   'welcome.more':
     'Más: `tokenmix --help` para todos los comandos · `tokenmix balance` para tu saldo',
@@ -1118,6 +1123,7 @@ export const fr: typeof en = {
   'welcome.s1': 'connectez-vous (ouvre un navigateur, ~10 s)',
   'welcome.s2': 'voir les 11 agents pris en charge',
   'welcome.s3': 'configurer et lancer un agent',
+  'welcome.signup': 'Pas encore de compte ? Créez-en un gratuitement sur tokenmix.ai',
   'welcome.loggedIn': 'Vous êtes connecté — lancez un agent :',
   'welcome.more':
     'Plus : `tokenmix --help` pour toutes les commandes · `tokenmix balance` pour votre solde',
