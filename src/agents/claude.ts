@@ -34,19 +34,19 @@ async function configure(
   try {
     const parsed = JSON.parse(await fs.readFile(settingsPath, 'utf-8'))
     // Valid JSON that isn't a plain object (null, array, string) must be treated as
-    // "start fresh" — otherwise `existing.env` below throws (JSON.parse("null") →
+    // "start fresh" - otherwise `existing.env` below throws (JSON.parse("null") →
     // null → null.env → TypeError, which would block `tokenmix claude` entirely).
     if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
       existing = parsed as Record<string, unknown>
     }
   } catch {
-    // first run, or unreadable/corrupt — start fresh
+    // first run, or unreadable/corrupt - start fresh
   }
 
   const existingEnv = (existing.env as Record<string, string>) || {}
 
   // Detect that we're about to overwrite a user's OWN (non-tokenmix) Anthropic
-  // setup — e.g. a personal sk-ant- key in settings.json. We still proceed (they
+  // setup - e.g. a personal sk-ant- key in settings.json. We still proceed (they
   // asked to use Claude Code via TokenMix), but warn AND stash the originals so
   // `tokenmix logout` can restore them.
   const prevKey = existingEnv.ANTHROPIC_API_KEY
@@ -66,9 +66,9 @@ async function configure(
 
   // Stash the user's original Anthropic env creds on the FIRST overwrite, so
   // cleanup() can put them back instead of leaving Claude Code broken. Once the
-  // stored key is ours, replacingForeign is false — so we never clobber the backup.
+  // stored key is ours, replacingForeign is false - so we never clobber the backup.
   // Guard: `existing.tokenmix` could be any JSON (a user or another tool might set
-  // it to a string/array). Only spread it when it's a real object — otherwise a
+  // it to a string/array). Only spread it when it's a real object - otherwise a
   // string would explode into numeric-index keys and pollute settings.json.
   const prevTmRaw = existing.tokenmix
   const prevTm =
@@ -90,10 +90,10 @@ async function configure(
   await writeFileAtomic(settingsPath, JSON.stringify(next, null, 2), 0o600)
 
   // Claude Pro/Max users sign in via OAuth (creds live in ~/.claude/.credentials.json
-  // or the OS keychain — NOT in settings.json env). Claude Code prefers
+  // or the OS keychain - NOT in settings.json env). Claude Code prefers
   // ANTHROPIC_API_KEY over the OAuth subscription, so injecting our key silently
   // switches them to pay-per-token. Warn when we can detect a file-based subscription
-  // login. (Keychain-stored creds aren't detectable from a file — see QA report.)
+  // login. (Keychain-stored creds aren't detectable from a file - see QA report.)
   let oauthBypass = false
   if (!replacingForeign) {
     try {
@@ -155,7 +155,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
   }
 
   // If configure() stashed the user's original Anthropic creds, restore them
-  // instead of just deleting ours — so a user who had their own key isn't left
+  // instead of just deleting ours - so a user who had their own key isn't left
   // broken after logout. null means "we added this; remove it on restore".
   const tm = existing.tokenmix as
     | { claudeEnvBackup?: { ANTHROPIC_API_KEY: string | null; ANTHROPIC_BASE_URL: string | null } }

@@ -16,4 +16,4 @@ Instead, report it privately through [GitHub Security Advisories](https://github
 
 ## Scope
 
-This repository is the **CLI client**. It stores your TokenMix API key locally with `0600` permissions and forwards it only to the configured gateway — it never transmits credentials anywhere else. Vulnerabilities in the TokenMix gateway or web service itself should be reported through your account dashboard at <https://tokenmix.ai>.
+This repository is the **CLI client**. It stores your TokenMix API key locally with `0600` permissions and forwards it only to the configured gateway - it never transmits credentials anywhere else. Vulnerabilities in the TokenMix gateway or web service itself should be reported through your account dashboard at <https://tokenmix.ai>.

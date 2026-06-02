@@ -37,7 +37,7 @@ export async function balanceCommand(): Promise<void> {
     console.log()
   } catch (err) {
     // Couldn't fetch the wallet (network failure, or an invalid/expired key).
-    // Surface the reason — consistent with doctor/login — then fall back to the
+    // Surface the reason - consistent with doctor/login - then fall back to the
     // dashboard so the user isn't stuck.
     logger.warn(t('balance.fetchFailed'))
     if (err instanceof Error && err.message) logger.dim(err.message)

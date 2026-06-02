@@ -16,7 +16,7 @@ describe('CodexAgent descriptor', () => {
     expect(CodexAgent.installMode).toBe('auto-npm')
     expect(typeof CodexAgent.install).toBe('function')
     expect(typeof CodexAgent.launch).toBe('function')
-    // launch-time --config injection only — nothing persisted, nothing to revert.
+    // launch-time --config injection only - nothing persisted, nothing to revert.
     expect(CodexAgent.cleanup).toBeUndefined()
   })
 

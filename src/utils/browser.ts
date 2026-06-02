@@ -5,7 +5,7 @@ import { t } from '../i18n/index.js'
 export async function openInBrowser(url: string): Promise<void> {
   const child = await open(url)
   // open() spawns a detached, unref'd child; if the launcher binary is missing its
-  // async 'error' event would otherwise be uncaught (→ process crash). Swallow it —
+  // async 'error' event would otherwise be uncaught (→ process crash). Swallow it -
   // callers print the URL and treat a browser failure as non-fatal.
   child.on('error', () => {})
 }
@@ -21,6 +21,6 @@ export async function openOrHint(url: string): Promise<void> {
     const child = await open(url)
     child.on('error', () => {}) // swallow async spawn errors; the URL is already shown
   } catch {
-    // best-effort — the URL is already shown above
+    // best-effort - the URL is already shown above
   }
 }

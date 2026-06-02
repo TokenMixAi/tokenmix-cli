@@ -19,7 +19,7 @@ describe('confirm()', () => {
     mockedPrompts.mockReset()
   })
 
-  it('non-TTY: returns the default (true) WITHOUT prompting — no silent no-op', async () => {
+  it('non-TTY: returns the default (true) WITHOUT prompting - no silent no-op', async () => {
     setTTY(false)
     expect(await confirm('Install now?', true)).toBe(true)
     expect(mockedPrompts).not.toHaveBeenCalled()

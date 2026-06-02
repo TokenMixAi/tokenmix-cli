@@ -13,7 +13,7 @@ export function nodeMajor(): number {
 }
 
 // Flags that are pure information requests meant for the underlying agent binary.
-// For these we must NOT rewrite global config or require login — just forward them.
+// For these we must NOT rewrite global config or require login - just forward them.
 const INFO_ONLY_FLAGS = new Set(['--version', '-V', '--help', '-h'])
 
 export function isInfoOnlyInvocation(args: string[]): boolean {
@@ -66,7 +66,7 @@ export function registerAgentCommands(program: Command, runner: AgentRunner = ru
 
 export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<void> {
   // `tokenmix <agent> --version|--help`: forward straight to the binary without
-  // rewriting global config or requiring login — a query must not have side effects.
+  // rewriting global config or requiring login - a query must not have side effects.
   if (agent.launch && isInfoOnlyInvocation(args)) {
     const status = await agent.installCheck()
     if (!status.installed) {
@@ -83,12 +83,12 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
     process.exit(1)
   }
   const baseUrl = apiBaseUrl(cfg)
-  // TOKENMIX_DEFAULT_MODEL env overrides the model — handy for CI/scripts that want a
+  // TOKENMIX_DEFAULT_MODEL env overrides the model - handy for CI/scripts that want a
   // cheap model, or as a power-user default. Falls back to stored config, then built-in.
   const defaultModel = process.env.TOKENMIX_DEFAULT_MODEL || cfg.defaultModel || DEFAULT_MODEL
 
   // Refuse early with a friendly message if the agent's binary needs a newer Node
-  // than we're running on (Codex/Qwen need 22) — avoids a cryptic npm/install error.
+  // than we're running on (Codex/Qwen need 22) - avoids a cryptic npm/install error.
   if (agent.minNode && nodeMajor() < agent.minNode) {
     logger.error(
       t('agent.needsNode', {
@@ -127,7 +127,7 @@ export async function runAgent(agent: AgentDescriptor, args: string[]): Promise<
         }
         logger.info(t('agent.installFailHint4'))
         // Slow / restricted networks (e.g. mainland China) are a common install
-        // failure too — the registry is reachable but slow/blocked. Point at a mirror.
+        // failure too - the registry is reachable but slow/blocked. Point at a mirror.
         logger.info(t('agent.installFailHintMirror'))
         process.exit(1)
       }

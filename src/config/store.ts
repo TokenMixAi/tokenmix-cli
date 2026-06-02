@@ -27,13 +27,13 @@ export async function readConfig(): Promise<UserConfig> {
   try {
     raw = await fs.readFile(configFile(), 'utf-8')
   } catch {
-    return {} // not logged in yet — the config file simply doesn't exist
+    return {} // not logged in yet - the config file simply doesn't exist
   }
   try {
     return JSON.parse(raw) as UserConfig
   } catch {
     // The file exists but is corrupt (e.g. a crash truncated it mid-write). Don't
-    // silently treat it as "logged out" — warn so the user knows to re-login.
+    // silently treat it as "logged out" - warn so the user knows to re-login.
     logger.warn(t('config.corrupt'))
     return {}
   }

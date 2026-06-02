@@ -7,7 +7,7 @@ describe('formatPrice', () => {
     expect(formatPrice(undefined)).toBe('-')
   })
 
-  it('shows "0" for a FREE model (price 0) — not a dash', () => {
+  it('shows "0" for a FREE model (price 0) - not a dash', () => {
     expect(formatPrice(0)).toBe('0')
   })
 

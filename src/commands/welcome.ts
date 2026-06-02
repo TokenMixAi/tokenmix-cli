@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import { readConfig } from '../config/store.js'
 import { t } from '../i18n/index.js'
 
-// Shown for a bare `tokenmix` (no command) — friendly, localized onboarding for
+// Shown for a bare `tokenmix` (no command) - friendly, localized onboarding for
 // first-timers instead of commander's raw help. `tokenmix --help` still prints the
 // full command reference. Adapts to whether the user is logged in yet.
 export async function welcomeCommand(): Promise<void> {
@@ -13,7 +13,7 @@ export async function welcomeCommand(): Promise<void> {
     '    ' + chalk.cyan(cmd.padEnd(21)) + chalk.dim(desc)
 
   console.log()
-  console.log('  ' + chalk.bold.cyan('TokenMix') + chalk.dim(' — ' + t('welcome.tagline')))
+  console.log('  ' + chalk.bold.cyan('TokenMix') + chalk.dim(' - ' + t('welcome.tagline')))
   console.log('  ' + chalk.green('✓') + ' ' + t('welcome.why'))
   console.log()
 

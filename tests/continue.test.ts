@@ -35,7 +35,7 @@ describe('ContinueAgent', () => {
 
   it('keeps YAML top-level keys at column 0 after agent-runner prefixes notes', async () => {
     // agent-runner prints each non-empty note as `  ${note}` (2-space indent).
-    // Replicate that exactly and assert the YAML still parses as top-level — i.e.
+    // Replicate that exactly and assert the YAML still parses as top-level - i.e.
     // the leading-'\n' trick keeps name/version/schema/models at column 0.
     const result = await ContinueAgent.configure(
       'sk-tm-abc123',

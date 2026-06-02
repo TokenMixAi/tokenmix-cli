@@ -11,7 +11,7 @@ import { unwrap, ApiError, listPublicModels, fetchWallet, verifyApiKey } from '.
 
 const mockedGet = axios.get as unknown as ReturnType<typeof vi.fn>
 
-// withRetry's backoff uses setTimeout — run its callbacks instantly so retry tests
+// withRetry's backoff uses setTimeout - run its callbacks instantly so retry tests
 // don't actually wait out the exponential backoff.
 beforeEach(() => {
   vi.spyOn(global, 'setTimeout').mockImplementation(((fn: () => void) => {
@@ -43,7 +43,7 @@ describe('unwrap', () => {
     expect(unwrap({ data: [1, 2] as unknown as { code?: number } })).toEqual([1, 2])
   })
 
-  it('throws on a string error code ("1") — must not be silently swallowed', () => {
+  it('throws on a string error code ("1") - must not be silently swallowed', () => {
     expect(() =>
       unwrap({ data: { code: '1' as unknown as number, message: 'boom' } }),
     ).toThrowError(ApiError)
@@ -140,7 +140,7 @@ describe('verifyApiKey', () => {
     expect(await verifyApiKey('sk-tm-x', 'https://api.tokenmix.ai')).toBe(true)
   })
 
-  it('returns false (not a throw) on HTTP 401 — a genuinely invalid/revoked key', async () => {
+  it('returns false (not a throw) on HTTP 401 - a genuinely invalid/revoked key', async () => {
     mockedGet.mockResolvedValue({ status: 401 })
     expect(await verifyApiKey('sk-tm-bad')).toBe(false)
   })
@@ -159,7 +159,7 @@ describe('verifyApiKey', () => {
     await expect(verifyApiKey('sk-tm-x')).rejects.toBeInstanceOf(ApiError)
   })
 
-  it('THROWS (not false) on 5xx / 429 — a server problem must not look like a bad key', async () => {
+  it('THROWS (not false) on 5xx / 429 - a server problem must not look like a bad key', async () => {
     for (const status of [500, 503, 429]) {
       mockedGet.mockReset()
       mockedGet.mockResolvedValue({ status })

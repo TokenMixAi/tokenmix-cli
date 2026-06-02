@@ -26,7 +26,7 @@ async function configure(
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
   // Goose reads GOOSE_PROVIDER/GOOSE_MODEL + OPENAI_HOST/OPENAI_API_KEY. NOTE:
-  // OPENAI_HOST is the BARE host — Goose appends /v1/chat/completions itself, so we
+  // OPENAI_HOST is the BARE host - Goose appends /v1/chat/completions itself, so we
   // pass baseUrl WITHOUT /v1 (unlike every other agent). GOOSE_DISABLE_KEYRING
   // avoids an interactive keyring prompt. Verified end-to-end against tokenmix.
   return {

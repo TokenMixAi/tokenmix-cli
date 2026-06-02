@@ -3,7 +3,7 @@ import { buildProgram } from '../src/program.js'
 import type { AgentDescriptor } from '../src/agents/types.js'
 
 // Parse a user argv through the real program wiring, capturing how each agent
-// subcommand's args were resolved — WITHOUT running the real configure/launch.
+// subcommand's args were resolved - WITHOUT running the real configure/launch.
 // This locks in the v0.2.2 fix: agent flags (--version, --help, anything) must be
 // forwarded to the underlying binary instead of being eaten by commander.
 async function forwardedArgs(argv: string[]): Promise<{ id: string; args: string[] }[]> {

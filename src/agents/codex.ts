@@ -11,7 +11,7 @@ const CODEX_NPM_PACKAGE = '@openai/codex'
 // provider ids (openai / ollama / lmstudio).
 const PROVIDER_ID = 'tokenmix'
 // Env var Codex reads for the bearer token (the provider's `env_key`). We set it
-// at launch from the user's TokenMix key — nothing is written to ~/.codex.
+// at launch from the user's TokenMix key - nothing is written to ~/.codex.
 const KEY_ENV = 'TOKENMIX_API_KEY'
 
 const installCheck = (): Promise<AgentInstallStatus> =>
@@ -26,7 +26,7 @@ async function configure(
 ): Promise<AgentConfigureResult> {
   // We do NOT write ~/.codex/config.toml. Codex accepts a whole custom provider
   // via `--config` overrides at launch, and reads the key from the env var named
-  // by the provider's env_key — so we pass everything through env and inject the
+  // by the provider's env_key - so we pass everything through env and inject the
   // overrides in launch(). This never touches the user's Codex config or login.
   return {
     envVars: {
@@ -68,7 +68,7 @@ export function providerOverrides(baseUrl: string, model: string): string[] {
 async function launch(args: string[], env: Record<string, string>): Promise<void> {
   const baseUrl = env.TOKENMIX_BASE_URL
   // Info-only invocations (`codex --version` / `--help`) reach launch with an
-  // empty env (no credentials). Just forward — don't inject a half-built provider.
+  // empty env (no credentials). Just forward - don't inject a half-built provider.
   if (!baseUrl) {
     await run(CODEX_BIN, args, { env })
     return

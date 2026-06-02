@@ -9,7 +9,7 @@ describe('ClineAgent', () => {
     expect(ClineAgent.cleanup).toBeUndefined()
   })
 
-  it('installCheck always proceeds — the CLI cannot install a VSCode extension', async () => {
+  it('installCheck always proceeds - the CLI cannot install a VSCode extension', async () => {
     const status = await ClineAgent.installCheck()
     expect(status.installed).toBe(true)
     expect(status.hint).toBeTruthy()
@@ -29,7 +29,7 @@ describe('ClineAgent', () => {
   })
 
   it('writes no file, sets no env, and fabricates no JSON snippet', async () => {
-    // Cline exposes no documented settings.json import, so — unlike kilo — we must
+    // Cline exposes no documented settings.json import, so - unlike kilo - we must
     // NOT print a JSON blob a user might paste somewhere it is never read.
     const result = await ClineAgent.configure(
       'sk-tm-abc123',

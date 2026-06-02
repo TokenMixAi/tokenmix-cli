@@ -27,7 +27,7 @@ describe('GooseAgent', () => {
     expect(r.envVars).toEqual({
       GOOSE_PROVIDER: 'openai',
       GOOSE_MODEL: 'claude-sonnet-4.6',
-      // bare host — Goose appends /v1/chat/completions itself; adding /v1 would double it
+      // bare host - Goose appends /v1/chat/completions itself; adding /v1 would double it
       OPENAI_HOST: 'https://api.tokenmix.ai',
       OPENAI_API_KEY: 'sk-tm-abc',
       GOOSE_DISABLE_KEYRING: '1',

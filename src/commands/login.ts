@@ -128,7 +128,7 @@ async function loginByDeviceFlow(baseUrl: string): Promise<void> {
     console.log()
     if (err instanceof DeviceFlowError) {
       logger.error(err.message)
-      // Only offer to retry when interactive — in a non-TTY (CI) the user can't
+      // Only offer to retry when interactive - in a non-TTY (CI) the user can't
       // approve in a browser anyway, and an auto-yes here would loop forever.
       if ((err.code === 'expired_token' || err.code === 'timeout') && process.stdin.isTTY) {
         const retry = await confirm(t('login.tryAgain'), true)

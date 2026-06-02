@@ -27,7 +27,7 @@ async function configure(
 ): Promise<AgentConfigureResult> {
   // OpenHands reads LLM_API_KEY/LLM_MODEL/LLM_BASE_URL but ONLY when launched with
   // --override-with-envs (injected in launch()). LLM_MODEL needs a LiteLLM provider
-  // prefix — `openai/` routes to the OpenAI-compatible path. Verified end-to-end.
+  // prefix - `openai/` routes to the OpenAI-compatible path. Verified end-to-end.
   return {
     envVars: {
       LLM_API_KEY: apiKey,
@@ -40,7 +40,7 @@ async function configure(
 }
 
 async function launch(args: string[], env: Record<string, string>): Promise<void> {
-  // Info-only (`openhands --version`) arrives with an empty env — just forward.
+  // Info-only (`openhands --version`) arrives with an empty env - just forward.
   if (!env.LLM_BASE_URL) {
     await run(OPENHANDS_BIN, args, { env })
     return

@@ -16,7 +16,7 @@ async function configure(
 ): Promise<AgentConfigureResult> {
   // Cline is a VSCode extension configured through its settings panel
   // (API Provider → "OpenAI Compatible"). Unlike Kilo it exposes no documented
-  // settings.json import, so we only print the field values to enter by hand —
+  // settings.json import, so we only print the field values to enter by hand -
   // we never fabricate a JSON snippet that might not be read.
   return {
     notes: [

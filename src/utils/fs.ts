@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 
 // Atomically write a file: write to a temp file alongside the target, then rename
 // it over the target. Rename is atomic on the same filesystem, so a crash or a
-// concurrent writer can never observe a half-written / 0-byte target — which is how
+// concurrent writer can never observe a half-written / 0-byte target - which is how
 // a plain `fs.writeFile` (open with O_TRUNC) would otherwise corrupt user config
 // (e.g. truncating ~/.claude/settings.json or our own config.json to 0 bytes).
 export async function writeFileAtomic(
@@ -17,7 +17,7 @@ export async function writeFileAtomic(
       try {
         await fs.chmod(tmp, mode)
       } catch {
-        // chmod unsupported (e.g. Windows) — non-fatal, keep going.
+        // chmod unsupported (e.g. Windows) - non-fatal, keep going.
       }
     }
     await fs.rename(tmp, filePath)

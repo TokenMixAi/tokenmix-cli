@@ -32,7 +32,7 @@ async function configure(
   defaultModel: string,
 ): Promise<AgentConfigureResult> {
   // Aider reads OPENAI_API_KEY and OPENAI_API_BASE. We pass via env at launch
-  // and avoid writing to global ~/.aider.conf.yml — keeps user's existing config clean.
+  // and avoid writing to global ~/.aider.conf.yml - keeps user's existing config clean.
   return {
     envVars: {
       OPENAI_API_KEY: apiKey,

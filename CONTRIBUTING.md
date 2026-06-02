@@ -4,7 +4,7 @@ Thanks for your interest in improving TokenMix CLI! This guide covers local setu
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org) 18+ (some agents the CLI launches need a newer Node — it tells you when)
+- [Node.js](https://nodejs.org) 18+ (some agents the CLI launches need a newer Node - it tells you when)
 - [pnpm](https://pnpm.io) 10+
 
 ## Setup
@@ -16,7 +16,7 @@ pnpm dev opencode   # run the CLI from source via tsx
 
 ## Checks
 
-All four must pass before a change is merged — CI runs them on every push and pull request:
+All four must pass before a change is merged - CI runs them on every push and pull request:
 
 ```bash
 pnpm typecheck     # tsc --noEmit (strict)
@@ -36,7 +36,7 @@ pnpm format
 
 Each agent is a self-contained `AgentDescriptor` (`src/agents/<id>.ts`) implementing `installCheck` / `configure` / `launch` / `cleanup` as needed. Shared boilerplate lives in `src/agents/helpers.ts` (`probeVersion`, `npmInstallCheck`, `npmInstallGlobal`, `vscodeConfigOnlyCheck`); register the descriptor in `src/agents/registry.ts`.
 
-User-facing strings go through the i18n catalog (`src/i18n/messages.ts`). `en` is the source of truth, and the compiler enforces that each of the other five languages defines every key — a missing translation fails the build. Add a test under `tests/`.
+User-facing strings go through the i18n catalog (`src/i18n/messages.ts`). `en` is the source of truth, and the compiler enforces that each of the other five languages defines every key - a missing translation fails the build. Add a test under `tests/`.
 
 ## Pull requests
 

@@ -26,7 +26,7 @@ describe('OpenHandsAgent', () => {
     expect(r.configPath).toBeUndefined()
     expect(r.envVars).toEqual({
       LLM_API_KEY: 'sk-tm-abc',
-      LLM_MODEL: 'openai/claude-sonnet-4.6', // LiteLLM provider prefix — bare name won't route
+      LLM_MODEL: 'openai/claude-sonnet-4.6', // LiteLLM provider prefix - bare name won't route
       LLM_BASE_URL: 'https://api.tokenmix.ai/v1',
       OPENHANDS_SUPPRESS_BANNER: '1',
     })

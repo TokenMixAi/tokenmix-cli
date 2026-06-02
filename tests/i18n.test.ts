@@ -49,7 +49,7 @@ describe('t', () => {
 
   it('does NOT re-substitute a {token} inside a param value (single-pass, injection-safe)', () => {
     setLocale('en')
-    // {name}'s value contains "{min}" — it must stay literal, not get replaced by `min`
+    // {name}'s value contains "{min}" - it must stay literal, not get replaced by `min`
     expect(t('agent.needsNode', { name: 'pwn {min}', min: 'SECRET', cur: '9' })).toContain(
       'pwn {min}',
     )

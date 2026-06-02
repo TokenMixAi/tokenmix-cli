@@ -44,7 +44,7 @@ async function configure(
       existing = parsed as Record<string, unknown>
     }
   } catch {
-    // not present yet, or corrupt — start fresh
+    // not present yet, or corrupt - start fresh
   }
 
   // Register tokenmix as an OpenAI-compatible provider.

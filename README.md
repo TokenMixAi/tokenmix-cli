@@ -12,24 +12,24 @@ One account, one balance, 160+ models routed automatically across Claude / GPT /
 
 Behind the zero-config CLI is a gateway built to be the **honest, transparent** LLM backend for BYOK coding agents:
 
-- **The model you pick is the model you get.** Your request routes to the real upstream model you named — no silent downgrade to a cheaper one (the grey market's classic "sold Opus, served Haiku"). Model aliases are name normalization only, never a swap.
-- **Transparent, real-time billing.** `tokenmix balance` shows your actual balance, gift credit, and total spent — to micro-USD precision, not opaque "credits". `tokenmix models` lists every model's real price (free models show `$0`, not a dash).
-- **Prompt caching that saves you money — automatically.** Cache hits bill at the discounted rate with nothing to configure: OpenAI / DeepSeek / Gemini / Qwen via their `cached_tokens`, Anthropic via `cache_control` pass-through (cache reads ≈10% of the input price). The savings are yours, and you can see them.
-- **One key, every protocol.** OpenAI Chat Completions, Anthropic Messages, and the Responses API — all on one account, which is why every agent below (terminal and editor alike) runs on a single balance.
-- **Non-invasive by design.** Configuring an agent never clobbers your setup: your Claude settings are backed up and restored, Codex's provider is injected at launch (your `~/.codex/config.toml` stays untouched), and `tokenmix logout` reverts everything. Credentials are stored locally at `0600`.
+- **The model you pick is the model you get.** Your request routes to the real upstream model you named, with no silent downgrade to a cheaper one (the grey market's classic "sold Opus, served Haiku"). Model aliases are name normalization only, never a swap.
+- **Transparent, real-time billing.** `tokenmix balance` shows your actual balance, gift credit, and total spent to micro-USD precision, not opaque "credits". `tokenmix models` lists every model's real price (free models show `$0`, not a dash).
+- **Prompt caching that saves you money, automatically.** Cache hits bill at the discounted rate with nothing to configure: OpenAI / DeepSeek / Gemini / Qwen via their `cached_tokens`, Anthropic via `cache_control` pass-through (cache reads about 10% of the input price). The savings are yours, and you can see them.
+- **One key, every protocol.** OpenAI Chat Completions, Anthropic Messages, and the Responses API, all on one account, which is why every agent below (terminal and editor alike) runs on a single balance.
+- **Non-invasive by design.** Configuring an agent never clobbers your setup: your Claude settings are backed up and restored, Codex's provider is injected at launch (your `~/.codex/config.toml` stays untouched), and `tokenmix logout` reverts what it changed. Credentials are stored locally at `0600`.
 
 ## TokenMix vs. the grey market
 
-The "中转站" proxy market is cheap but trust-broken — independent audits have documented model substitution, credential theft, and prompt-data resale. TokenMix is built to be the honest alternative, and every row below is enforced in code, not just promised:
+The grey-market proxy scene is cheap but trust-broken: independent audits have documented model substitution, credential theft, and prompt-data resale. TokenMix is built to be the honest alternative, and every row below is enforced in code, not just promised:
 
 | | Typical grey-market proxy | TokenMix |
 |---|---|---|
-| **The model you get** | Sells "Opus", serves Haiku / Qwen | The model you name is the model that runs — no fallback to a cheaper one |
+| **The model you get** | Sells "Opus", serves Haiku / Qwen | The model you name is the model that runs, with no fallback to a cheaper one |
 | **Billing** | Opaque "credits", no real-usage detail | Real upstream usage at the public price, to micro-USD, auditable |
 | **Cache savings** | Pocketed by the proxy | Passed back to you at the discounted rate, automatically |
 | **Your credentials** | Keys harvested and resold | Stored locally at `0600`, injected non-invasively, reverted on `logout` |
 
-Versus a mainstream gateway like [OpenRouter](https://openrouter.ai), the difference is focus, not a knock on them: TokenMix is built for Asia/China BYOK users — a six-language CLI and dashboard, networking tuned for slow or restricted connections, and one balance across the Anthropic, OpenAI, and Responses protocols.
+Versus a mainstream gateway like [OpenRouter](https://openrouter.ai), the difference is focus, not a knock on them: TokenMix is built for Asia/China BYOK users, with a six-language CLI and dashboard, networking tuned for slow or restricted connections, and one balance across the Anthropic, OpenAI, and Responses protocols.
 
 ## Quick Start
 
@@ -100,7 +100,7 @@ tokenmix openhands [args...]        Launch OpenHands via TokenMix
 
 ## Language
 
-The CLI speaks **English, 中文, 日本語, 한국어, Español, and Français** — the same six languages as tokenmix.ai — auto-detected from your system locale (`LANG` / `LC_ALL`). Force it explicitly with `TOKENMIX_LANG`:
+The CLI speaks **English, 中文, 日本語, 한국어, Español, and Français** (the same six languages as tokenmix.ai), auto-detected from your system locale (`LANG` / `LC_ALL`). Force it explicitly with `TOKENMIX_LANG`:
 
 ```bash
 TOKENMIX_LANG=zh npx tokenmix doctor   # 中文
@@ -110,7 +110,7 @@ TOKENMIX_LANG=fr npx tokenmix doctor   # Français
 
 ## Default model
 
-Agents default to `claude-sonnet-4.6`. Override it for any launch with the `TOKENMIX_DEFAULT_MODEL` environment variable — handy for a cheaper/faster default or for scripting:
+Agents default to `claude-sonnet-4.6`. Override it for any launch with the `TOKENMIX_DEFAULT_MODEL` environment variable, handy for a cheaper/faster default or for scripting:
 
 ```bash
 TOKENMIX_DEFAULT_MODEL=claude-haiku-4.5 npx tokenmix opencode
@@ -146,4 +146,4 @@ pnpm dev opencode
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+MIT. See [LICENSE](./LICENSE).

@@ -28,14 +28,14 @@ export class ApiError extends Error {
 
 export function unwrap<T>(resp: { data?: { code?: number; message?: string; data?: T } }): T {
   const body = resp.data
-  // Normalize `code` with Number() — a backend/proxy could serialize it as a string
+  // Normalize `code` with Number() - a backend/proxy could serialize it as a string
   // ("1"), which a strict `typeof === 'number'` check would miss, silently swallowing
   // a real error and passing the error body downstream as if it were data.
   if (body && body.code != null && Number(body.code) !== 0) {
     throw new ApiError(0, body.message || 'API error')
   }
   // Standard success envelope → return the inner `data`. A body with no envelope
-  // (no `data` field — e.g. a raw array) is passed straight through: a deliberate
+  // (no `data` field - e.g. a raw array) is passed straight through: a deliberate
   // fallback for endpoints that don't wrap their payload (locked by a unit test).
   if (body && body.data != null) return body.data
   return body as unknown as T
@@ -111,7 +111,7 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
     )
     if (r.status === 200) return true
     // 401/403 = a genuinely invalid/expired key → false. But 5xx/429 are server-side
-    // problems, NOT a bad key — throw so callers report "API unavailable" instead of
+    // problems, NOT a bad key - throw so callers report "API unavailable" instead of
     // falsely telling the user to re-create a perfectly good key.
     if (r.status >= 500 || r.status === 429) {
       throw new ApiError(
@@ -126,7 +126,7 @@ export async function verifyApiKey(apiKey: string, baseUrl?: string): Promise<bo
   }
 }
 
-// Wallet info for the API key's owner — GET /v1/wallet (API-key authenticated).
+// Wallet info for the API key's owner - GET /v1/wallet (API-key authenticated).
 // Money fields are micro-USD (1 USD = 1_000_000); callers format for display.
 export interface WalletInfo {
   balance: number
@@ -209,7 +209,7 @@ interface DeviceTokenBackend {
   user_email?: string
 }
 
-// RFC 8628 defaults, used when the server omits these fields — and to guard
+// RFC 8628 defaults, used when the server omits these fields - and to guard
 // against a missing/0/NaN interval that would otherwise busy-loop, or a missing
 // expires_in that would make the loop time out immediately.
 const DEFAULT_POLL_INTERVAL_S = 5
@@ -224,7 +224,7 @@ export async function pollDeviceToken(
   onTick?: (secondsRemaining: number) => void,
 ): Promise<DeviceTokenResult> {
   // Clamp the server-provided interval/deadline so a malicious or buggy server can't
-  // drive a ~1ms busy-loop — Infinity/NaN/huge values slip past a bare Math.max.
+  // drive a ~1ms busy-loop - Infinity/NaN/huge values slip past a bare Math.max.
   // Interval ∈ [1s, 60s]; the overall deadline is capped at 1h.
   const clampIntervalMs = (s: number): number => {
     const ms = (Number.isFinite(s) && s > 0 ? s : DEFAULT_POLL_INTERVAL_S) * 1000
@@ -302,7 +302,7 @@ export async function pollDeviceToken(
       }
     } catch (err) {
       if (err instanceof DeviceFlowError) throw err
-      // Network glitch — retry on next iteration unless we're past the deadline.
+      // Network glitch - retry on next iteration unless we're past the deadline.
       if (Date.now() >= deadline) {
         throw new DeviceFlowError('timeout', 'Authorization timed out. Run `tokenmix login` again.')
       }

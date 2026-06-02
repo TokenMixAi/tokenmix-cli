@@ -31,7 +31,7 @@ import path from 'path'
 
 const settingsPath = path.join(os.homedir(), '.claude', 'settings.json')
 
-describe('claude configure — malformed settings.json guards (BUG-1)', () => {
+describe('claude configure - malformed settings.json guards (BUG-1)', () => {
   beforeEach(() => {
     files = {}
   })

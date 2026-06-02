@@ -8,7 +8,7 @@ export async function logoutCommand(): Promise<void> {
   logger.success(t('logout.done'))
 
   // Also revert the config we injected into agents, so they stop routing through
-  // TokenMix with a key that's about to be gone. Best-effort and precise — each
+  // TokenMix with a key that's about to be gone. Best-effort and precise - each
   // agent only removes what it recognizes as its own tokenmix config.
   for (const agent of AGENTS) {
     if (!agent.cleanup) continue
