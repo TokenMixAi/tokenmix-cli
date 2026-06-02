@@ -72,7 +72,7 @@ A codebase-quality release. **No change to how the CLI behaves** - same commands
 - **More honest `unwrap()` typing** and a `balance` error path that surfaces the failure reason, consistent with `doctor` / `login`.
 
 ### Fixed
-- **`repository` URL in `package.json`** pointed at the wrong org (`tokenmix/` → `TokenMixAi/`); added `bugs` and `author` fields.
+- **`repository` URL in `package.json`** pointed at the wrong org (`tokenmix/` -> `TokenMixAi/`); added `bugs` and `author` fields.
 
 ### Removed
 - Dead code (`findAgent`, an unused `select` / `SelectChoice` prompt helper, two never-read `UserConfig` fields) and a stale internal QA report.
@@ -106,7 +106,7 @@ A codebase-quality release. **No change to how the CLI behaves** - same commands
 ## [0.4.13] - 2026-05-30
 
 ### Added
-- **A friendly first-run welcome screen.** Running bare `tokenmix` (no command) now shows a short, localized "get started" guide - log in → `tokenmix list` → launch an agent - instead of raw command help. It adapts to whether you're already logged in, and is translated in all six languages. (`tokenmix --help` still shows the full command reference.) Improves the very first thing a new user sees.
+- **First-run welcome screen.** Running bare `tokenmix` (no command) now shows a short, localized "get started" guide - log in, `tokenmix list`, launch an agent - instead of raw command help. It adapts to whether you're already logged in, and is translated in all six languages. (`tokenmix --help` still shows the full command reference.)
 
 ## [0.4.12] - 2026-05-30
 
@@ -129,7 +129,7 @@ A codebase-quality release. **No change to how the CLI behaves** - same commands
 - **Qwen Code support (`tokenmix qwen`).** [Qwen Code](https://github.com/QwenLM/qwen-code) - Alibaba's terminal coding agent (a Gemini CLI fork), popular with developers in Asia - is now wired to TokenMix, running in OpenAI-compatible mode. `tokenmix qwen` installs `@qwen-code/qwen-code`, sets `OPENAI_API_KEY` / `OPENAI_BASE_URL` / `OPENAI_MODEL`, and launches `qwen --auth-type openai`; your `~/.qwen/settings.json` is left untouched. Verified end-to-end against the gateway. Localized in all six languages.
 
 ### Fixed
-- **Friendly error when an agent needs a newer Node.** Codex and Qwen Code require Node 22+; on Node 18/20 they previously failed with a cryptic npm error. `tokenmix <agent>` now checks the agent's minimum Node version up front and tells you to upgrade - with your TokenMix login preserved.
+- **Clear error when an agent needs a newer Node.** Codex and Qwen Code require Node 22+; on Node 18/20 they previously failed with a cryptic npm error. `tokenmix <agent>` now checks the agent's minimum Node version up front and tells you to upgrade - with your TokenMix login preserved.
 
 ## [0.4.8] - 2026-05-30
 
