@@ -51,7 +51,7 @@ async function configure(
 export const ContinueAgent: AgentDescriptor = {
   id: 'continue',
   displayName: 'Continue',
-  description: 'continuedev/continue — VSCode/JetBrains extension (config file)',
+  description: 'continuedev/continue - VSCode/JetBrains extension (config file)',
   installMode: 'manual-vscode',
   installCheck,
   configure,

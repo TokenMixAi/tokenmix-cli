@@ -14,6 +14,6 @@ echo "----"
 if echo "$out" | grep -q "CI_CLAUDE_OK"; then
   echo "==> PASS: claude e2e (real reply routed through TokenMix)"
 else
-  echo "==> FAIL: claude e2e (no marker reply — see output above)"
+  echo "==> FAIL: claude e2e (no marker reply - see output above)"
   exit 1
 fi

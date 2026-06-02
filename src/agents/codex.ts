@@ -81,7 +81,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
 export const CodexAgent: AgentDescriptor = {
   id: 'codex',
   displayName: 'Codex',
-  description: 'openai/codex — OpenAI coding agent CLI',
+  description: 'openai/codex - OpenAI coding agent CLI',
   installMode: 'auto-npm',
   minNode: 22,
   installCheck,

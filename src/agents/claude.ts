@@ -193,7 +193,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
 export const ClaudeCodeAgent: AgentDescriptor = {
   id: 'claude',
   displayName: 'Claude Code',
-  description: 'anthropics/claude-code — official Anthropic CLI coding agent',
+  description: 'anthropics/claude-code - official Anthropic CLI coding agent',
   installMode: 'auto-npm',
   installCheck,
   install,

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # e2e: install Codex via tokenmix and get a real non-interactive reply (codex exec).
-# Codex requires Node 22+ — the workflow pins node 22 for this job.
+# Codex requires Node 22+ - the workflow pins node 22 for this job.
 # Requires env TOKENMIX_TEST_KEY. Optional TM_BIN / TM_VERSION (see cli-core.sh).
 set -u
 : "${TOKENMIX_TEST_KEY:?TOKENMIX_TEST_KEY env var is required}"
@@ -19,7 +19,7 @@ out="$("${TM[@]}" codex exec --skip-git-repo-check "Reply with exactly this toke
 if echo "$out" | grep -q "CI_CODEX_OK"; then
   echo "==> PASS: codex e2e (real reply via /responses + Anthropic bridge)"
 else
-  echo "==> FAIL: codex e2e (no marker reply — see output below)"
+  echo "==> FAIL: codex e2e (no marker reply - see output below)"
   echo "$out" | sed -E 's/sk-tm-[A-Za-z0-9]+/sk-tm-***/g' | tail -20
   exit 1
 fi

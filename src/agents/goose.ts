@@ -50,7 +50,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
 export const GooseAgent: AgentDescriptor = {
   id: 'goose',
   displayName: 'Goose',
-  description: 'block/goose — on-machine AI agent (OpenAI-compatible)',
+  description: 'block/goose - on-machine AI agent (OpenAI-compatible)',
   installMode: 'manual',
   installCheck,
   configure,

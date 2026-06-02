@@ -36,7 +36,7 @@ async function configure(
 export const ClineAgent: AgentDescriptor = {
   id: 'cline',
   displayName: 'Cline',
-  description: 'cline/cline — VSCode extension (config-only)',
+  description: 'cline/cline - VSCode extension (config-only)',
   installMode: 'manual-vscode',
   installCheck,
   configure,

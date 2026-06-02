@@ -80,7 +80,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
 export const AiderAgent: AgentDescriptor = {
   id: 'aider',
   displayName: 'Aider',
-  description: 'Aider-AI/aider — paired-programming CLI (requires Python)',
+  description: 'Aider-AI/aider - paired-programming CLI (requires Python)',
   installMode: 'auto-pip',
   installCheck,
   configure,

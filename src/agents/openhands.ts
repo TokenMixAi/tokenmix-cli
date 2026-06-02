@@ -52,7 +52,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
 export const OpenHandsAgent: AgentDescriptor = {
   id: 'openhands',
   displayName: 'OpenHands',
-  description: 'All-Hands-AI/OpenHands — autonomous coding agent (OpenAI-compatible)',
+  description: 'All-Hands-AI/OpenHands - autonomous coding agent (OpenAI-compatible)',
   installMode: 'manual',
   installCheck,
   configure,

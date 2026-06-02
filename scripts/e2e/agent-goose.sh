@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # e2e: install Goose (its official script) and get a real headless reply (goose run -t).
-# Goose is a Rust binary installed via a curl script (not npm) — the CLI prints that
+# Goose is a Rust binary installed via a curl script (not npm) - the CLI prints that
 # command rather than auto-running it, so CI installs it explicitly here.
 # Requires env TOKENMIX_TEST_KEY. Optional TM_BIN / TM_VERSION (see cli-core.sh).
 set -u
@@ -23,7 +23,7 @@ out="$("${TM[@]}" goose run -t "Reply with exactly this token and nothing else: 
 if echo "$out" | grep -q "CI_GOOSE_OK"; then
   echo "==> PASS: goose e2e (real reply via OpenAI-compatible mode)"
 else
-  echo "==> FAIL: goose e2e (no marker reply — see output below)"
+  echo "==> FAIL: goose e2e (no marker reply - see output below)"
   echo "$out" | sed -E 's/sk-tm-[A-Za-z0-9]+/sk-tm-***/g' | tail -20
   exit 1
 fi

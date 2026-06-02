@@ -35,7 +35,7 @@ async function configure(
 export const RooAgent: AgentDescriptor = {
   id: 'roo',
   displayName: 'Roo Code',
-  description: 'RooCodeInc/Roo-Code — VSCode extension (config-only)',
+  description: 'RooCodeInc/Roo-Code - VSCode extension (config-only)',
   installMode: 'manual-vscode',
   installCheck,
   configure,

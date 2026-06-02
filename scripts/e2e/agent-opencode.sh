@@ -15,6 +15,6 @@ echo "----"
 if echo "$out" | grep -q "CI_OPENCODE_OK"; then
   echo "==> PASS: opencode e2e (real reply routed through TokenMix)"
 else
-  echo "==> FAIL: opencode e2e (no marker reply — see output above)"
+  echo "==> FAIL: opencode e2e (no marker reply - see output above)"
   exit 1
 fi

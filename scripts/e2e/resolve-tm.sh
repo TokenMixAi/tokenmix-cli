@@ -1,7 +1,7 @@
-# Shared CLI resolver for all e2e scripts — sets the TM array used to invoke the CLI.
+# Shared CLI resolver for all e2e scripts - sets the TM array used to invoke the CLI.
 #
-#   TM_BIN     — explicit command (e.g. "node bin/tokenmix.js") to test a local build
-#   TM_VERSION — published version or dist-tag to test (default: latest)
+#   TM_BIN     - explicit command (e.g. "node bin/tokenmix.js") to test a local build
+#   TM_VERSION - published version or dist-tag to test (default: latest)
 #
 # For the published path we INSTALL ONCE (with retry) and then call the local
 # `tokenmix` binary, rather than re-resolving `npx tokenmix@<ver>` on every command.
@@ -16,7 +16,7 @@ else
   ok=0
   for attempt in 1 2 3; do
     if npm install -g "tokenmix@${VER}"; then ok=1; break; fi
-    echo "  (npm i -g tokenmix@${VER} attempt ${attempt}/3 failed — transient registry? retrying)" >&2
+    echo "  (npm i -g tokenmix@${VER} attempt ${attempt}/3 failed - transient registry? retrying)" >&2
     sleep 5
   done
   if [ "$ok" != 1 ]; then

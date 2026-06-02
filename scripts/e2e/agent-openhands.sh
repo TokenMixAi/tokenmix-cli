@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # e2e: install OpenHands (via uv, needs Python 3.12) + a real headless reply.
-# OpenHands is a Python tool — the CLI prints the install cmd; CI installs it here.
+# OpenHands is a Python tool - the CLI prints the install cmd; CI installs it here.
 # Requires env TOKENMIX_TEST_KEY. Optional TM_BIN / TM_VERSION (see cli-core.sh).
 set -u
 : "${TOKENMIX_TEST_KEY:?TOKENMIX_TEST_KEY env var is required}"
@@ -25,7 +25,7 @@ out="$("${TM[@]}" openhands --headless -t "Reply with exactly the token CI_OPENH
 if echo "$out" | grep -q "CI_OPENHANDS_OK"; then
   echo "==> PASS: openhands e2e (real reply via LiteLLM/OpenAI-compatible)"
 else
-  echo "==> FAIL: openhands e2e (no marker reply — see output below)"
+  echo "==> FAIL: openhands e2e (no marker reply - see output below)"
   echo "$out" | sed -E 's/sk-tm-[A-Za-z0-9]+/sk-tm-***/g' | tail -20
   exit 1
 fi

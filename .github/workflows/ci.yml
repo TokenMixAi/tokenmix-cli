@@ -6,7 +6,7 @@ on:
   pull_request:
 
 jobs:
-  # Lint + format check — platform-independent, so run once on Node 22.
+  # Lint + format check - platform-independent, so run once on Node 22.
   lint:
     name: lint & format
     runs-on: ubuntu-latest
@@ -65,7 +65,7 @@ jobs:
         run: pnpm build
 
   # The package declares engines.node >=18; verify the built CLI actually runs
-  # on the Node 18 floor (vitest isn't run here — it requires Node 20+).
+  # on the Node 18 floor (vitest isn't run here - it requires Node 20+).
   runtime-node18:
     name: runtime smoke (node 18 floor)
     runs-on: ubuntu-latest

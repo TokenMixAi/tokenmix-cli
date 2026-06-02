@@ -122,7 +122,7 @@ async function cleanup(): Promise<AgentCleanupResult> {
 export const OpenCodeAgent: AgentDescriptor = {
   id: 'opencode',
   displayName: 'OpenCode',
-  description: 'sst/opencode — open source AI coding agent (TUI / Desktop / IDE)',
+  description: 'sst/opencode - open source AI coding agent (TUI / Desktop / IDE)',
   installMode: 'auto-npm',
   installCheck,
   install,

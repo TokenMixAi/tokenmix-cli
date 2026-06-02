@@ -47,7 +47,7 @@ async function configure(
 export const KiloAgent: AgentDescriptor = {
   id: 'kilo',
   displayName: 'Kilo Code',
-  description: 'Kilo-Org/kilocode — VSCode extension (config-only)',
+  description: 'Kilo-Org/kilocode - VSCode extension (config-only)',
   installMode: 'manual-vscode',
   installCheck,
   configure,

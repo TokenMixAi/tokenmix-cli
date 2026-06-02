@@ -45,7 +45,7 @@ async function launch(args: string[], env: Record<string, string>): Promise<void
 export const QwenAgent: AgentDescriptor = {
   id: 'qwen',
   displayName: 'Qwen Code',
-  description: 'QwenLM/qwen-code — terminal coding agent (OpenAI-compatible)',
+  description: 'QwenLM/qwen-code - terminal coding agent (OpenAI-compatible)',
   installMode: 'auto-npm',
   minNode: 22,
   installCheck,

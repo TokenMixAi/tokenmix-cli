@@ -1,7 +1,7 @@
 name: e2e
 
 # Real end-to-end checks against the PUBLISHED package (what users actually get via npx),
-# across the OSes/Node versions real users run on — including Windows, which the local QA
+# across the OSes/Node versions real users run on - including Windows, which the local QA
 # could not cover. Requires the repo secret TOKENMIX_TEST_KEY.
 #
 # NOT run on pull_request: secrets are not exposed to fork PRs, and these tests hit the live
@@ -43,11 +43,11 @@ jobs:
             if npm view "tokenmix@$VER" version >/dev/null 2>&1; then
               echo "✓ tokenmix@$VER is live"; exit 0
             fi
-            echo "  ($i/30) not yet — sleeping 10s"; sleep 10
+            echo "  ($i/30) not yet - sleeping 10s"; sleep 10
           done
           echo "✗ tokenmix@$VER never appeared after ~5 min"; exit 1
 
-  # Core CLI surface that needs no agent install — fast, stable, full matrix.
+  # Core CLI surface that needs no agent install - fast, stable, full matrix.
   cli-core:
     name: cli-core (${{ matrix.os }}, node ${{ matrix.node }})
     needs: wait-for-publish
@@ -66,7 +66,7 @@ jobs:
         shell: bash
         env:
           TOKENMIX_TEST_KEY: ${{ secrets.TOKENMIX_TEST_KEY }}
-          TOKENMIX_DEFAULT_MODEL: qwen-flash   # e2e only checks the path works — use the cheapest model
+          TOKENMIX_DEFAULT_MODEL: qwen-flash   # e2e only checks the path works - use the cheapest model
         run: bash scripts/e2e/cli-core.sh
 
   agent-opencode:

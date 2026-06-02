@@ -24,6 +24,6 @@ echo "----"
 if echo "$out" | grep -q "CI_AIDER_OK"; then
   echo "==> PASS: aider e2e (real reply routed through TokenMix)"
 else
-  echo "==> FAIL: aider e2e (no marker reply — see output above)"
+  echo "==> FAIL: aider e2e (no marker reply - see output above)"
   exit 1
 fi
