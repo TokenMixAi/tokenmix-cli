@@ -5,6 +5,21 @@ All notable changes to TokenMix CLI are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.6] - 2026-06-03
+
+### Added
+
+- **Signup hint on the welcome screen.** Running `tokenmix` with no account now points a first-time user to sign up at tokenmix.ai before logging in, in all six languages.
+
+### Changed
+
+- **Newcomer-friendly README.** A Requirements section (Node, a TokenMix account), a clearer two-step Quick Start that starts you on OpenCode, a Free trial section explaining the signup credit and which models it covers (`qwen-flash` gives a zero-cost first run), and a short FAQ.
+- **Plainer English in comments and CLI messages.** English text no longer uses em-dashes; the other five languages keep their own punctuation.
+
+### Fixed
+
+- **`doctor` no longer shows misleading green checks.** Stored credentials and config-only (VSCode) agents read neutrally now, so a "key did not validate" line no longer sits under a green check, and a config-only agent no longer shows a check beside "VSCode not detected".
+
 ## [1.5.5] - 2026-06-02
 
 ### Added
